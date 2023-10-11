@@ -1,4 +1,3 @@
-import 'package:ambrd_appss/modules/otp/otp_page_main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +9,7 @@ import 'package:lottie/lottie.dart';
 import '../../constants/app_theme/app_color.dart';
 import '../../constants/widgets/button_custom.dart';
 import '../../controllers/login_mobile_controller/login_mobile_controllers.dart';
+import '../otp/otp_page.dart';
 import '../sign_up_page/sign_up_pagee.dart';
 
 class LoginScreen extends GetView<LoginMobileController> {
@@ -140,7 +140,7 @@ class LoginScreen extends GetView<LoginMobileController> {
                             onTap: () {
                               //SignUpPage
                               _loginMobileController.checkMobileLogin();
-                              Get.to(() => OTPPage());
+                              Get.to(() => OTPPhone());
                               // Get.to(() => AddBanner());
                               // Get.to(() => HomePage());
                             },

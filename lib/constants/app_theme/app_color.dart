@@ -4,17 +4,20 @@ import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MyTheme {
-  static Color t1bacgroundcolors1 = Color(0xff11468F);
+  static Color t1bacgroundcolors1 = Color(0xffDA1212);
   static Color t1navbar1 = Color(0xff11468F);
   static Color t1containercolor = Color(0xff041562);
   static Color t1Iconcolor = Color(0xffEEEEEE);
+
+  static Color ambapptextfield = Color(0xffa6a6a6);
+  static Color ambapptextfield2 = Color(0xffefebf1);
 
   static Color t22Iconcolor = Color(0xff3E64FF);
 
   static var ambapp = Color(0xff11468F);
   static var ambapp1 = Color(0xffDA1212);
   static var ambapp2 = Color(0xff041562);
-  static var ambapp3 = Color(0xffEEEEEE);
+  static var ambapp3 = Colors.white;
   static var ambapp4 = Color(0xffF2F2F2);
   static var ambapp5 = Color(0xff071952);
   static var ambapp6 = Color(0xffFCFCFC);

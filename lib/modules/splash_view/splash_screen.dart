@@ -36,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     Get.put(SplashController());
     return Scaffold(
-      backgroundColor: MyTheme.t1navbar1,
+      backgroundColor: MyTheme.ambapp3,
       body: GetBuilder<SplashController>(
         init: SplashController(),
         builder: (controller) {

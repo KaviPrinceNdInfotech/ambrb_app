@@ -1,3 +1,4 @@
+import 'package:ambrd_appss/constants/app_theme/app_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -12,7 +13,7 @@ class OTPPage extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  OtpTimerController _timeController = Get.find();
+  OtpTimerController _timeController = Get.put(OtpTimerController());
 
   //OtpTimerController2 _timeController2 = Get.put(OtpTimerController2());
 
@@ -22,28 +23,28 @@ class OTPPage extends StatelessWidget {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       key: _timeController.otpKey,
       child: Scaffold(
-        backgroundColor: Color(0xffF7f7f7),
+        backgroundColor: MyTheme.t1bacgroundcolors1,
         //backgroundColor: Colors.red,
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Color(0xffF7f7f7),
-          leading: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset(
-              'lib/assets/asset/arrow.png',
-              height: 20,
-              width: 40,
-            ),
-            //     .onTap(() {
-            //   Get.back();
-            // }),
-          ),
+          backgroundColor: MyTheme.t1bacgroundcolors1,
+          // leading: Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: Image.asset(
+          //     'lib/assets/asset/arrow.png',
+          //     height: 20,
+          //     width: 40,
+          //   ),
+          //   //     .onTap(() {
+          //   //   Get.back();
+          //   // }),
+          // ),
           title: Text(
             'VERIFY YOUR MOBILE AND EMAIL ID',
             style: GoogleFonts.poppins(
               fontSize: 14,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: MyTheme.ambapp4,
             ),
           ),
           centerTitle: true,
@@ -55,11 +56,11 @@ class OTPPage extends StatelessWidget {
               children: [
                 Center(
                     child: Image.asset(
-                  'lib/assets/asset/Screen5_image.png',
-                  height: 270,
+                  'lib/assets/images/logo222.png',
+                  height: 220,
                 )),
                 SizedBox(
-                  height: 20,
+                  height: 0,
                 ),
                 Text(
                   'OTP ON MOBILE',

@@ -1,3 +1,4 @@
+import 'package:ambrd_appss/modules/botttom_nav_bar/bottom_navbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,7 +9,6 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../constants/app_theme/app_color.dart';
 import '../../constants/widgets/button_custom.dart';
 import '../login_view/login_page.dart';
-import '../sign_up_page/sign_up_pagee.dart';
 import 'otp_input.dart';
 import 'otp_phone_controller.dart';
 
@@ -130,7 +130,11 @@ class OTPPhone extends StatelessWidget {
 
                             // _otpTimerphoneController.checkValidation(phone);
                             // /
-                            Get.to(() => SignUpPage());
+                            ///Get.to(() => SignUpPage());
+                            //Get.to(() => HomePage());
+                            ///NavBar
+                            Get.to(() => BottommNavBar());
+
                             // _userProfileController.calluserProfileApi();
                             //Get.to(() => OTPPhone());
                           },
