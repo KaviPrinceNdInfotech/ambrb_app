@@ -46,7 +46,7 @@ class MainAmbrbDrawer extends StatelessWidget {
                 ),
               ),
               decoration: BoxDecoration(
-                color: MyTheme.ambapp,
+                color: MyTheme.ambapp1,
               ),
             ),
             ListTile(
@@ -76,7 +76,6 @@ class MainAmbrbDrawer extends StatelessWidget {
                 Get.back();
                 //_navController.tabindex(1);
                 ///Get.to(() => NavBar());
-
                 //Get.to(() => AllProducts());
                 Get.offNamed('/NavBar');
               },

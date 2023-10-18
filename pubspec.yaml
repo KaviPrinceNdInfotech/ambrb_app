@@ -47,11 +47,27 @@ dependencies:
   open_file: ^3.2.1
   intl: ^0.17.0
   http: ^0.13.5
-  flutter_otp_text_field: ^1.1.1
+  #flutter_otp_text_field: ^1.1.1
   #  image_picker: "^0.4.5"
   image_picker: ^0.8.6
-  image_cropper: ^3.0.1
+ # image_cropper: ^3.0.1
   lottie:
+  google_maps_flutter:
+  geolocator:
+  geocoding:
+  geocode:
+  location:
+  permission_handler:
+  flutter_polyline_points:
+  google_maps_flutter_web: ^0.4.0+3
+  firebase_core: ^2.15.1
+  firebase_messaging: ^14.6.6
+  #flutter_google_places_hoc081098: ^1.0.0-nullsafety.5
+  google_api_headers: ^1.1.1
+  flutter_google_places_hoc081098: ^1.0.0-nullsafety.5
+  google_maps_webservice: ^0.0.20-nullsafety.5
+  #google_maps_flutter: ^2.1.1
+  #google_maps_webservice: ^0.0.20-nullsafety.5
 #  image_cropper: ^0.0.4
 
 dev_dependencies:

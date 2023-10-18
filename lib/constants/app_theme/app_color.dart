@@ -17,10 +17,21 @@ class MyTheme {
   static var ambapp = Color(0xff11468F);
   static var ambapp1 = Color(0xffDA1212);
   static var ambapp2 = Color(0xff041562);
-  static var ambapp3 = Colors.white;
-  static var ambapp4 = Color(0xffF2F2F2);
+  //static var ambapp3 = Color(0xffFFACAC);
+  static var ambapp3 = Color(0xffffffff);
+
+  /// Colors.white;
+  static var ambapp4 = Color(0xffFFFFFF);
   static var ambapp5 = Color(0xff071952);
   static var ambapp6 = Color(0xffFCFCFC);
+
+  static var ambapp7 = Color(0xffFEF9EF);
+  static var ambapp8 = Color(0xffF8F1F1);
+  static var ambapp9 = Color(0xffFDEFF4);
+  static var ambapp10 = Color(0xffFFD1DA);
+  static var ambapp11 = Color(0xffE8F6EF);
+  static var ambapp12 = Color(0xfff8dedd);
+  static var ambapp13 = Color(0xfff4cdcc);
 
   ///logo222.png
   /// LOGOammbpng.png
@@ -46,19 +57,14 @@ class MyTheme {
   static Color containercolor9 = Color(0xffd1aca5);
   static Color containercolor10 = Color(0xffe2cfc9);
   static Color containercolor11 = Color(0xff006400);
-
   static Color containercolor12 = Color(0xff3a923b);
   static Color containercolor13 = Color(0xffb5d047);
   //184704
-
   static Color containercolor14 = Color(0xff236706);
-
   static Color containercolor15 = Color(0xff184704);
   static Color containercolor16 = Color(0xffc9c702);
   static Color containercolor17 = Color(0xff0b806b);
-
   static Color containercolor18 = Color(0xffd11a2a);
-
   static LinearGradient gradient1 = const LinearGradient(
     colors: <Color>[
       Color(0xff2cc487),

@@ -1,3 +1,4 @@
+import 'package:ambrd_appss/modules/booking_brb/booking_amb.dart';
 import 'package:ambrd_appss/modules/home_page/home_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,9 +34,8 @@ class BottommNavBar extends StatelessWidget {
             child: Container(
               //height: 7.h,
               decoration: BoxDecoration(
-                //gradient: gradient4,
-                color: Colors.white,
-              ),
+                  //gradient: gradient4,
+                  color: MyTheme.ambapp3),
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30),
                 child: Row(
@@ -58,9 +58,8 @@ class BottommNavBar extends StatelessWidget {
                                 size: 24,
                                 color: _navController.tabindex.value == 0
                                     ? MyTheme.ambapp1
-                                    : Colors.grey.shade600,
+                                    : MyTheme.ambapp,
                               ),
-
                               // Image.asset(
                               //   'lib/assets/home2.png',
                               //   color: _bottomController.tabindex.value == 0
@@ -69,6 +68,8 @@ class BottommNavBar extends StatelessWidget {
                               //   fit: BoxFit.fill,
                               // ),
                             ),
+
+                            ///...........
                             // Icon(
                             //   Icons.home,
                             //   color: _bottomController.tabindex.value == 0
@@ -80,7 +81,7 @@ class BottommNavBar extends StatelessWidget {
                                 style: GoogleFonts.poppins(
                                     color: _navController.tabindex.value == 0
                                         ? MyTheme.ambapp1
-                                        : Colors.grey.shade600,
+                                        : MyTheme.ambapp,
                                     fontSize: size.height * 0.012,
                                     fontWeight: FontWeight.w600)
                                 //style: TextStyle(color:_bottomController.tabindex.value==0?Colors.orange:Color(0xFF110d39),fontSize: 13)
@@ -104,11 +105,11 @@ class BottommNavBar extends StatelessWidget {
                               height: size.height * 0.05,
                               width: size.height * 0.05,
                               child: Icon(
-                                Icons.shopping_bag,
+                                Icons.car_crash_sharp,
                                 size: 24,
                                 color: _navController.tabindex.value == 1
                                     ? MyTheme.ambapp1
-                                    : Colors.grey.shade600,
+                                    : MyTheme.ambapp,
                               ),
 
                               // Image.asset(
@@ -119,11 +120,11 @@ class BottommNavBar extends StatelessWidget {
                               //   fit: BoxFit.fill,
                               // ),
                             ),
-                            Text("Shop",
+                            Text("Booking",
                                 style: GoogleFonts.poppins(
                                     color: _navController.tabindex.value == 1
                                         ? MyTheme.ambapp1
-                                        : Colors.grey.shade600,
+                                        : MyTheme.ambapp,
                                     fontSize: size.height * 0.012,
                                     fontWeight: FontWeight.w600)
                                 //style: TextStyle(color:_bottomController.tabindex.value==0?Colors.orange:Color(0xFF110d39),fontSize: 13)
@@ -157,7 +158,7 @@ class BottommNavBar extends StatelessWidget {
                                 size: 24,
                                 color: _navController.tabindex.value == 2
                                     ? MyTheme.ambapp1
-                                    : Colors.grey.shade600,
+                                    : MyTheme.ambapp,
                               ),
 
                               // Image.asset(
@@ -172,7 +173,7 @@ class BottommNavBar extends StatelessWidget {
                                 style: GoogleFonts.poppins(
                                     color: _navController.tabindex.value == 2
                                         ? MyTheme.ambapp1
-                                        : Colors.grey.shade600,
+                                        : MyTheme.ambapp,
                                     fontSize: size.height * 0.012,
                                     fontWeight: FontWeight.w600)
                                 //style: TextStyle(color:_bottomController.tabindex.value==0?Colors.orange:Color(0xFF110d39),fontSize: 13)
@@ -200,7 +201,7 @@ class BottommNavBar extends StatelessWidget {
                                 size: 24,
                                 color: _navController.tabindex.value == 3
                                     ? MyTheme.ambapp1
-                                    : Colors.grey.shade600,
+                                    : MyTheme.ambapp,
                               ),
 
                               // Image.asset(
@@ -215,7 +216,7 @@ class BottommNavBar extends StatelessWidget {
                                 style: GoogleFonts.poppins(
                                     color: _navController.tabindex.value == 3
                                         ? MyTheme.ambapp1
-                                        : Colors.grey.shade600,
+                                        : MyTheme.ambapp,
                                     fontSize: size.height * 0.012,
                                     fontWeight: FontWeight.w600)
                                 //style: TextStyle(color:_bottomController.tabindex.value==0?Colors.orange:Color(0xFF110d39),fontSize: 13)
@@ -243,7 +244,7 @@ class BottommNavBar extends StatelessWidget {
                                 size: 24,
                                 color: _navController.tabindex.value == 4
                                     ? MyTheme.ambapp1
-                                    : Colors.grey.shade600,
+                                    : MyTheme.ambapp,
                               ),
 
                               // Image.asset(
@@ -258,7 +259,7 @@ class BottommNavBar extends StatelessWidget {
                                 style: GoogleFonts.poppins(
                                     color: _navController.tabindex.value == 4
                                         ? MyTheme.ambapp1
-                                        : Colors.grey.shade600,
+                                        : MyTheme.ambapp,
                                     fontSize: size.height * 0.012,
                                     fontWeight: FontWeight.w600)
                                 //style: TextStyle(color:_bottomController.tabindex.value==0?Colors.orange:Color(0xFF110d39),fontSize: 13)
@@ -283,7 +284,7 @@ class BottommNavBar extends StatelessWidget {
 
                 ///HomePagePractice(),
 
-                ///AllProducts(),..2
+                BookingAmb(),
                 // ExploreView(),
 //     //StudioPage(),
 //     //const Page4(),

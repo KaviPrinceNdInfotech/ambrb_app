@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/bindings_interface.dart';
 
-import '../../modules/bottom_navbar/bottom_bar_controllers.dart';
 import '../../modules/otp/otp_phone_controller.dart';
 import '../add_services_controllerss/add_service_controller.dart';
 import '../add_tecnician_controller/add_technicians_controller.dart';
@@ -29,7 +28,7 @@ class StoreBinding implements Bindings {
     //Get.lazyPut(() => SplashController());
     //Get.lazyPut(() => OtpTimerphoneController());
     Get.lazyPut(() => SignUpController());
-    Get.lazyPut(() => DashboardController());
+    //Get.lazyPut(() => DashboardController());
     Get.lazyPut(() => RegisterComplainController());
     Get.lazyPut(() => AddtechnicianController());
     Get.lazyPut(() => LoginpasswordController());
@@ -38,7 +37,7 @@ class StoreBinding implements Bindings {
     Get.lazyPut(() => AddserviceController());
 
     Get.put(SignUpController());
-    Get.put(DashboardController());
+    // Get.put(DashboardController());
     Get.put(RegisterComplainController());
     Get.put(AddtechnicianController());
     Get.put(LoginpasswordController());

@@ -35,7 +35,7 @@ class OtpInput extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               border: Border.all(color: Color(0xfff5f5f5), width: 0),
               //shape: BoxShape.circle,
-              color: MyTheme.ambapp3,
+              color: MyTheme.ambapp12,
               //color: Color(0xfff5f5f5),
 
               //borderRadius: BorderRadius.circular(5)
@@ -46,7 +46,7 @@ class OtpInput extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 25,
-                  color: MyTheme.ambapp2,
+                  color: MyTheme.ambapp,
                 ),
                 cursorColor: MyTheme.ambapp,
                 cursorWidth: 3,

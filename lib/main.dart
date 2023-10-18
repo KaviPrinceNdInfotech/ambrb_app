@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'controllers/home_controllers/home_controllers.dart';
 import 'controllers/login_mobile_controller/login_mobile_controllers.dart';
@@ -9,6 +12,15 @@ import 'controllers/splash_controller/splash_controllers.dart';
 import 'modules/home_page/home_page.dart';
 import 'modules/login_view/login_page.dart';
 import 'modules/splash_view/splash_screen.dart';
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
 
 Future<void> main() async {
   await GetStorage.init();
@@ -21,7 +33,15 @@ Future<void> main() async {
       debugShowCheckedModeBanner: false,
     ),
   );
+  late GoogleMapController mapController;
+
+  final LatLng _center = const LatLng(45.521563, -122.677433);
+
+  void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
+  }
 }
+
 // void main() async{
 //   //my
 //   await GetStorage.init();

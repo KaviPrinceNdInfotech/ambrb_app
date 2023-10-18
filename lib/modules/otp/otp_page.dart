@@ -38,9 +38,18 @@ class OTPPhone extends StatelessWidget {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       key: _otpTimerphoneController.otpKey,
       child: Scaffold(
-        backgroundColor: MyTheme.t1navbar1,
+        backgroundColor: MyTheme.ambapp3,
         appBar: AppBar(
-          backgroundColor: MyTheme.t1navbar1,
+          backgroundColor: MyTheme.ambapp3,
+          leading: InkWell(
+            onTap: () {
+              Get.back();
+            },
+            child: Icon(
+              Icons.arrow_back_ios,
+              color: MyTheme.ambapp,
+            ),
+          ),
           elevation: 0,
         ),
         body: SafeArea(
@@ -76,7 +85,7 @@ class OTPPhone extends StatelessWidget {
                     'Please Enter Your OTP',
                     style: GoogleFonts.alegreyaSc(
                       fontWeight: FontWeight.w700,
-                      color: MyTheme.t1Iconcolor,
+                      color: MyTheme.ambapp2,
                       fontSize: size.width * 0.05,
                     ),
                   ),
@@ -113,7 +122,7 @@ class OTPPhone extends StatelessWidget {
                           child: Text(
                             'RESEND OTP ?',
                             style: GoogleFonts.alegreyaSc(
-                                color: MyTheme.t1Iconcolor,
+                                color: MyTheme.ambapp1,
                                 letterSpacing: 0,
                                 fontWeight: FontWeight.w700,
                                 fontSize: size.width * 0.03),

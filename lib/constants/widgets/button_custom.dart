@@ -24,13 +24,13 @@ class CustomButton extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 30.0),
       child: ElevatedButton(
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
           foregroundColor: onPrimaryColor,
-          backgroundColor: MyTheme.t1containercolor,
-          minimumSize: Size(width, height * 0.065),
+          backgroundColor: MyTheme.ambapp2,
+          minimumSize: Size(width, height * 0.055),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),

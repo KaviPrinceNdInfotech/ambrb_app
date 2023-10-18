@@ -26,7 +26,20 @@ class SignUpPage extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: MyTheme.t1navbar1,
+      backgroundColor: MyTheme.ambapp3,
+      appBar: AppBar(
+        leading: InkWell(
+          onTap: () {
+            Get.back();
+          },
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: MyTheme.ambapp,
+          ),
+        ),
+        backgroundColor: MyTheme.ambapp3,
+        elevation: 0,
+      ),
       body: SafeArea(
         child: Container(
           margin: EdgeInsets.only(top: 10, left: 16, right: 16),
@@ -54,7 +67,7 @@ class SignUpPage extends StatelessWidget {
                     style: GoogleFonts.alegreyaSc(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color: MyTheme.t1Iconcolor),
+                        color: MyTheme.ambapp1),
                   ),
                   const SizedBox(
                     height: 0,
@@ -70,7 +83,9 @@ class SignUpPage extends StatelessWidget {
                         child: TextFormField(
                           decoration: InputDecoration(
                             filled: true,
-                            fillColor: MyTheme.t1Iconcolor,
+                            fillColor: MyTheme.ambapp12,
+
+                            //fillColor: MyTheme.t1Iconcolor,
                             hintText: 'Name',
                             contentPadding: const EdgeInsets.only(
                                 left: 14.0, bottom: 4.0, top: 16.0),
@@ -121,7 +136,9 @@ class SignUpPage extends StatelessWidget {
                         child: TextFormField(
                           decoration: InputDecoration(
                             filled: true,
-                            fillColor: MyTheme.t1Iconcolor,
+                            fillColor: MyTheme.ambapp12,
+
+                            /// fillColor: MyTheme.t1Iconcolor,
                             hintText: 'Phone',
                             contentPadding: const EdgeInsets.only(
                                 left: 14.0, bottom: 4.0, top: 16.0),
@@ -170,7 +187,9 @@ class SignUpPage extends StatelessWidget {
                         child: TextFormField(
                           decoration: InputDecoration(
                             filled: true,
-                            fillColor: MyTheme.t1Iconcolor,
+                            fillColor: MyTheme.ambapp12,
+
+                            // fillColor: MyTheme.t1Iconcolor,
                             hintText: 'Email',
                             contentPadding: const EdgeInsets.only(
                                 left: 14.0, bottom: 4.0, top: 16.0),
@@ -220,7 +239,9 @@ class SignUpPage extends StatelessWidget {
                         //maxLines: 5,
                         decoration: InputDecoration(
                           filled: true,
-                          fillColor: MyTheme.t1Iconcolor,
+                          fillColor: MyTheme.ambapp12,
+
+                          // fillColor: MyTheme.t1Iconcolor,
                           hintText: 'State',
                           contentPadding: const EdgeInsets.only(
                               left: 14.0, bottom: 4.0, top: 16.0),
@@ -270,7 +291,9 @@ class SignUpPage extends StatelessWidget {
                         //maxLines: 5,
                         decoration: InputDecoration(
                           filled: true,
-                          fillColor: MyTheme.t1Iconcolor,
+                          fillColor: MyTheme.ambapp12,
+
+                          //fillColor: MyTheme.t1Iconcolor,
                           hintText: 'City',
                           contentPadding: const EdgeInsets.only(
                               left: 14.0, bottom: 4.0, top: 16.0),
@@ -320,7 +343,9 @@ class SignUpPage extends StatelessWidget {
                         //maxLines: 5,
                         decoration: InputDecoration(
                           filled: true,
-                          fillColor: MyTheme.t1Iconcolor,
+                          fillColor: MyTheme.ambapp12,
+
+                          //fillColor: MyTheme.t1Iconcolor,
                           hintText: 'Address',
                           contentPadding: const EdgeInsets.only(
                               left: 14.0, bottom: 4.0, top: 16.0),
@@ -370,7 +395,9 @@ class SignUpPage extends StatelessWidget {
                         child: TextFormField(
                           decoration: InputDecoration(
                               filled: true,
-                              fillColor: MyTheme.t1Iconcolor,
+                              fillColor: MyTheme.ambapp12,
+
+                              // fillColor: MyTheme.t1Iconcolor,
                               hintText: 'Aadhaar No',
                               contentPadding: const EdgeInsets.only(
                                   left: 14.0, bottom: 4.0, top: 16.0),
@@ -496,8 +523,8 @@ class SignUpPage extends StatelessWidget {
                         child: TextFormField(
                           decoration: InputDecoration(
                             filled: true,
-
-                            fillColor: MyTheme.t1Iconcolor,
+                            fillColor: MyTheme.ambapp12,
+                            // fillColor: MyTheme.t1Iconcolor,
                             hintText: 'Password',
                             contentPadding: const EdgeInsets.only(
                                 left: 14.0, bottom: 4.0, top: 16.0),
