@@ -1,6 +1,11 @@
 import 'dart:convert';
 
+import 'package:ambrd_appss/model/banner_model.dart';
+import 'package:ambrd_appss/model/comman_city_model/comman_city_model.dart';
+import 'package:ambrd_appss/model/comman_state_model/state_model_commen.dart';
+import 'package:ambrd_appss/model/gallary_model.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
 import '../model/complaint_list_model.dart';
@@ -10,9 +15,129 @@ import '../model/slider_banner_model.dart';
 import '../modules/home_page/home_page.dart';
 
 class ApiProvider {
-  static var baseUrl = 'https://api.gyros.farm/';
+  static var baseUrl = 'https://ambrdapi.ndinfotech.com/api/';
   // static String token = '';
 //  static String Id = ''.toString();
+
+  static String Id = ''.toString();
+
+  ///todo: state api....ambed ...1
+  static Future<List<StateModel>> getSatesApi() async {
+    var url = '${baseUrl}CommonApi/GetAllStates';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        var statesData = statesModelFromJson(r.body);
+        return statesData.states;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+
+  ///todo: apbrb get_cities_api...........2
+  static Future<List<City>> getCitiesApi(String stateID) async {
+    var url = '${baseUrl}CommonApi/GetCitiesByState?stateId=$stateID';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      print(r.body.toString());
+      if (r.statusCode == 200) {
+        var citiesData = cityModelFromJson(r.body);
+        return citiesData.cities;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
+    }
+  }
+
+  ///todo: gallary apis.....ambrb................3
+  static galarryGetApi() async {
+    var url = '${baseUrl}CommonApi/GetGallery';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        GallaryModel gallaryModel = gallaryModelFromJson(r.body);
+        return gallaryModel;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+
+  ///todo: banner apis.....ambrb................4
+  static getbannerGetApi() async {
+    var url = '${baseUrl}CommonApi/GetBanner';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        BannerModel bannerModel = bannerModelFromJson(r.body);
+        return bannerModel;
+      }
+    } catch (error) {
+      print('FrenchiesBannerRRRError: ${error}');
+      return;
+    }
+  }
+
+  ///todo: user registration...ambrb....4
+
+  static UserRegistrationApi(
+    var PatientName,
+    var MobileNumber,
+    var EmailId,
+    var StateMaster_Id,
+    var CityMaster_Id,
+    var Location,
+    var PinCode,
+    var Gender,
+    var DOB,
+  ) async {
+    var url = '${baseUrl}SignupApi/PatientRegistration';
+    var body = {
+      "PatientName": "$PatientName",
+      "MobileNumber": "$MobileNumber",
+      "EmailId": "$EmailId",
+      "StateMaster_Id": "$StateMaster_Id",
+      "CityMaster_Id": "$CityMaster_Id",
+      "Location": "$Location",
+      "PinCode": "$PinCode",
+      "Gender": "$Gender",
+      "DOB": "$DOB",
+    };
+    print("ok1:${body}");
+    http.Response r = await http.post(
+      Uri.parse(url),
+      body: body,
+    );
+    print("okup:${r.body}");
+    if (r.statusCode == 200) {
+      print(r.body);
+      Get.snackbar(
+        'Success',
+        r.body,
+        duration: const Duration(seconds: 2),
+      );
+      print(r.body);
+
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar(
+        'Message',
+        r.body,
+        duration: Duration(seconds: 2),
+      );
+    } else {
+      Get.snackbar('Error', r.body, duration: Duration(seconds: 2));
+      return r;
+    }
+  }
+
+  ///todo: ambrb banner api.........................................5
 
   static OtpApi(var Otp, var MobileNo) async {
     var url = "https://jkroshini.com/api/Registration/OtpVerify";
@@ -34,6 +159,88 @@ class ApiProvider {
       return r;
     }
   }
+
+  ///todo: login with phone api.....6
+
+  static PhoneLoginApi(
+    var MobileNumber,
+  ) async {
+    var url = '${baseUrl}CommonApi/LoginWithMobile';
+    var body = {
+      "MobileNumber": MobileNumber,
+    };
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    print(r.body);
+    if (r.statusCode == 200) {
+      // var prefs = GetStorage();
+      // //saved id..........
+      // prefs.write("Id".toString(), json.decode(r.body)['Id']);
+      // Id = prefs.read("Id").toString();
+      // print('&&&&&&&&&&&&&&&&&&&&&&:${Id}');
+
+      //saved token.........
+      // prefs.write("token".toString(), json.decode(r.body)['token']);
+      // token = prefs.read("token").toString();
+      // print(token);
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Error', r.body);
+      return r;
+    }
+  }
+
+  ///TODO: otp verify section......................7.....
+
+  static verifyOTP(var MobileNumber, var OTP) async {
+    var url = '${baseUrl}CommonApi/MobileOtpVerify';
+    var body = {
+      'MobileNumber': "$MobileNumber",
+      'OTP': "$OTP",
+    };
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    print(r.body);
+    if (r.statusCode == 200) {
+      var prefs = GetStorage();
+      //saved id..........
+      prefs.write("Id".toString(), json.decode(r.body)['Id']);
+      Id = prefs.read("Id").toString();
+      print('&&&&&&&&&&&&&&&&&&&&&&:${Id}');
+
+      //saved token.........
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Error', r.body);
+      return r;
+    }
+    // http.Response r = await http.post(Uri.parse(url), body: body);
+    // print(r.body);
+    // if (r.statusCode == 200) {
+    //   var data = json.decode(r.body)['message'];
+    //   var prefs = GetStorage();
+    //   prefs.write("token", json.decode(r.body)['token']);
+    //   token = prefs.read("token");
+    //   return r;
+    // } else {
+    //   Get.snackbar('Error', 'Wrong Otp');
+    //   return null;
+    // }
+  }
+
+  ///end.... ambrd user app.............
+
+  ///old....... from here verify otp.........................................
 
   static PhoneEmailApi(var MobileNo) async {
     final String url = "https://jkroshini.com/api/registration/MobileOtp";
@@ -57,8 +264,7 @@ class ApiProvider {
     }
   }
 
-  // from here verify otp.........................................
-  static verifyOTP(var MobileNo, var Otp) async {
+  static verifyOTP2(var MobileNo, var Otp) async {
     Map<String, String> headers = {
       'Content-Type': 'application/json',
       'authorization': 'Basic c3R1ZHlkb3RlOnN0dWR5ZG90ZTEyMw=='

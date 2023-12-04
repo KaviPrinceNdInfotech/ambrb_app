@@ -19,7 +19,7 @@ class LoginMobileController extends GetxController {
 
   void phoneemailApi() async {
     CallLoader.loader();
-    final http.Response r = await ApiProvider.PhoneEmailApi(
+    final http.Response r = await ApiProvider.PhoneLoginApi(
       "${MobileOrEmail.text}",
     );
 
@@ -68,7 +68,7 @@ class LoginMobileController extends GetxController {
 
   login() {
     getStorage.write("id", 1);
-    getStorage.write("name", " Rahul Kumar");
+    getStorage.write("name", " Prince Kumar");
     Get.offAllNamed(Routes.HOME);
   }
 }

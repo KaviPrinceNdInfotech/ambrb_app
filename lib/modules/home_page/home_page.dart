@@ -1091,71 +1091,130 @@ class Mycrusial extends StatelessWidget {
     //"https://images.unsplash.com/photo-1615870123253-f3de8aa89e24?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8OXxjVlFHYWlJSTI3OHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
   ];
   final bool _isPlaying = true;
+  final img = 'https://ambrdapi.ndinfotech.com/Images/';
 
   //get _sliderKey => null;
 
   @override
   Widget build(BuildContext context) {
-    var base = 'https://api.gyros.farm/Images/';
+    // var base = 'https://api.gyros.farm/Images/';
+    ///var base = 'https://ambrdapi.ndinfotech.com/Images/';
     //....
     Size size = MediaQuery.of(context).size;
     //........
     return Scaffold(
       body: Obx(
-        () => (_homePageController.isLoading.isFalse)
+        () => (_homePageController.isLoading.value)
             ? Center(child: CircularProgressIndicator())
-            // : _homePageController.getsliderbaner?.result == null
-            //     ? Center(
-            //         child: Text('No data'),
-            //       )
-            : SizedBox(
-                height: size.height * 0.25,
-                child: Container(
-                  height: size.height * 0.25,
-                  child: CarouselSlider.builder(
-                    key: _sliderKey,
-                    unlimitedMode: true,
-                    autoSliderTransitionTime: Duration(seconds: 1),
-                    slideBuilder: (index) {
-                      return Container(
-                        height: 260,
-                        alignment: Alignment.center,
-                        child: Container(
-                          height: size.height * 0.38,
-                          width: size.width,
-                          child: Image.network(
-                            //images
-                            '${images[index]}',
-                            //'${_homePageController.getsliderbaner!.result?[index].image}',
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              //if image not comming in catagary then we have to purchase
-                              return Text(
-                                'No Image',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
+            : _homePageController.getsliderbaner?.banner == null
+                ? Center(
+                    child: Text('No Image'),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Container(
+                      height: size.height * 0.28,
+                      width: size.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Material(
+                          color: MyTheme.ThemeColors,
+                          borderRadius: BorderRadius.circular(10),
+                          elevation: 0,
+                          child: CarouselSlider.builder(
+                            key: _sliderKey,
+                            unlimitedMode: true,
+                            autoSliderTransitionTime: Duration(seconds: 1),
+                            slideBuilder: (index) {
+                              var items =
+                                  _homePageController.getsliderbaner?.banner;
+                              return Padding(
+                                padding: const EdgeInsets.all(7.0),
+                                child: Material(
+                                  elevation: 12,
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Container(
+                                    height: size.height * 38,
+                                    width: size.width,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                          color: Colors.white, width: 3),
+                                      image: DecorationImage(
+                                          image: NetworkImage(
+                                              '$img${items?[index].bannerImage}' ??
+                                                  ''),
+                                          fit: BoxFit.fill),
+                                    ),
+                                  ),
                                 ),
                               );
                             },
+                            slideTransform: DefaultTransform(),
+                            slideIndicator: CircularSlideIndicator(
+                              indicatorBorderWidth: 2,
+                              indicatorRadius: 4,
+                              itemSpacing: 15,
+                              currentIndicatorColor: Colors.white,
+                              padding: EdgeInsets.only(bottom: 0),
+                            ),
+                            itemCount: _homePageController
+                                .getsliderbaner!.banner.length,
+                            enableAutoSlider: true,
                           ),
                         ),
-                      );
-                    },
-                    slideTransform: DefaultTransform(),
-                    slideIndicator: CircularSlideIndicator(
-                      indicatorBorderWidth: 2,
-                      indicatorRadius: 4,
-                      itemSpacing: 15,
-                      currentIndicatorColor: MyTheme.t1Iconcolor,
-                      padding: EdgeInsets.only(bottom: 3),
+                      ),
                     ),
-                    itemCount: images.length,
-                    //_homePageController.getsliderbaner!.result!.length,
-                    enableAutoSlider: true,
                   ),
-                ),
-              ),
+        // SizedBox(
+        //             height: size.height * 0.25,
+        //             child: Container(
+        //               height: size.height * 0.25,
+        //               child: CarouselSlider.builder(
+        //                 key: _sliderKey,
+        //                 unlimitedMode: true,
+        //                 autoSliderTransitionTime: Duration(seconds: 1),
+        //                 slideBuilder: (index) {
+        //                   return Container(
+        //                     height: 260,
+        //                     alignment: Alignment.center,
+        //                     child: Container(
+        //                       height: size.height * 0.38,
+        //                       width: size.width,
+        //                       child: Image.network(
+        //                         '$base${_homePageController.getsliderbaner!.banner[index].bannerImage}',
+        //                         fit: BoxFit.cover,
+        //                         errorBuilder: (context, error, stackTrace) {
+        //                           //if image not comming in catagary then we have to purchase
+        //                           return Text(
+        //                             'No Image',
+        //                             style: TextStyle(
+        //                               fontWeight: FontWeight.bold,
+        //                               fontSize: 12,
+        //                             ),
+        //                           );
+        //                         },
+        //                       ),
+        //                     ),
+        //                   );
+        //                 },
+        //                 slideTransform: DefaultTransform(),
+        //                 slideIndicator: CircularSlideIndicator(
+        //                   indicatorBorderWidth: 2,
+        //                   indicatorRadius: 4,
+        //                   itemSpacing: 15,
+        //                   currentIndicatorColor: MyTheme.t1Iconcolor,
+        //                   padding: EdgeInsets.only(bottom: 3),
+        //                 ),
+        //                 itemCount: images.length,
+        //                 //_homePageController.getsliderbaner!.result!.length,
+        //                 enableAutoSlider: true,
+        //               ),
+        //             ),
+        //           ),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:ambrd_appss/controllers/signup_controller/signup_controler.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,7 +10,6 @@ import 'package:lottie/lottie.dart';
 import '../../constants/app_theme/app_color.dart';
 import '../../constants/widgets/button_custom.dart';
 import '../../controllers/login_mobile_controller/login_mobile_controllers.dart';
-import '../otp/otp_page.dart';
 import '../sign_up_page/sign_up_pagee.dart';
 
 class LoginScreen extends GetView<LoginMobileController> {
@@ -17,6 +17,10 @@ class LoginScreen extends GetView<LoginMobileController> {
 
   LoginMobileController _loginMobileController =
       Get.put(LoginMobileController());
+
+  SignUpController _signUpController = Get.put(SignUpController());
+
+  var stateID = "";
 
   @override
   Widget build(BuildContext context) {
@@ -129,8 +133,15 @@ class LoginScreen extends GetView<LoginMobileController> {
                                 ),
                                 SizedBox(height: height * 0.05),
                                 InkWell(
-                                  onTap: () {
-                                    Get.to(() => SignUpPage());
+                                  onTap: () async {
+                                    await _signUpController.getStateApi();
+                                    _signUpController.update();
+                                    //await _signUpController
+                                    //.getCityByStateID(stateID);
+                                    //_signUpController.update();
+                                    _signUpController.refresh();
+
+                                    await Get.to(() => SignUpPage());
                                   },
                                   child: Text(
                                     "SIGNUP",
@@ -147,8 +158,8 @@ class LoginScreen extends GetView<LoginMobileController> {
                           CustomButton(
                             onTap: () {
                               //SignUpPage
-                              // _loginMobileController.checkMobileLogin();
-                              Get.to(() => OTPPhone());
+                              _loginMobileController.checkMobileLogin();
+                              //Get.to(() => OTPPhone());
                               // Get.to(() => AddBanner());
                               // Get.to(() => HomePage());
                             },

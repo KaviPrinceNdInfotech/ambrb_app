@@ -1,3 +1,14 @@
+import 'package:ambrd_appss/modules/botttom_nav_bar/bottom_nav_bar_controller.dart';
+import 'package:ambrd_appss/modules/drawer/page_drower/about_us.dart';
+import 'package:ambrd_appss/modules/drawer/page_drower/edit_profile.dart';
+import 'package:ambrd_appss/modules/drawer/page_drower/payment_history.dart';
+import 'package:ambrd_appss/modules/drawer/page_drower/payout_history.dart';
+import 'package:ambrd_appss/modules/drawer/page_drower/privecy_policy.dart';
+import 'package:ambrd_appss/modules/drawer/page_drower/profile_page.dart';
+import 'package:ambrd_appss/modules/drawer/page_drower/support_page.dart';
+import 'package:ambrd_appss/modules/drawer/page_drower/update_bank.dart';
+import 'package:ambrd_appss/modules/drawer/page_drower/walet_user/wallet_user.dart';
+import 'package:ambrd_appss/modules/drawer/page_drower/website_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -10,7 +21,7 @@ import '../../constants/app_theme/app_color.dart';
 class MainAmbrbDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ///NavController _navController = Get.put(NavController(), permanent: true);
+    NavController _navcontroller = Get.put(NavController(), permanent: true);
     //GetProfileController _getProfileController = Get.put(GetProfileController());
     //WalletController _walletController = Get.put(WalletController());
     //GetProfileController _getProfileController = Get.put(GetProfileController());
@@ -19,6 +30,7 @@ class MainAmbrbDrawer extends StatelessWidget {
     //_walletController.walletListssApi();
 
     Size size = MediaQuery.of(context).size;
+
     return SafeArea(
       child: Drawer(
         backgroundColor: Colors.white,
@@ -52,9 +64,9 @@ class MainAmbrbDrawer extends StatelessWidget {
             ListTile(
               //horizontalTitleGap: 2.h,
               leading: Icon(
-                Icons.local_mall,
+                Icons.home,
                 color: Colors.black,
-                size: 14,
+                size: 20,
               ),
               trailing: Icon(
                 Icons.arrow_forward_ios_sharp,
@@ -65,28 +77,63 @@ class MainAmbrbDrawer extends StatelessWidget {
               dense: true,
               // visualDensity: VisualDensity(horizontal: 0, vertical: -4),
               title: Text(
-                'Arb 1',
-                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
+                'Home',
+                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
               ),
               // tileColor: Get.currentRoute == '/AllProducts'
               //     ? Colors.grey[300]
               //     : Colors.transparent,
               onTap: () {
                 print(Get.currentRoute);
-                Get.back();
-                //_navController.tabindex(1);
-                ///Get.to(() => NavBar());
+                // Get.back();
+                _navcontroller.tabindex(1);
+
+                // Get.to(() => BookingAmb());
                 //Get.to(() => AllProducts());
-                Get.offNamed('/NavBar');
+                //Get.offNamed('/NavBar');
+              },
+            ),
+            ListTile(
+              //horizontalTitleGap: 2.h,
+              leading: Icon(
+                Icons.car_crash_rounded,
+                color: Colors.black,
+                size: 20,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                size: 11,
+                color: Colors.black,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              // visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+              title: Text(
+                'Book Ambulance',
+                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+              ),
+              // tileColor: Get.currentRoute == '/AllProducts'
+              //     ? Colors.grey[300]
+              //     : Colors.transparent,
+              onTap: () {
+                print(Get.currentRoute);
+                // Get.back();
+                _navcontroller.tabindex(1);
+
+                // Get.to(() => BookingAmb());
+                //Get.to(() => AllProducts());
+                //Get.offNamed('/NavBar');
               },
             ),
             ListTile(
               // horizontalTitleGap: 2.h,
               leading: Icon(
-                Icons.local_offer,
+                Icons.person,
                 color: Colors.black,
                 size: 14,
               ),
+
+              ///........................................
               trailing: Icon(
                 Icons.arrow_forward_ios_sharp,
                 size: 11,
@@ -96,8 +143,8 @@ class MainAmbrbDrawer extends StatelessWidget {
               dense: true,
               // visualDensity: VisualDensity(horizontal: 0, vertical: -1),
               title: Text(
-                'Arb 2',
-                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
+                'Profile',
+                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
               ),
               tileColor:
                   // Get.currentRoute == '/NavBar'
@@ -107,16 +154,50 @@ class MainAmbrbDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
+                Get.to(ProfilePagess());
+
+                ///......................................
                 // _navController.tabindex(3);
                 /// Get.to(() => NavBar());
                 //Get.to(() => BestDeal());
-                Get.offNamed('/NavBar');
+                // Get.offNamed('/NavBar');
               },
             ),
             ListTile(
               //horizontalTitleGap: 2.h,
               leading: Icon(
-                Icons.card_giftcard_outlined,
+                Icons.edit,
+                color: Colors.black,
+                size: 16,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                size: 11,
+                color: Colors.black,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              // visualDensity: VisualDensity(horizontal: 0, vertical: -1),
+              title: Text(
+                'Update Profile',
+                //'Gift Boxes',
+                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
+              ),
+              tileColor: Get.currentRoute == '/EditProfilePage'
+                  ? Colors.grey[300]
+                  : null,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.back();
+                Get.to(() => EditProfilePage());
+                //Get.offNamed('/GiftBox');
+              },
+            ),
+
+            ListTile(
+              //horizontalTitleGap: 2.h,
+              leading: Icon(
+                Icons.food_bank,
                 color: Colors.black,
                 size: 14,
               ),
@@ -129,19 +210,62 @@ class MainAmbrbDrawer extends StatelessWidget {
               dense: true,
               // visualDensity: VisualDensity(horizontal: 0, vertical: -1),
               title: Text(
-                'Arb 3',
+                'Add your bank',
                 //'Gift Boxes',
                 style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
               ),
               tileColor:
-                  Get.currentRoute == '/GiftBox' ? Colors.grey[300] : null,
+                  Get.currentRoute == '/AddbankPage' ? Colors.grey[300] : null,
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                // Get.to(() => GiftBox());
-                Get.offNamed('/GiftBox');
+                Get.to(() => AddbankPage());
+                //Get.offNamed('/GiftBox');
               },
             ),
+
+            /// wallet
+            ListTile(
+              //horizontalTitleGap: 2.h,
+              leading: Icon(
+                Icons.wallet,
+                color: Colors.black,
+                size: 14,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                size: 11,
+                color: Colors.black,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -1),
+              title: Text(
+                'Wollet',
+                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
+              ),
+              tileColor:
+                  Get.currentRoute == '/Wallet' ? Colors.grey[300] : null,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.to(() => WolletUser());
+                Get.offNamed('/Wallet');
+
+                ///.................................................28feb....................new
+                //_walletController.walletListssApi();
+                //  _walletController.update();
+                ///......................................................................................................
+                // tileColor: Get.currentRoute == '/OrderConfirmationPage'
+                //     ? Colors.grey[300]
+                //     : null,
+                // onTap: () {
+                //   print(Get.currentRoute);
+                //   Get.to(() => OrderConfirmationPage());
+                //   Get.offNamed('/OrderConfirmationPage');
+              },
+            ),
+
+            ///
             ListTile(
               // horizontalTitleGap: 2.h,
               leading: Icon(
@@ -158,17 +282,18 @@ class MainAmbrbDrawer extends StatelessWidget {
               dense: true,
               //visualDensity: VisualDensity(horizontal: 0, vertical: -1),
               title: Text(
-                'Arb 4',
+                'Payment History',
                 //'Our Story',
                 style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
               ),
-              tileColor:
-                  Get.currentRoute == '/OurStory' ? Colors.grey[300] : null,
+              tileColor: Get.currentRoute == '/DriverPaymentHistory'
+                  ? Colors.grey[300]
+                  : null,
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                //Get.to(() => OurStory());
-                Get.offNamed('/OurStory');
+                Get.to(() => DriverPaymentHistory());
+                //Get.offNamed('/OurStory');
               },
             ),
             ListTile(
@@ -187,16 +312,17 @@ class MainAmbrbDrawer extends StatelessWidget {
               dense: true,
               //visualDensity: VisualDensity(horizontal: 0, vertical: -1),
               title: Text(
-                'Arb 5',
+                'Payout History',
                 style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
               ),
-              tileColor:
-                  Get.currentRoute == '/Blogss' ? Colors.grey[300] : null,
+              tileColor: Get.currentRoute == '/DriverPayoutHistory'
+                  ? Colors.grey[300]
+                  : null,
               onTap: () {
                 print(Get.currentRoute);
                 //Get.back();
-                // Get.to(() => Blogss());
-                Get.offNamed('/Blogss');
+                Get.to(() => DriverPayoutHistory());
+                Get.offNamed('/DriverPayoutHistory');
               },
               //
             ),
@@ -216,7 +342,7 @@ class MainAmbrbDrawer extends StatelessWidget {
               dense: true,
               //visualDensity: VisualDensity(horizontal: 0, vertical: -1),
               title: Text(
-                'Arb 6',
+                'Website',
                 style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
               ),
               tileColor: Get.currentRoute == '/WhatsAppTrackOrder'
@@ -225,39 +351,8 @@ class MainAmbrbDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 Get.back();
-                // Get.to(() => WhatsAppTrackOrder());
-                Get.offNamed('/WhatsAppTrackOrder');
-              },
-            ),
-            ListTile(
-              // horizontalTitleGap: 2.h,
-              leading: Icon(
-                Icons.track_changes_sharp,
-                color: Colors.black,
-                size: 14,
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios_sharp,
-                size: 11,
-                color: Colors.black,
-              ),
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              dense: true,
-              //visualDensity: VisualDensity(horizontal: 0, vertical: -1),
-              title: Text(
-                'Arb 7',
-                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
-              ),
-              tileColor: Get.currentRoute == '/WebViewTracking'
-                  ? Colors.grey[300]
-                  : null,
-              onTap: () {
-                print(Get.currentRoute);
-                Get.back();
-                // Get.to(() => WebViewTracking());
-                //WaveViewHomePage(title: appName));
-                //Tracking());
-                Get.offNamed('/WebViewTracking');
+                Get.to(() => WebViewPswebsite());
+                // Get.offNamed('/WhatsAppTrackOrder');
               },
             ),
 
@@ -278,7 +373,7 @@ class MainAmbrbDrawer extends StatelessWidget {
               dense: true,
               //visualDensity: VisualDensity(horizontal: 0, vertical: -1),
               title: Text(
-                'Arb 9',
+                'Support',
                 style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
               ),
               tileColor: Get.currentRoute == '/PersonalProfile'
@@ -293,14 +388,16 @@ class MainAmbrbDrawer extends StatelessWidget {
                 // _getProfileController.update();
                 ///........................................................................................
 
-                //Get.to(() => PersonalProfile());
+                Get.to(() => SupportViewAmbrdComman());
                 Get.offNamed('/PersonalProfile');
               },
             ),
+
+            ///here from profileeee...............................
             ListTile(
               //horizontalTitleGap: 2.h,
               leading: Icon(
-                Icons.local_shipping_rounded,
+                Icons.business,
                 color: Colors.black,
                 size: 14,
               ),
@@ -311,33 +408,33 @@ class MainAmbrbDrawer extends StatelessWidget {
               ),
               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
               dense: true,
-              visualDensity: VisualDensity(horizontal: 0, vertical: -1),
+              //visualDensity: VisualDensity(horizontal: 0, vertical: -1),
               title: Text(
-                'Arb 10',
+                'About Us',
                 style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
               ),
-              tileColor: Get.currentRoute == '/OrderConfirmationPage'
+              tileColor: Get.currentRoute == '/UserAboutUsView'
                   ? Colors.grey[300]
                   : null,
               onTap: () {
                 print(Get.currentRoute);
-
                 Get.back();
 
                 ///.................................................28feb....................new
-                //_getProfileController.OrderHistoryApi();
-                //_getProfileController.update();
+                //  _getProfileController.addressidApi();
+                // _getProfileController.update();
                 ///........................................................................................
-                // Get.to(() => OrderConfirmationPage());
-                Get.offNamed('/OrderConfirmationPage');
+
+                Get.to(() => UserAboutUsView());
+                Get.offNamed('/UserAboutUsView');
               },
             ),
 
-            /// wallet
+            ///here from profileeee...............................
             ListTile(
               //horizontalTitleGap: 2.h,
               leading: Icon(
-                Icons.money,
+                Icons.policy,
                 color: Colors.black,
                 size: 14,
               ),
@@ -348,32 +445,27 @@ class MainAmbrbDrawer extends StatelessWidget {
               ),
               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
               dense: true,
-              visualDensity: VisualDensity(horizontal: 0, vertical: -1),
+              //visualDensity: VisualDensity(horizontal: 0, vertical: -1),
               title: Text(
-                'Arb 11',
+                'Privecy Policy',
                 style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
               ),
-              tileColor:
-                  Get.currentRoute == '/Wallet' ? Colors.grey[300] : null,
+              tileColor: Get.currentRoute == '/PersonalProfile'
+                  ? Colors.grey[300]
+                  : null,
               onTap: () {
                 print(Get.currentRoute);
+                Get.back();
 
-                //  Get.to(() => Wallet());
-                Get.offNamed('/Wallet');
-
-                ///.................................................28feb....................new
-                //_walletController.walletListssApi();
-                //  _walletController.update();
-                ///......................................................................................................
-                // tileColor: Get.currentRoute == '/OrderConfirmationPage'
-                //     ? Colors.grey[300]
-                //     : null,
-                // onTap: () {
-                //   print(Get.currentRoute);
-                //   Get.to(() => OrderConfirmationPage());
-                //   Get.offNamed('/OrderConfirmationPage');
+                ///.......................................
+                //  _getProfileController.addressidApi();
+                // _getProfileController.update();
+                ///...........................................................
+                Get.to(() => privecy_policy());
+                Get.offNamed('/PersonalProfile');
               },
             ),
+
             ListTile(
               // horizontalTitleGap: 2.h,
               leading: Icon(
@@ -397,7 +489,6 @@ class MainAmbrbDrawer extends StatelessWidget {
                   Get.currentRoute == '/LoginPage' ? Colors.grey[300] : null,
               onTap: () {
                 print(Get.currentRoute);
-
                 GetStorage prefs = GetStorage();
                 prefs.erase();
                 //prefs.remove('email');

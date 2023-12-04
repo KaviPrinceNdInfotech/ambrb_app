@@ -29,9 +29,15 @@ class SplashController extends GetxController
     super.onReady();
     if (getStorage.read("id") != null) {
       Future.delayed(const Duration(milliseconds: 3000), () {
-        Get.offAllNamed(Routes.HOME);
+        Get.offAllNamed(Routes.LOGIN);
       });
-    } else {
+    }
+    // if (getStorage.read("id") != null) {
+    //   Future.delayed(const Duration(milliseconds: 3000), () {
+    //     Get.offAllNamed(Routes.HOME);
+    //   });
+    // }
+    else {
       Future.delayed(const Duration(milliseconds: 3000), () {
         Get.offAllNamed(Routes.LOGIN);
       });
@@ -56,14 +62,16 @@ class SplashController extends GetxController
 
 abstract class Routes {
   Routes._();
-  static const HOME = _Paths.HOME;
   static const SPLASH = _Paths.SPLASH;
+  static const HOME = _Paths.HOME;
+
   static const LOGIN = _Paths.LOGIN;
 }
 
 abstract class _Paths {
   _Paths._();
-  static const HOME = '/home';
   static const SPLASH = '/splash';
+  static const HOME = '/home';
+
   static const LOGIN = '/login';
 }

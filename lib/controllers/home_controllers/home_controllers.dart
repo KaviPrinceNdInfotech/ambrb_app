@@ -1,7 +1,7 @@
+import 'package:ambrd_appss/model/banner_model.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../../model/slider_banner_model.dart';
 import '../../services/api_provider.dart';
 import '../splash_controller/splash_controllers.dart';
 
@@ -9,17 +9,17 @@ class HomeController extends GetxController {
   final getStorage = GetStorage();
   var name = '';
   RxBool isLoading = true.obs;
-  SliderListModel? getsliderbaner;
-  //crusial slider banner api..........
+  BannerModel? getsliderbaner;
+  //crusial slider banner api............
 
   void sliderBannerApi() async {
     isLoading(true);
-    getsliderbaner = await ApiProvider.SliderBannerApi();
-    if (getsliderbaner != null
+    getsliderbaner = await ApiProvider.getbannerGetApi();
+    if (getsliderbaner?.banner != null
         //getsliderbaner!.bannerImageList!.isNotEmpty
         ) {
       isLoading(false);
-    }
+    } else {}
   }
 
   @override

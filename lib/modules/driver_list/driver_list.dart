@@ -177,7 +177,6 @@ class _BookingdriverListState extends State<BookingdriverList> {
     double width = MediaQuery.of(context).size.width;
     final Completer<GoogleMapController> _controller =
         Completer<GoogleMapController>();
-
     const CameraPosition _kGooglePlex = CameraPosition(
       target: LatLng(37.42796133580664, -122.085749655962),
       zoom: 14.4746,
