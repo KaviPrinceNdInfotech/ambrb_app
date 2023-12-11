@@ -81,24 +81,24 @@ class ServiceVehicleAppcat extends StatelessWidget {
                                       //var AmbulancecatserviceId = preferences.getString("AmbulancecatserviceId");
                                       // print("AmbulancecatserviceId: ${AmbulancecatserviceId}");
                                       _vehicleservicecatController.update();
-                                      await accountService.getAccountData
-                                          .then((accountData) {
-                                        // CallLoader.loader();
-                                        Timer(
-                                          const Duration(seconds: 3),
-                                          () {
-                                            Get.to(MapView());
-                                            // CallLoader
-                                            //     .hideLoader();
-                                            //_ambulancegetController.selectedvhicleCatagary();
-                                            //_ambulancegetController.ambulancecatagaryyApi();
-                                            //Get.to((MapView));
-
-                                            ///
-                                          },
-                                        );
-                                        //CallLoader.hideLoader();
-                                      });
+                                      // await accountService.getAccountData
+                                      //     .then((accountData) {
+                                      //   // CallLoader.loader();
+                                      //   // Timer(
+                                      //   //   const Duration(seconds: 3),
+                                      //   //   () {
+                                      //   //     //Get.to(MapView());
+                                      //   //     // CallLoader
+                                      //   //     //     .hideLoader();
+                                      //   //     //_ambulancegetController.selectedvhicleCatagary();
+                                      //   //     //_ambulancegetController.ambulancecatagaryyApi();
+                                      //   //     //Get.to((MapView));
+                                      //   //
+                                      //   //     ///
+                                      //   //   },
+                                      //   // );
+                                      //   //CallLoader.hideLoader();
+                                      // });
                                     },
                                     child: Container(
                                       height: 300,
@@ -116,36 +116,99 @@ class ServiceVehicleAppcat extends StatelessWidget {
                                                 // .log(error, stackTrace);
                                               })),
                                       child: Center(
-                                        child: Row(
+                                        child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
                                           children: [
                                             Padding(
                                               padding:
                                                   const EdgeInsets.all(6.0),
                                               child: Container(
-                                                //height: 3.h,
-                                                // width: 20.w,
+                                                height: size.height * 0.06,
+                                                width: size.width * 0.9,
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(3),
                                                   border: Border.all(
-                                                      color: Colors.white),
-                                                  color: MyTheme.ambapp12,
+                                                      color: Colors.red,
+                                                      width: 3),
+                                                  color: MyTheme.ambapp3,
                                                 ),
                                                 child: Padding(
                                                   padding:
                                                       const EdgeInsets.all(8.0),
-                                                  child: Text(
-                                                    '${items?[index].vehicleTypeName.toString()}',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        fontSize:
-                                                            size.height * 0.03),
+                                                  child: Center(
+                                                    child: Text(
+                                                      '${items?[index].vehicleTypeName.toString()}',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                          fontSize:
+                                                              size.height *
+                                                                  0.027),
+                                                    ),
                                                   ),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: InkWell(
+                                                onTap: () async {
+                                                  SharedPreferences prefs =
+                                                      await SharedPreferences
+                                                          .getInstance();
+                                                  await prefs.setString(
+                                                      "AmbulancecatserviceId",
+                                                      "${_vehicleservicecatController.servicecatserviceModel?.vehicles![index].id.toString()}");
+                                                  //var AmbulancecatserviceId = preferences.getString("AmbulancecatserviceId");
+                                                  // print("AmbulancecatserviceId: ${AmbulancecatserviceId}");
+                                                  _vehicleservicecatController
+                                                      .update();
+                                                  await accountService
+                                                      .getAccountData
+                                                      .then((accountData) {
+                                                    // CallLoader.loader();
+                                                    Timer(
+                                                      const Duration(
+                                                          seconds: 3),
+                                                      () {
+                                                        Get.to(MapView());
+                                                        // CallLoader
+                                                        //     .hideLoader();
+                                                        //_ambulancegetController.selectedvhicleCatagary();
+                                                        //_ambulancegetController.ambulancecatagaryyApi();
+                                                        //Get.to((MapView));
+
+                                                        ///
+                                                      },
+                                                    );
+                                                    //CallLoader.hideLoader();
+                                                  });
+                                                },
+                                                child: Container(
+                                                  width: size.width * 0.35,
+                                                  height: size.height * 0.1,
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: Colors.black),
+                                                    color: Colors.red,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                  ),
+                                                  child: Center(
+                                                      child: Text(
+                                                    'Book Now',
+                                                    style: TextStyle(
+                                                      fontSize:
+                                                          size.height * 0.03,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.white,
+                                                    ),
+                                                  )),
                                                 ),
                                               ),
                                             ),

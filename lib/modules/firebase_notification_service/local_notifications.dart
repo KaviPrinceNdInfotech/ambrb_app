@@ -42,6 +42,7 @@ class LocalNotificationService {
           "pswellnesspushnotificationappchannel",
           importance: Importance.max,
           priority: Priority.high,
+          icon: '@drawable/ic_launcher',
         ),
       );
 

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:ambrd_appss/modules/firebase_notification_service/firebase_new/firebase_api.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -12,6 +13,11 @@ import 'controllers/home_controllers/home_controllers.dart';
 import 'controllers/login_mobile_controller/login_mobile_controllers.dart';
 import 'controllers/splash_controller/splash_controllers.dart';
 import 'modules/splash_view/splash_screen.dart';
+
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+}
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -26,8 +32,9 @@ Future<void> main() async {
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-  ///i created new class name is firebase api kumar prince
+  ///i created new class name is firebase api kumar prince extra its not needed
   await FirebaseApi().initNotifications();
   runApp(
     GetMaterialApp(

@@ -1,7 +1,11 @@
 import 'package:ambrd_appss/constants/exit_pop_scope.dart';
 import 'package:ambrd_appss/modules/drawer/drawerrr.dart';
+import 'package:ambrd_appss/modules/firebase_notification_service/firebase_notification_servc.dart';
+import 'package:ambrd_appss/modules/firebase_notification_service/local_notifications.dart';
 import 'package:ambrd_appss/modules/service_detail_by_id/service_detailby_id.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:flutter_carousel_slider/carousel_slider_indicators.dart';
@@ -59,8 +63,89 @@ Future<void> _launchUrl3() async {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  NotificationServices notificationServices = NotificationServices();
+
+  ///implement firebase....27...jun..2023
+  @override
+  void initState() {
+    super.initState();
+    notificationServices.requestNotificationPermission();
+    notificationServices.forgroundMessage();
+    notificationServices.firebaseInit(context);
+    notificationServices.setupInteractMessage(context);
+    notificationServices.isTokenRefresh();
+    // notificationServices.requestNotificationPermission();
+    // notificationServices.isTokenRefresh();
+    // notificationServices.firebaseInit();
+    notificationServices.getDeviceToken().then((value) {
+      if (kDebugMode) {
+        print('device token');
+        print(value);
+      }
+      // print('device token');
+      // print(value);
+    });
+
+    /// 1. This method call when app in terminated state and you get a notification
+    /// when you click on notification app open from terminated state and you can get notification data in this method
+
+    FirebaseMessaging.instance.getInitialMessage().then(
+      (message) {
+        print("FirebaseMessaging.instance.getInitialMessage");
+        if (message != null) {
+          print("New Notification");
+          // if (message.data['_id'] != null) {
+          //   Navigator.of(context).push(
+          //     MaterialPageRoute(
+          //       builder: (context) => DemoScreen(
+          //         id: message.data['_id'],
+          //       ),
+          //     ),
+          //   );
+          // }
+        }
+      },
+    );
+    // 2. This method only call when App in forground it mean app must be opened
+
+    FirebaseMessaging.onMessage.listen(
+      (message) {
+        print("FirebaseMessaging.onMessage.listen");
+        if (message.notification != null) {
+          print(message.notification!.title);
+          print(message.notification!.body);
+          print("message.data11 ${message.data}");
+
+          ///you can call local notification.............................
+
+          LocalNotificationService.createanddisplaynotification(message);
+
+          ///you can call local notification....................................
+
+        }
+      },
+    );
+
+    // 3. This method only call when App in background and not terminated(not closed)
+    FirebaseMessaging.onMessageOpenedApp.listen(
+      (message) {
+        print("FirebaseMessaging.onMessageOpenedApp.listen");
+        if (message.notification != null) {
+          print(message.notification!.title);
+          print(message.notification!.body);
+          print("message.data22 ${message.data['_id']}");
+        }
+      },
+    );
+  }
 
   final List<String> productname = [
     'Invoice',
@@ -108,56 +193,21 @@ class HomePage extends StatelessWidget {
     Icons.email_outlined,
     Icons.payment,
   ];
+
   final List<String> productname1 = [
     'Logout',
     'Voucher',
     'Feedback',
     'Support',
   ];
+
   // _launchURLBrowser() async {
-  //   var url = Uri.parse("tel:+91 7019380052");
-  //   if (await canLaunchUrl(url)) {
-  //     await launchUrl(url);
-  //   } else {
-  //     throw 'Could not launch $url';
-  //   }
-  // }
-
-  // //from here whats app...............
-  // _launchWhatsapp() async {
-  //   const url = "https://wa.me/?text=YourTextHere";
-  //   if (await canLaunch(url)) {
-  //     await launch(url);
-  //   } else {
-  //     throw 'Could not launch $url';
-  //   }
-  // }
-
-  // void whatsAppOpen() async {
-  //   bool whatsapp = await FlutterLaunch.hasApp(name: "whatsapp");
-  //
-  //   if (whatsapp) {
-  //     await FlutterLaunch.launchWhatsapp(
-  //         phone: "5534992016100", message: "Hello, flutter_launch");
-  //   } else {
-  //     print('error');
-  //   }
-  // }
-
-  // _launchURLEmail() async {
-  //   var url = Uri.parse(
-  //     //'https://protocoderspoint.com/'
-  //       "mailto:rajatrrpalankar@gmail.com?subject=This is Subject Title&body=This is Body of Email");
-  //   if (await canLaunchUrl(url)) {
-  //     await launchUrl(url);
-  //   } else {
-  //     throw 'Could not launch $url';
-  //   }
-  // }
-
   final bool _isPlaying = true;
+
   final img = 'http://admin.ambrd.in/Images/';
+
   HomeController _homePageController = Get.put(HomeController());
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

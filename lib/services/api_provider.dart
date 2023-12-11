@@ -42,6 +42,10 @@ class ApiProvider {
   static String userId = ''.toString();
   static String ambulanceId = ''.toString();
 
+  static String AdminLogin_Id = ''.toString();
+
+  //AdminLogin_Id
+
   static String ServiceId = '';
 
   static String ambulancetypeid = '';
@@ -261,7 +265,12 @@ class ApiProvider {
     if (r.statusCode == 200) {
       var prefs = GetStorage();
 
-      //saved id..........
+      //saved id....admin id......
+      prefs.write("AdminLogin_Id".toString(),
+          json.decode(r.body)['data']['AdminLogin_Id']);
+      AdminLogin_Id = prefs.read("AdminLogin_Id").toString();
+      print('&&&&&&&&&&&&&&&&&&&&&&user:${AdminLogin_Id}');
+
       prefs.write("userId".toString(), json.decode(r.body)['data']['UserId']);
       userId = prefs.read("userId").toString();
       print('&&&&&&&&&&&&&&&&&&&&&&user:${userId}');
@@ -634,6 +643,7 @@ class ApiProvider {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var AmbulancecatserviceId = preferences.getString("AmbulancecatserviceId");
     print("AmbulancecatserviceId: ${AmbulancecatserviceId}");
+    //todo:...............
     var url = '${baseUrl}DriverApi/GetNearDriverByVehicleTypeId';
     var prefs = GetStorage();
     userId = prefs.read("userId").toString();
@@ -642,8 +652,9 @@ class ApiProvider {
     var body = {
       "start_Lat": start_Lat.toString(),
       "start_Long": start_Long.toString(),
-      "end_Long": end_Long.toString(),
-      "end_Lat": end_Lat.toString(),
+      "end_Long": end_Lat.toString(),
+      //end_Lat.toString()
+      "end_Lat": end_Long.toString(),
       "Patient_Id": userId,
       "VehicleType_id": "${AmbulancecatserviceId}",
       "NoOfPassengers": NoOfPassengers,

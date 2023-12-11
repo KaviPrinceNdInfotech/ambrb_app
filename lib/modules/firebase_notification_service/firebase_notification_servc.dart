@@ -43,7 +43,9 @@ class NotificationServices {
   void initLocalNotifications(
       BuildContext context, RemoteMessage message) async {
     var androidInitializationSettings =
-        const AndroidInitializationSettings('@mipmap/ic_launcher');
+        const AndroidInitializationSettings('@drawable/ic_launcher');
+    //@drawable/ic_launcher
+    ///todo oldlines : const AndroidInitializationSettings('@mipmap/ic_launcher');
     var iosInitializationSettings = const DarwinInitializationSettings();
 
     var initializationSetting = InitializationSettings(
@@ -126,6 +128,7 @@ class NotificationServices {
             priority: Priority.high,
             playSound: true,
             ticker: 'ticker',
+            icon: '@drawable/ic_launcher',
             sound: channel.sound
             //     sound: RawResourceAndroidNotificationSound('jetsons_doorbell')
             //  icon: largeIconPath
