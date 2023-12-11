@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:ambrd_appss/modules/firebase_notification_service/firebase_new/firebase_api.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -9,8 +11,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'controllers/home_controllers/home_controllers.dart';
 import 'controllers/login_mobile_controller/login_mobile_controllers.dart';
 import 'controllers/splash_controller/splash_controllers.dart';
-import 'modules/home_page/home_page.dart';
-import 'modules/login_view/login_page.dart';
 import 'modules/splash_view/splash_screen.dart';
 
 class MyHttpOverrides extends HttpOverrides {
@@ -25,11 +25,15 @@ class MyHttpOverrides extends HttpOverrides {
 Future<void> main() async {
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
+  ///i created new class name is firebase api kumar prince
+  await FirebaseApi().initNotifications();
   runApp(
     GetMaterialApp(
       title: "Application",
-      initialRoute: AppPages.INITIAL,
-      getPages: AppPages.routes,
+      //initialRoute: AppPages.INITIAL,
+      //getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
     ),
@@ -79,29 +83,31 @@ Future<void> main() async {
 
 ////all pages
 
-class AppPages {
-  AppPages._();
+///
 
-  static const INITIAL = Routes.SPLASH;
-
-  static final routes = [
-    GetPage(
-      name: _Paths.HOME,
-      page: () => HomePage(),
-      binding: HomeBinding(),
-    ),
-    GetPage(
-      name: _Paths.SPLASH,
-      page: () => const SplashScreen(),
-      binding: SplashBinding(),
-    ),
-    GetPage(
-      name: _Paths.LOGIN,
-      page: () => LoginScreen(),
-      binding: LoginBinding(),
-    ),
-  ];
-}
+// class AppPages {
+//   AppPages._();
+//
+//   static const INITIAL = Routes.SPLASH;
+//
+//   static final routes = [
+//     GetPage(
+//       name: _Paths.HOME,
+//       page: () => HomePage(),
+//       binding: HomeBinding(),
+//     ),
+//     GetPage(
+//       name: _Paths.SPLASH,
+//       page: () => const SplashScreen(),
+//       binding: SplashBinding(),
+//     ),
+//     GetPage(
+//       name: _Paths.LOGIN,
+//       page: () => LoginScreen(),
+//       binding: LoginBinding(),
+//     ),
+//   ];
+// }
 
 abstract class _Paths {
   _Paths._();

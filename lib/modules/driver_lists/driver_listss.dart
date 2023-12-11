@@ -1,4 +1,5 @@
 import 'package:ambrd_appss/constants/app_theme/app_color.dart';
+import 'package:ambrd_appss/model/driver_list_by_post_book_ambulance_api_model/driver_list_by_post_model.dart';
 //import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -17,18 +18,15 @@ String DriverId = ''.toString();
 String driverpassword = ''.toString();
 var alldevicetoken = '';
 
-class Driver_List_LocationId extends StatefulWidget {
-  Driver_List_LocationId({
-    Key? key,
-    // this.driverlist
-  }) : super(key: key);
-  //DriverListApi? driverlist;
+class DriverListById extends StatefulWidget {
+  DriverListById({Key? key, this.driverlist}) : super(key: key);
+  DriverListByPostModel? driverlist;
 
   @override
-  State<Driver_List_LocationId> createState() => _Driver_List_LocationIdState();
+  State<DriverListById> createState() => _DriverListByIdState();
 }
 
-class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
+class _DriverListByIdState extends State<DriverListById> {
   //NotificationServices notificationServices = NotificationServices();
 
   //DriverPayoutController _driverPayoutController =
@@ -533,8 +531,7 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                         //height: size.height * 0.76,
                         child: ListView.builder(
                             shrinkWrap: true,
-                            itemCount: 4
-                            //widget.driverlist?.message?.length
+                            itemCount: widget.driverlist?.message?.length
                             //.driverlist?.message?.length,
                             ,
                             itemBuilder: (BuildContext context, int index) {
@@ -653,8 +650,8 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                     color: Color(0xff12BFC4),
                                                   ),
                                                   Text(
-                                                    "Jugal ji",
-                                                    // "${widget.driverlist?.message?[index].name}",
+                                                    // "Jugal ji",
+                                                    "${widget.driverlist?.message?[index].name}",
                                                     // 'Kumar Prince',
                                                     //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                     style: GoogleFonts.aBeeZee(
@@ -742,7 +739,7 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                 children: [
                                                   Text(
                                                     'Driver Distance :',
-                                                    //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
+                                                    // '\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                     style: GoogleFonts.actor(
                                                       fontSize:
                                                           size.width * 0.03,
@@ -763,8 +760,8 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                     width: size.width * 0.01,
                                                   ),
                                                   Text(
-                                                    // "${widget.driverlist?.message?[index].km} "
-                                                    "128 km",
+                                                    "${widget.driverlist?.message?[index].km} ",
+                                                    // "128 km",
                                                     //'2020 Honda Clive',
                                                     //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                     style: GoogleFonts.aBeeZee(
@@ -798,8 +795,8 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                     width: size.width * 0.01,
                                                   ),
                                                   Text(
-                                                    "\u{20B9} 2000",
-                                                    //"${widget.driverlist?.message?[index].totalPrice?.toDouble()}",
+                                                    //"\u{20B9} 2000",
+                                                    "${widget.driverlist?.message?[index].totalPrice?.toDouble()}",
                                                     // '121234333377',
                                                     //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                     style: GoogleFonts.roboto(
@@ -833,8 +830,8 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                     width: size.width * 0.01,
                                                   ),
                                                   Text(
-                                                    "ewesa344",
-                                                    // "${widget.driverlist?.message?[index].dl}",
+                                                    //"ewesa344",
+                                                    "${widget.driverlist?.message?[index].dl}",
                                                     //'ENP 2345',
                                                     //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',
                                                     style: GoogleFonts.roboto(
@@ -908,8 +905,8 @@ class _Driver_List_LocationIdState extends State<Driver_List_LocationId> {
                                                       width: size.width * 0.002,
                                                     ),
                                                     Text(
-                                                      "200KM",
-                                                      //"${widget.driverlist?.message?[index].charge}/Km",
+                                                      //"200KM",
+                                                      "${widget.driverlist?.message?[index].charge}/Km",
 
                                                       // '10/km',
                                                       //'\u{20B9}${_driverPayoutHistoryController.foundpayoutdriver?[index].paidAmount}',

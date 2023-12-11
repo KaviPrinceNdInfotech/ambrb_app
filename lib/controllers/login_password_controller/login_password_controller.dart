@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../splash_controller/splash_controllers.dart';
-
 class LoginpasswordController extends GetxController {
   final getStorage = GetStorage();
   final GlobalKey<FormState> loginpasswordformkey = GlobalKey<FormState>();
@@ -52,12 +50,12 @@ class LoginpasswordController extends GetxController {
     }
     loginpasswordformkey.currentState!.save();
     //Get.to(() => HomePage());
-    login();
+    // login();
   }
 
-  login() {
-    getStorage.write("id", 1);
-    getStorage.write("name", " Rahul Kumar");
-    Get.offAllNamed(Routes.HOME);
-  }
+  // login() {
+  //   getStorage.write("id", 1);
+  //   getStorage.write("name", " Rahul Kumar");
+  //   Get.offAllNamed(Routes.HOME);
+  // }
 }

@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/bindings_interface.dart';
 
-import '../../modules/otp/otp_phone_controller.dart';
 import '../add_services_controllerss/add_service_controller.dart';
 import '../add_tecnician_controller/add_technicians_controller.dart';
 import '../home_controllers/home_controllers.dart';
@@ -21,9 +20,9 @@ class StoreBinding implements Bindings {
     // Get.lazyPut<SplashController>(
     //   () => SplashController(),
     // );
-    Get.lazyPut<OtpTimerphoneController>(
-      () => OtpTimerphoneController(),
-    );
+    // Get.lazyPut<OtpTimerphoneController>(
+    //   () => OtpTimerphoneController(),
+    // );
 
     //Get.lazyPut(() => SplashController());
     //Get.lazyPut(() => OtpTimerphoneController());

@@ -106,7 +106,7 @@ class SignUpController extends GetxController {
     if (r.statusCode == 200) {
       CallLoader.hideLoader();
       Get.snackbar('Success', 'Registration SuccessFully');
-      _loginMobileController.login();
+      //  _loginMobileController.login();
 
       Get.to(() => LoginScreen());
     }

@@ -1,6 +1,7 @@
 //import 'package:ambrd_driver_app/constantsss/app_theme/app_color.dart';
 import 'package:ambrd_appss/constants/app_theme/app_color.dart';
-import 'package:ambrd_appss/controllers/signup_controller/signup_controler.dart';
+import 'package:ambrd_appss/controllers/add_bank_detail_controller/add_bank_details_controller.dart';
+import 'package:ambrd_appss/widget/circular_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,9 +16,12 @@ String gender = "male";
 class AddbankPage extends StatelessWidget {
   AddbankPage({Key? key}) : super(key: key);
 
-  SignUpController _signUpController = Get.put(SignUpController());
+  // SignUpController _signUpController = Get.put(SignUpController());
 
   String dropdownValue = list.first;
+
+  AddbankdetailController _addbankdetailController =
+      Get.put(AddbankdetailController());
 
   @override
   Widget build(BuildContext context) {
@@ -41,23 +45,24 @@ class AddbankPage extends StatelessWidget {
         backgroundColor: MyTheme.ambapp3,
         elevation: 0,
       ),
-      body: SafeArea(
-        child: Container(
-          margin: EdgeInsets.only(top: 10, left: 16, right: 16),
-          width: context.width,
-          height: context.height,
-          child: SingleChildScrollView(
-            child: Form(
-              key: _signUpController.SignupFormKey,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
+      body: Form(
+        key: _addbankdetailController.AddbankdetailFormKey,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        child: SafeArea(
+          child: Container(
+            margin: EdgeInsets.only(top: 10, left: 16, right: 16),
+            width: context.width,
+            height: context.height,
+            child: SingleChildScrollView(
               child: Column(
                 children: [
                   Container(
-                    height: size.height * 0.136,
-                    width: size.width * 0.6,
+                    height: size.height * 0.131,
+                    width: size.width * 0.4,
                     decoration: const BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage('lib/assets/images/logo222.png'),
+                            image: AssetImage(
+                                'lib/assets/images/CommonLogoAmbrd.png'),
                             fit: BoxFit.fitWidth)),
                   ),
                   SizedBox(
@@ -118,9 +123,10 @@ class AddbankPage extends StatelessWidget {
                             ),
                           ),
                           keyboardType: TextInputType.visiblePassword,
-                          controller: _signUpController.Name,
+                          controller: _addbankdetailController.HolderName,
                           validator: (value) {
-                            return _signUpController.validateName(value!);
+                            return _addbankdetailController
+                                .validateholder(value!);
                           },
                         ),
                       ),
@@ -162,7 +168,7 @@ class AddbankPage extends StatelessWidget {
                               padding: EdgeInsets.symmetric(
                                   vertical: size.height * 0.012,
                                   horizontal: size.width * 0.02),
-                              child: Icon(Icons.account_balance_outlined),
+                              child: Icon(Icons.food_bank),
                               // Image.asset(
                               //   'assets/email.png',
                               //   //color: MyTheme.t1Iconcolor,
@@ -172,9 +178,10 @@ class AddbankPage extends StatelessWidget {
                             ),
                           ),
                           keyboardType: TextInputType.name,
-                          //controller: _signUpController.Gender,
+                          controller: _addbankdetailController.AccountNumber,
                           validator: (value) {
-                            return _signUpController.validateShopname(value!);
+                            return _addbankdetailController
+                                .validateaccount(value!);
                           },
                         ),
                       ),
@@ -226,9 +233,64 @@ class AddbankPage extends StatelessWidget {
                         ),
                         keyboardType: TextInputType.streetAddress,
                         //obscureText: true,
-                        controller: _signUpController.city,
+                        controller: _addbankdetailController.BranchAddress,
                         validator: (value) {
-                          return _signUpController.validateCity(value!);
+                          return _addbankdetailController.validaddress(value!);
+                        },
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: size.height * 0.03,
+                  ),
+                  Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: Padding(
+                      padding: const EdgeInsets.all(0.0),
+                      child: TextFormField(
+                        //maxLines: 5,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: MyTheme.ambapp12,
+
+                          //fillColor: MyTheme.t1Iconcolor,
+                          hintText: 'Bank Name',
+                          contentPadding: const EdgeInsets.only(
+                              left: 14.0, bottom: 4.0, top: 16.0),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: new BorderSide(color: Colors.green),
+                            borderRadius: new BorderRadius.circular(10),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide:
+                                new BorderSide(color: Colors.transparent),
+                            borderRadius: new BorderRadius.circular(10.0),
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.red, width: 2.0),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          prefixIcon: Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: size.height * 0.012,
+                                horizontal: size.width * 0.02),
+                            child: Icon(Icons.account_balance),
+                            // Image.asset(
+                            //   'assets/home.png',
+                            //   // color: MyTheme.t1Iconcolor,
+                            //   height: 10,
+                            //   width: 10,
+                            // ),
+                          ),
+                        ),
+
+                        ///........................................
+                        keyboardType: TextInputType.streetAddress,
+                        //obscureText: true,
+                        controller: _addbankdetailController.BranchName,
+                        validator: (value) {
+                          return _addbankdetailController.validbank(value!);
                         },
                       ),
                     ),
@@ -281,9 +343,64 @@ class AddbankPage extends StatelessWidget {
                         ///........................................
                         keyboardType: TextInputType.streetAddress,
                         //obscureText: true,
-                        controller: _signUpController.Address,
+                        controller: _addbankdetailController.IFSCCode,
                         validator: (value) {
-                          return _signUpController.validateaadharcard(value!);
+                          return _addbankdetailController.validateifsc(value!);
+                        },
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: size.height * 0.03,
+                  ),
+                  Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: Padding(
+                      padding: const EdgeInsets.all(0.0),
+                      child: TextFormField(
+                        //maxLines: 5,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: MyTheme.ambapp12,
+
+                          //fillColor: MyTheme.t1Iconcolor,
+                          hintText: 'Mobile no',
+                          contentPadding: const EdgeInsets.only(
+                              left: 14.0, bottom: 4.0, top: 16.0),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: new BorderSide(color: Colors.green),
+                            borderRadius: new BorderRadius.circular(10),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide:
+                                new BorderSide(color: Colors.transparent),
+                            borderRadius: new BorderRadius.circular(10.0),
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.red, width: 2.0),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          prefixIcon: Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: size.height * 0.012,
+                                horizontal: size.width * 0.02),
+                            child: Icon(Icons.phone_android_outlined),
+                            // Image.asset(
+                            //   'assets/home.png',
+                            //   // color: MyTheme.t1Iconcolor,
+                            //   height: 10,
+                            //   width: 10,
+                            // ),
+                          ),
+                        ),
+
+                        ///........................................
+                        keyboardType: TextInputType.streetAddress,
+                        //obscureText: true,
+                        controller: _addbankdetailController.MobileNumber,
+                        validator: (value) {
+                          return _addbankdetailController.validmobile(value!);
                         },
                       ),
                     ),
@@ -367,10 +484,9 @@ class AddbankPage extends StatelessWidget {
                         style: TextStyle(fontSize: 14, color: Colors.white),
                       ),
                       onPressed: () {
-                        print(
-                            "RadioButton:${_signUpController.selectedService}");
-                        // _signUpController.checkLogin();
-                        // Get.to(() => LoginPasswordPage());
+                        CallLoader.loader();
+                        //_user_1_controller.checkUser1();
+                        _addbankdetailController.checkaddbankuser();
                       },
                     ),
                   ),

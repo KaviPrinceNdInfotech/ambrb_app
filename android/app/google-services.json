@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "471007744277",
+    "project_id": "ambrduser",
+    "storage_bucket": "ambrduser.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:471007744277:android:6c27956d618feb0d4f191c",
+        "android_client_info": {
+          "package_name": "com.ambrd.userapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJyl8Se0cj3vwFpv11UfddXGzPzCLuWzA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -47,9 +47,10 @@ class _SplashScreenState extends State<SplashScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Image.asset(
-                    'lib/assets/images/logo222.png',
-                    //scale: 200,
-                    height: 500,
+                    'lib/assets/images/CommonLogoAmbrd.png',
+                    //scale: 400,
+                    height: 300,
+                    width: 250,
                     //'lib/assets/images/roshini_logo_dummy.png',
 
                     // width: controller.animation!.value * 320,

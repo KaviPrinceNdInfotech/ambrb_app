@@ -1,5 +1,10 @@
+import 'package:ambrd_appss/controllers/edit_profile_controller/edit_profile_controllerr.dart';
+import 'package:ambrd_appss/controllers/get_profile_detail_controller/get_profile_details_controller.dart';
+import 'package:ambrd_appss/controllers/otp_correctcode_controller/otp_verification_maim_page.dart';
+import 'package:ambrd_appss/controllers/signup_controller/signup_controler.dart';
 import 'package:ambrd_appss/modules/botttom_nav_bar/bottom_nav_bar_controller.dart';
 import 'package:ambrd_appss/modules/drawer/page_drower/about_us.dart';
+import 'package:ambrd_appss/modules/drawer/page_drower/complain_patient.dart';
 import 'package:ambrd_appss/modules/drawer/page_drower/edit_profile.dart';
 import 'package:ambrd_appss/modules/drawer/page_drower/payment_history.dart';
 import 'package:ambrd_appss/modules/drawer/page_drower/payout_history.dart';
@@ -9,12 +14,14 @@ import 'package:ambrd_appss/modules/drawer/page_drower/support_page.dart';
 import 'package:ambrd_appss/modules/drawer/page_drower/update_bank.dart';
 import 'package:ambrd_appss/modules/drawer/page_drower/walet_user/wallet_user.dart';
 import 'package:ambrd_appss/modules/drawer/page_drower/website_view.dart';
+import 'package:ambrd_appss/modules/login_view/login_page.dart';
+import 'package:ambrd_appss/widget/circular_loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constants/app_theme/app_color.dart';
 
@@ -22,6 +29,16 @@ class MainAmbrbDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     NavController _navcontroller = Get.put(NavController(), permanent: true);
+
+    SignUpController _signUpController = Get.put(SignUpController());
+
+    GetProfileController _getProfileController =
+        Get.put(GetProfileController());
+
+    EditprofileController _editprofile = Get.put(EditprofileController());
+
+    OtpVerifyController _otpVerifyController = Get.put(OtpVerifyController());
+
     //GetProfileController _getProfileController = Get.put(GetProfileController());
     //WalletController _walletController = Get.put(WalletController());
     //GetProfileController _getProfileController = Get.put(GetProfileController());
@@ -49,8 +66,8 @@ class MainAmbrbDrawer extends StatelessWidget {
                       child: ClipOval(
                         child: Padding(
                           padding: EdgeInsets.all(10),
-                          child:
-                              Image.asset('lib/assets/images/LOGOammbpng.png'),
+                          child: Image.asset(
+                              'lib/assets/images/CommonLogoAmbrd.png'),
                         ),
                       ),
                     ),
@@ -58,7 +75,7 @@ class MainAmbrbDrawer extends StatelessWidget {
                 ),
               ),
               decoration: BoxDecoration(
-                color: MyTheme.ambapp1,
+                color: MyTheme.ambapp2,
               ),
             ),
             ListTile(
@@ -151,10 +168,12 @@ class MainAmbrbDrawer extends StatelessWidget {
                   //     ? Colors.grey[300]
                   //     :
                   Colors.transparent,
-              onTap: () {
+              onTap: () async {
                 print(Get.currentRoute);
-                Get.back();
-                Get.to(ProfilePagess());
+                //Get.back();
+                await _getProfileController.editProfileApi();
+                _getProfileController.update();
+                await Get.to(ProfilePagess());
 
                 ///......................................
                 // _navController.tabindex(3);
@@ -186,10 +205,19 @@ class MainAmbrbDrawer extends StatelessWidget {
               tileColor: Get.currentRoute == '/EditProfilePage'
                   ? Colors.grey[300]
                   : null,
-              onTap: () {
+              onTap: () async {
                 print(Get.currentRoute);
-                Get.back();
-                Get.to(() => EditProfilePage());
+
+                //Get.back();
+                await _editprofile.getStateApi();
+                _editprofile.update();
+                //await _signUpController
+                //.getCityByStateID(stateID);
+                //_signUpController.update();
+                _editprofile.refresh();
+
+                //await Get.to(() => SignUpPage());
+                await Get.to(() => EditProfilePage());
                 //Get.offNamed('/GiftBox');
               },
             ),
@@ -356,6 +384,42 @@ class MainAmbrbDrawer extends StatelessWidget {
               },
             ),
 
+            ///ComplainPage
+            ListTile(
+              //horizontalTitleGap: 2.h,
+              leading: Icon(
+                Icons.message,
+                color: Colors.black,
+                size: 14,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                size: 11,
+                color: Colors.black,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              //visualDensity: VisualDensity(horizontal: 0, vertical: -1),
+              title: Text(
+                'Complain',
+                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
+              ),
+              tileColor:
+                  Get.currentRoute == '/ComplainPage' ? Colors.grey[300] : null,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.back();
+
+                ///.................................................28feb....................new
+                //  _getProfileController.addressidApi();
+                // _getProfileController.update();
+                ///........................................................................................
+
+                Get.to(() => ComplainPage());
+                Get.offNamed('/ComplainPage');
+              },
+            ),
+
             ///here from profileeee...............................
             ListTile(
               //horizontalTitleGap: 2.h,
@@ -487,14 +551,24 @@ class MainAmbrbDrawer extends StatelessWidget {
               ),
               tileColor:
                   Get.currentRoute == '/LoginPage' ? Colors.grey[300] : null,
-              onTap: () {
+              onTap: () async {
                 print(Get.currentRoute);
-                GetStorage prefs = GetStorage();
-                prefs.erase();
+
+                ///GetStorage prefs = GetStorage();
+                ///prefs.erase();
+
+                _otpVerifyController.onInit();
+                CallLoader.loader();
+                await Future.delayed(Duration(seconds: 2));
+                CallLoader.hideLoader();
+                await SharedPreferences.getInstance()
+                    .then((value) => value.clear());
+                //Get.back();
+                await Get.offAll(() => LoginScreen());
                 //prefs.remove('email');
 
                 //Get.to(() => LoginPage());
-                Get.offNamed('/LoginPage');
+                /// Get.offNamed('/LoginPage');
               },
             ),
           ],

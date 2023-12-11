@@ -1,4 +1,4 @@
-package com.example.ambrd_appss
+package com.ambrd.userapp
 
 import io.flutter.embedding.android.FlutterActivity
 

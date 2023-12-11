@@ -1,4 +1,5 @@
 import 'package:ambrd_appss/constants/app_theme/app_color.dart';
+import 'package:ambrd_appss/controllers/wallet_controllers/wallet_controllers.dart';
 import 'package:ambrd_appss/modules/botttom_nav_bar/bottom_nav_bar_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,8 @@ import 'credential_user_wallet.dart';
 import 'head_text_walet.dart';
 
 NavController _navcontroller = Get.put(NavController(), permanent: true);
+
+Wallet_2_Controller _wallet_2_controller = Get.put(Wallet_2_Controller());
 
 class WolletUser extends StatelessWidget {
   const WolletUser({Key? key}) : super(key: key);
@@ -63,7 +66,7 @@ class WolletUser extends StatelessWidget {
                           ),
                           image: DecorationImage(
                               image: AssetImage(
-                                'lib/assets/background_stack_png/wallet.png',
+                                'lib/assets/images/wallet.png',
                               ),
                               fit: BoxFit.cover)),
                     ),

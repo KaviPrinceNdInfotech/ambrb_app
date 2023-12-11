@@ -81,34 +81,22 @@ class RozarwalletController extends GetxController {
   //   Get.to(Itemsbuy());
   // }
 
-  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+  Future<void> _handlePaymentSuccess(PaymentSuccessResponse response) async {
     Get.snackbar("SUCCESS", "ID: ${response.paymentId}");
     print('payment sucess');
 
-    // _walletController.walletPostApi().then((statusCode) {
-    //   // _postOrderController.postOrderApi().then((statusCode) {
-    //   if (statusCode == 200) {
-    //     ///This is the main thing to provide updated list history...
-    //     // _getProfileController.OrderHistoryApi();
-    //     _walletController.walletListssApi();
-    //     //  Get.to(OrderConfirmationPage());
-    //     // _getProfileController.update();
-    //     // _walletController.getwalletlist!.result[index].walletAmount!.toDouble()
-    //     // _walletController.getwalletlist!.result.first.walletAmount!.toDouble();
-    //
-    //     _walletController.walletAmount.text;
-    //
-    //     //_walletPostController.walletPostApi();
-    //     //_walletPostController.update();
-    //
-    //     //_walletPostController.checkAmount();
-    //     //Get.to(Wallet());
-    //     // Get.to(OrderConfirmationPage());
-    //     Get.back();
-    //   } else {
-    //     // SHow
-    //   }
-    // });
+    await _walletController.walletPostApi().then((statusCode) async {
+      // _postOrderController.postOrderApi().then((statusCode) {
+      if (statusCode == 200) {
+        ///This is the main thing to provide updated list history...
+        // _getProfileController.OrderHistoryApi();
+        await _walletController.walletAmount.text;
+        await _walletController.WalletGetApi();
+        Get.back();
+      } else {
+        // SHow
+      }
+    });
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {

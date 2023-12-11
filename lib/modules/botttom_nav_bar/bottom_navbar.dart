@@ -1,4 +1,4 @@
-import 'package:ambrd_appss/modules/booking_brb/booking_amb.dart';
+import 'package:ambrd_appss/modules/ambulance_service_catagary_list/ambulance_service_catagary_listss.dart';
 import 'package:ambrd_appss/modules/drawer/page_drower/support_page.dart';
 import 'package:ambrd_appss/modules/home_page/home_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -283,9 +283,12 @@ class BottommNavBar extends StatelessWidget {
             index: _navController.tabindex.value,
             children: [
               HomePage(),
+              //BookingAmb(),
+              // MapView(),
+              ServiceVehicleAppcat(),
 
               ///HomePagePractice(),
-              BookingAmb(),
+              //BookingAmb(),
               SupportViewAmbrdComman(),
 
               //_createRoute();

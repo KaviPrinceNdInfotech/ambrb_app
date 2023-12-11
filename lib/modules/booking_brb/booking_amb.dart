@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:ambrd_appss/modules/botttom_nav_bar/bottom_nav_bar_controller.dart';
-import 'package:ambrd_appss/modules/botttom_nav_bar/bottom_navbar.dart';
 import 'package:ambrd_appss/modules/driver_lists/driver_listss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places_hoc081098/flutter_google_places_hoc081098.dart';
@@ -124,437 +123,444 @@ class _BookingAmbState extends State<BookingAmb> {
         //   },
         // ),
         ///..........
-        Stack(
-      clipBehavior: Clip.none,
-      children: [
-        GoogleMap(
-          //Map widget from google_maps_flutter package
-          zoomGesturesEnabled: true, //enable Zoom in, out on map
-          initialCameraPosition: CameraPosition(
-            //innital position in map......
-            target: startLocation, //initial position
-            zoom: 14.0, //initial zoom level
+        SafeArea(
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          GoogleMap(
+            //Map widget from google_maps_flutter package
+            zoomGesturesEnabled: true, //enable Zoom in, out on map
+            initialCameraPosition: CameraPosition(
+              //innital position in map......
+              target: startLocation, //initial position
+              zoom: 14.0, //initial zoom level
+            ),
+            mapType: MapType.normal, //map type
+            onMapCreated: (controller) {
+              //method called when map is created
+              setState(() {
+                mapController = controller;
+                mapController2 = controller;
+              });
+            },
           ),
-          mapType: MapType.normal, //map type
-          onMapCreated: (controller) {
-            //method called when map is created
-            setState(() {
-              mapController = controller;
-              mapController2 = controller;
-            });
-          },
-        ),
-        Positioned(
-          bottom: -20,
-          left: 0,
-          right: 0,
-          child:
-              // Column(
-              //   children: [
-              //Spacer(),
-              Container(
-            height: size.height * 0.33,
-            decoration: BoxDecoration(
-                color: Colors.white60,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10))),
-            // width: size.width,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: size.height * 0.11,
-                  child: ListView.builder(
-                    itemCount: _itemsss.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (BuildContext context, int index) {
-                      return InkWell(
-                        onTap: () {
-                          //..............................
-                          _tilecolorr.toggle(index);
+          Positioned(
+            bottom: -20,
+            left: 0,
+            right: 0,
+            child:
+                // Column(
+                //   children: [
+                //Spacer(),
+                Container(
+              height: size.height * 0.33,
+              decoration: BoxDecoration(
+                  color: Colors.white60,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10))),
+              // width: size.width,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: size.height * 0.11,
+                    child: ListView.builder(
+                      itemCount: _itemsss.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (BuildContext context, int index) {
+                        return InkWell(
+                          onTap: () {
+                            //..............................
+                            _tilecolorr.toggle(index);
 
-                          ///...............................
+                            ///...............................
 
-                          //................................
-                        },
-                        child: Obx(
-                          () => Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: PhysicalModel(
-                              //color: Colors.white,
-                              shadowColor: Colors.red,
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(10),
+                            //................................
+                          },
+                          child: Obx(
+                            () => Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: PhysicalModel(
+                                //color: Colors.white,
+                                shadowColor: Colors.red,
+                                color: Colors.black,
+                                borderRadius: BorderRadius.circular(10),
 
-                              elevation: 5,
-                              child: Container(
-                                height: size.height * 0.04,
-                                width: size.width * 0.19,
-                                decoration: BoxDecoration(
-                                    color:
-                                        _tilecolorr.selectedindex.value == index
-                                            ? MyTheme.ambapp5
-                                            : MyTheme.ambapp1,
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(
-                                        color:
-                                            _tilecolorr.selectedindex.value ==
-                                                    index
-                                                ? MyTheme.ThemeColors
-                                                : MyTheme.ambapp1,
-                                        width: 1)),
-
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      height: size.height * 0.065,
-                                      decoration: BoxDecoration(
+                                elevation: 5,
+                                child: Container(
+                                  height: size.height * 0.04,
+                                  width: size.width * 0.19,
+                                  decoration: BoxDecoration(
+                                      color: _tilecolorr.selectedindex.value ==
+                                              index
+                                          ? MyTheme.ambapp5
+                                          : MyTheme.ambapp1,
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
                                           color:
                                               _tilecolorr.selectedindex.value ==
                                                       index
-                                                  ? MyTheme.ambapp1
-                                                  : MyTheme.ambapp11,
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          image: DecorationImage(
-                                            image: AssetImage(
-                                                _itemsssimage[index]),
-                                          )),
-                                    ),
-                                    //Spacer(),
-                                    Text('${_itemsss[index]}',
-                                        style: TextStyle(
+                                                  ? MyTheme.ThemeColors
+                                                  : MyTheme.ambapp1,
+                                          width: 1)),
+
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        height: size.height * 0.065,
+                                        decoration: BoxDecoration(
                                             color: _tilecolorr
                                                         .selectedindex.value ==
                                                     index
-                                                ? Colors.white
-                                                : Colors.black,
-                                            fontSize: size.height * 0.015,
-                                            fontWeight: FontWeight.w600)),
-                                    Spacer(),
-                                  ],
+                                                ? MyTheme.ambapp1
+                                                : MyTheme.ambapp11,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            image: DecorationImage(
+                                              image: AssetImage(
+                                                  _itemsssimage[index]),
+                                            )),
+                                      ),
+                                      //Spacer(),
+                                      Text('${_itemsss[index]}',
+                                          style: TextStyle(
+                                              color: _tilecolorr.selectedindex
+                                                          .value ==
+                                                      index
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: size.height * 0.015,
+                                              fontWeight: FontWeight.w600)),
+                                      Spacer(),
+                                    ],
+                                  ),
+                                  // ListTile(
+                                  //   title: Obx(() => Text('${_itemsss[index]} item',
+                                  //       style: TextStyle(
+                                  //           color: _tilecolorr.selectedindex.value == index
+                                  //               ? Colors.white
+                                  //               : Colors.black))),
+                                  //   onTap: () => _tilecolorr.toggle(index),
+                                  // ),
                                 ),
-                                // ListTile(
-                                //   title: Obx(() => Text('${_itemsss[index]} item',
-                                //       style: TextStyle(
-                                //           color: _tilecolorr.selectedindex.value == index
-                                //               ? Colors.white
-                                //               : Colors.black))),
-                                //   onTap: () => _tilecolorr.toggle(index),
-                                // ),
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    },
-                    // itemBuilder: (BuildContext context, int index) {
-                    //
-                    // },
-                  ),
-                ),
-                //SizedBox(height: height * 0.06),
-                Padding(
-                  padding: EdgeInsets.all(3.0),
-                  child: TextFormField(
-                    //controller: _loginMobileController.MobileOrEmail,
-                    //controller.emailController,
-                    obscureText: false,
-                    keyboardType: TextInputType.number,
-                    // validator: (value) {
-                    //   return _loginMobileController
-                    //       .validatePhone(value!);
-                    // },
-                    decoration: InputDecoration(
-                      //border: InputBorder.none,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                        borderSide: BorderSide(color: Colors.red, width: 1),
-                      ),
-                      contentPadding: const EdgeInsets.only(
-                          left: 14.0, bottom: 8.0, top: 13.0),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.red,
-                        ),
-                        borderRadius: BorderRadius.circular(15.7),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.transparent),
-                        borderRadius: BorderRadius.circular(15.7),
-                      ),
-
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          Icons.currency_rupee,
-                          color: MyTheme.ambapp1,
-                        ),
-                        // Image.asset(
-                        //   "lib/assets/images/pnone4.png",
-                        //   color: MyTheme.ambapp1,
-                        //   height: 10,
-                        //   width: 10,
-                        // ),
-                      ),
-                      fillColor: MyTheme.ambapp12,
-                      filled: true,
-                      suffixIcon: null ?? const SizedBox(),
-                      hintText: "Offer Your Fare",
-                      hintStyle: GoogleFonts.poppins(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w400,
-                      ),
-                      // contentPadding:
-                      //const EdgeInsets.only(top: 16.0),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(3.0),
-                  child: TextFormField(
-                    //controller: _loginMobileController.MobileOrEmail,
-                    //controller.emailController,
-                    obscureText: false,
-                    //keyboardType: TextInputType.number,
-                    // validator: (value) {
-                    //   return _loginMobileController
-                    //       .validatePhone(value!);
-                    // },
-                    decoration: InputDecoration(
-                      //border: InputBorder.none,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                        borderSide: BorderSide(color: Colors.red, width: 1),
-                      ),
-                      contentPadding: const EdgeInsets.only(
-                          left: 14.0, bottom: 8.0, top: 13.0),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.red,
-                        ),
-                        borderRadius: BorderRadius.circular(15.7),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.transparent),
-                        borderRadius: BorderRadius.circular(15.7),
-                      ),
-
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          Icons.message,
-                          color: MyTheme.ambapp1,
-                        ),
-                        // Image.asset(
-                        //   "lib/assets/images/pnone4.png",
-                        //   color: MyTheme.ambapp1,
-                        //   height: 10,
-                        //   width: 10,
-                        // ),
-                      ),
-                      fillColor: MyTheme.ambapp12,
-                      filled: true,
-                      suffixIcon: null ?? const SizedBox(),
-                      hintText: "No of passengers",
-                      hintStyle: GoogleFonts.poppins(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w400,
-                      ),
-                      // contentPadding:
-                      //const EdgeInsets.only(top: 16.0),
-                    ),
-                  ),
-                ),
-
-                SizedBox(
-                  height: size.height * 0.002,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.15),
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints.tightFor(width: context.width),
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                        ),
-                        backgroundColor:
-                            MaterialStateProperty.all(MyTheme.ambapp1),
-                        padding: MaterialStateProperty.all(EdgeInsets.all(14)),
-                      ),
-                      child: Text(
-                        "Find Ride",
-                        style: TextStyle(fontSize: 14, color: Colors.white),
-                      ),
-                      onPressed: () {
-                        Get.to(Driver_List_LocationId()
-                            //BookingdriverList()
-                            );
-                        // print(
-                        // "RadioButton:${_signUpController.selectedService}");
-                        //_signUpController.checkLogin();
-                        // Get.to(() => LoginPasswordPage());
+                        );
                       },
+                      // itemBuilder: (BuildContext context, int index) {
+                      //
+                      // },
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 2,
-                ),
-              ],
+                  //SizedBox(height: height * 0.06),
+                  Padding(
+                    padding: EdgeInsets.all(3.0),
+                    child: TextFormField(
+                      //controller: _loginMobileController.MobileOrEmail,
+                      //controller.emailController,
+                      obscureText: false,
+                      keyboardType: TextInputType.number,
+                      // validator: (value) {
+                      //   return _loginMobileController
+                      //       .validatePhone(value!);
+                      // },
+                      decoration: InputDecoration(
+                        //border: InputBorder.none,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          borderSide: BorderSide(color: Colors.red, width: 1),
+                        ),
+                        contentPadding: const EdgeInsets.only(
+                            left: 14.0, bottom: 8.0, top: 13.0),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.red,
+                          ),
+                          borderRadius: BorderRadius.circular(15.7),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.transparent),
+                          borderRadius: BorderRadius.circular(15.7),
+                        ),
+
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.currency_rupee,
+                            color: MyTheme.ambapp1,
+                          ),
+                          // Image.asset(
+                          //   "lib/assets/images/pnone4.png",
+                          //   color: MyTheme.ambapp1,
+                          //   height: 10,
+                          //   width: 10,
+                          // ),
+                        ),
+                        fillColor: MyTheme.ambapp12,
+                        filled: true,
+                        suffixIcon: null ?? const SizedBox(),
+                        hintText: "Offer Your Fare",
+                        hintStyle: GoogleFonts.poppins(
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        // contentPadding:
+                        //const EdgeInsets.only(top: 16.0),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(3.0),
+                    child: TextFormField(
+                      //controller: _loginMobileController.MobileOrEmail,
+                      //controller.emailController,
+                      obscureText: false,
+                      //keyboardType: TextInputType.number,
+                      // validator: (value) {
+                      //   return _loginMobileController
+                      //       .validatePhone(value!);
+                      // },
+                      decoration: InputDecoration(
+                        //border: InputBorder.none,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          borderSide: BorderSide(color: Colors.red, width: 1),
+                        ),
+                        contentPadding: const EdgeInsets.only(
+                            left: 14.0, bottom: 8.0, top: 13.0),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.red,
+                          ),
+                          borderRadius: BorderRadius.circular(15.7),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.transparent),
+                          borderRadius: BorderRadius.circular(15.7),
+                        ),
+
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.message,
+                            color: MyTheme.ambapp1,
+                          ),
+                          // Image.asset(
+                          //   "lib/assets/images/pnone4.png",
+                          //   color: MyTheme.ambapp1,
+                          //   height: 10,
+                          //   width: 10,
+                          // ),
+                        ),
+                        fillColor: MyTheme.ambapp12,
+                        filled: true,
+                        suffixIcon: null ?? const SizedBox(),
+                        hintText: "No of passengers",
+                        hintStyle: GoogleFonts.poppins(
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        // contentPadding:
+                        //const EdgeInsets.only(top: 16.0),
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(
+                    height: size.height * 0.002,
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: size.width * 0.15),
+                    child: ConstrainedBox(
+                      constraints:
+                          BoxConstraints.tightFor(width: context.width),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                          backgroundColor:
+                              MaterialStateProperty.all(MyTheme.ambapp1),
+                          padding:
+                              MaterialStateProperty.all(EdgeInsets.all(14)),
+                        ),
+                        child: Text(
+                          "Find Ride",
+                          style: TextStyle(fontSize: 14, color: Colors.white),
+                        ),
+                        onPressed: () {
+                          Get.to(DriverListById(
+                                  //driverlist: driverListApiFromJson(r.body)
+                                  )
+                              //BookingdriverList()
+                              );
+                          // print(
+                          // "RadioButton:${_signUpController.selectedService}");
+                          //_signUpController.checkLogin();
+                          // Get.to(() => LoginPasswordPage());
+                        },
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 2,
+                  ),
+                ],
+              ),
+            ),
+            //   ],
+            // ),
+          ),
+          Positioned(
+            top: 25,
+            left: 10,
+            child: Padding(
+              padding: EdgeInsets.only(left: 12, top: 02),
+              child: InkWell(
+                  onTap: () {
+                    // Get.to(BottommNavBar());
+                    /// Get.back();
+                    _navcontroller.tabindex(0);
+
+                    ///............................
+                    //_navController.tabindex(1);
+
+                    ///
+                    ///
+
+                    //Get.back();
+
+                    ///todo............................................
+                    //
+                  },
+                  child: Icon(Icons.arrow_back_ios)),
             ),
           ),
-          //   ],
-          // ),
-        ),
-        Positioned(
-          top: 25,
-          left: 10,
-          child: Padding(
-            padding: EdgeInsets.only(left: 12, top: 02),
-            child: InkWell(
-                onTap: () {
-                  Get.to(BottommNavBar());
+          //search autoconplete input
+          Positioned(
+              //search input bar
+              top: 40,
+              child: InkWell(
+                  onTap: () async {
+                    var place = await PlacesAutocomplete.show(
+                        context: context,
+                        apiKey: googleApikey,
+                        mode: Mode.overlay,
+                        types: [],
+                        strictbounds: false,
+                        components: [Component(Component.country, 'en_IN')],
+                        //google_map_webservice package
+                        onError: (err) {
+                          print(err);
+                        });
 
-                  /// Get.back();
-                  /// _navcontroller.tabindex(0);
-
-                  ///............................
-                  //_navController.tabindex(1);
-
-                  ///
-                  ///
-
-                  //Get.back();
-
-                  ///todo .........................
-                  //
-                },
-                child: Icon(Icons.arrow_back_ios)),
-          ),
-        ),
-        //search autoconplete input
-        Positioned(
-            //search input bar
-            top: 40,
-            child: InkWell(
-                onTap: () async {
-                  var place = await PlacesAutocomplete.show(
-                      context: context,
-                      apiKey: googleApikey,
-                      mode: Mode.overlay,
-                      types: [],
-                      strictbounds: false,
-                      components: [Component(Component.country, 'en_IN')],
-                      //google_map_webservice package
-                      onError: (err) {
-                        print(err);
+                    if (place != null) {
+                      setState(() {
+                        location = place.description.toString();
                       });
 
-                  if (place != null) {
-                    setState(() {
-                      location = place.description.toString();
-                    });
+                      //form google_maps_webservice package
+                      final plist = GoogleMapsPlaces(
+                        apiKey: googleApikey,
+                        apiHeaders: await GoogleApiHeaders().getHeaders(),
+                        //from google_api_headers package
+                      );
+                      String placeid = place.placeId ?? "0";
+                      final detail = await plist.getDetailsByPlaceId(placeid);
+                      final geometry = detail.result.geometry!;
+                      final lat = geometry.location.lat;
+                      final lang = geometry.location.lng;
+                      var newlatlang = LatLng(lat, lang);
 
-                    //form google_maps_webservice package
-                    final plist = GoogleMapsPlaces(
-                      apiKey: googleApikey,
-                      apiHeaders: await GoogleApiHeaders().getHeaders(),
-                      //from google_api_headers package
-                    );
-                    String placeid = place.placeId ?? "0";
-                    final detail = await plist.getDetailsByPlaceId(placeid);
-                    final geometry = detail.result.geometry!;
-                    final lat = geometry.location.lat;
-                    final lang = geometry.location.lng;
-                    var newlatlang = LatLng(lat, lang);
+                      //move map camera to selected place with animation
+                      mapController?.animateCamera(
+                          CameraUpdate.newCameraPosition(
+                              CameraPosition(target: newlatlang, zoom: 17)));
+                      mapController2?.animateCamera(
+                          CameraUpdate.newCameraPosition(
+                              CameraPosition(target: newlatlang, zoom: 17)));
+                    }
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.all(15),
+                    child: Card(
+                      child: Container(
+                          padding: EdgeInsets.all(0),
+                          width: MediaQuery.of(context).size.width - 40,
+                          child: ListTile(
+                            title: Text(
+                              location,
+                              style: TextStyle(fontSize: 18),
+                            ),
+                            trailing: Icon(Icons.search),
+                            dense: true,
+                          )),
+                    ),
+                  ))),
+          Positioned(
+              //search input bar
+              top: 100,
+              child: InkWell(
+                  onTap: () async {
+                    var place = await PlacesAutocomplete.show(
+                        context: context,
+                        apiKey: googleApikey,
+                        mode: Mode.overlay,
+                        types: [],
+                        strictbounds: false,
+                        components: [Component(Component.country, 'en_IN')],
+                        //google_map_webservice package
+                        onError: (err) {
+                          print(err);
+                        });
 
-                    //move map camera to selected place with animation
-                    mapController?.animateCamera(CameraUpdate.newCameraPosition(
-                        CameraPosition(target: newlatlang, zoom: 17)));
-                    mapController2?.animateCamera(
-                        CameraUpdate.newCameraPosition(
-                            CameraPosition(target: newlatlang, zoom: 17)));
-                  }
-                },
-                child: Padding(
-                  padding: EdgeInsets.all(15),
-                  child: Card(
-                    child: Container(
-                        padding: EdgeInsets.all(0),
-                        width: MediaQuery.of(context).size.width - 40,
-                        child: ListTile(
-                          title: Text(
-                            location,
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          trailing: Icon(Icons.search),
-                          dense: true,
-                        )),
-                  ),
-                ))),
-        Positioned(
-            //search input bar
-            top: 100,
-            child: InkWell(
-                onTap: () async {
-                  var place = await PlacesAutocomplete.show(
-                      context: context,
-                      apiKey: googleApikey,
-                      mode: Mode.overlay,
-                      types: [],
-                      strictbounds: false,
-                      components: [Component(Component.country, 'en_IN')],
-                      //google_map_webservice package
-                      onError: (err) {
-                        print(err);
+                    if (place != null) {
+                      setState(() {
+                        location = place.description.toString();
                       });
 
-                  if (place != null) {
-                    setState(() {
-                      location = place.description.toString();
-                    });
-
-                    //form google_maps_webservice package
-                    final plist = GoogleMapsPlaces(
-                      apiKey: googleApikey,
-                      apiHeaders: await GoogleApiHeaders().getHeaders(),
-                      //from google_api_headers package
-                    );
-                    String placeid2 = place.placeId ?? "0";
-                    final detail = await plist.getDetailsByPlaceId(placeid2);
-                    final geometry2 = detail.result.geometry!;
-                    final lat2 = geometry2.location.lat;
-                    final lang2 = geometry2.location.lng;
-                    var newlatlang = LatLng(lat2, lang2);
-                    //move map camera to selected place with animation
-                    mapController2?.animateCamera(
-                        CameraUpdate.newCameraPosition(
-                            CameraPosition(target: newlatlang, zoom: 17)));
-                  }
-                },
-                child: Padding(
-                  padding: EdgeInsets.all(15),
-                  child: Card(
-                    child: Container(
-                        padding: EdgeInsets.all(0),
-                        width: MediaQuery.of(context).size.width - 40,
-                        child: ListTile(
-                          title: Text(
-                            location2,
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          trailing: Icon(Icons.search),
-                          dense: true,
-                        )),
-                  ),
-                ))),
-      ],
+                      //form google_maps_webservice package
+                      final plist = GoogleMapsPlaces(
+                        apiKey: googleApikey,
+                        apiHeaders: await GoogleApiHeaders().getHeaders(),
+                        //from google_api_headers package
+                      );
+                      String placeid2 = place.placeId ?? "0";
+                      final detail = await plist.getDetailsByPlaceId(placeid2);
+                      final geometry2 = detail.result.geometry!;
+                      final lat2 = geometry2.location.lat;
+                      final lang2 = geometry2.location.lng;
+                      var newlatlang = LatLng(lat2, lang2);
+                      //move map camera to selected place with animation
+                      mapController2?.animateCamera(
+                          CameraUpdate.newCameraPosition(
+                              CameraPosition(target: newlatlang, zoom: 17)));
+                    }
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.all(15),
+                    child: Card(
+                      child: Container(
+                          padding: EdgeInsets.all(0),
+                          width: MediaQuery.of(context).size.width - 40,
+                          child: ListTile(
+                            title: Text(
+                              location2,
+                              style: TextStyle(fontSize: 18),
+                            ),
+                            trailing: Icon(Icons.search),
+                            dense: true,
+                          )),
+                    ),
+                  ))),
+        ],
+      ),
     );
 
     // Column(
