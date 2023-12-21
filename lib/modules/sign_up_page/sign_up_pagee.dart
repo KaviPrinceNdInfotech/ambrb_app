@@ -540,7 +540,7 @@ class SignUpPage extends StatelessWidget {
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: MyTheme.ambapp12,
-                            hintText: 'Select DOB',
+                            hintText: 'Select city',
                             contentPadding: const EdgeInsets.only(
                                 left: 14.0, bottom: 4.0, top: 16.0),
                             focusedBorder: OutlineInputBorder(

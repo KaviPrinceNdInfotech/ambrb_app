@@ -3,7 +3,10 @@ import 'dart:async';
 import 'package:ambrd_appss/constants/app_theme/app_color.dart';
 import 'package:ambrd_appss/controllers/vehicle_service_catagary_list_controller/vehicle_cat_list_controller.dart';
 import 'package:ambrd_appss/modules/booking_brb/booking_ambrd_new_gmap.dart';
+import 'package:ambrd_appss/modules/booking_brb/booking_apbrd_map_new_controller.dart';
+import 'package:ambrd_appss/modules/botttom_nav_bar/bottom_nav_bar_controller.dart';
 import 'package:ambrd_appss/services/acount_service_for_autologin.dart';
+import 'package:ambrd_appss/widget/circular_loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,6 +19,11 @@ class ServiceVehicleAppcat extends StatelessWidget {
   VehicleServicecatController _vehicleservicecatController =
       Get.put(VehicleServicecatController());
   final img = 'http://admin.ambrd.in/Images/';
+
+  AmbulancegetsController _ambulancegetController =
+      Get.put(AmbulancegetsController());
+
+  NavController _navcontroller = Get.put(NavController(), permanent: true);
 
   // final List<String> images = [
   //   "https://images.unsplash.com/photo-1606046604972-77cc76aee944?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8aG90ZWxzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60",
@@ -38,6 +46,11 @@ class ServiceVehicleAppcat extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        leading: InkWell(
+            onTap: () {
+              _navcontroller.tabindex(0);
+            },
+            child: Icon(Icons.arrow_back)),
         backgroundColor: AppColors.mainColor,
         title: Text(
           'Ambulance Category',
@@ -81,6 +94,10 @@ class ServiceVehicleAppcat extends StatelessWidget {
                                       //var AmbulancecatserviceId = preferences.getString("AmbulancecatserviceId");
                                       // print("AmbulancecatserviceId: ${AmbulancecatserviceId}");
                                       _vehicleservicecatController.update();
+
+                                      _ambulancegetController.update();
+                                      _ambulancegetController.refresh();
+
                                       // await accountService.getAccountData
                                       //     .then((accountData) {
                                       //   // CallLoader.loader();
@@ -166,17 +183,25 @@ class ServiceVehicleAppcat extends StatelessWidget {
                                                   // print("AmbulancecatserviceId: ${AmbulancecatserviceId}");
                                                   _vehicleservicecatController
                                                       .update();
+                                                  _vehicleservicecatController
+                                                      .refresh();
+
+                                                  CallLoader.loader();
+                                                  await Future.delayed(
+                                                      Duration(seconds: 2));
+                                                  CallLoader.hideLoader();
                                                   await accountService
                                                       .getAccountData
-                                                      .then((accountData) {
-                                                    // CallLoader.loader();
-                                                    Timer(
+                                                      .then(
+                                                          (accountData) async {
+                                                    //CallLoader.loader();
+                                                    await Timer(
                                                       const Duration(
-                                                          seconds: 3),
+                                                          seconds: 1),
                                                       () {
                                                         Get.to(MapView());
                                                         // CallLoader
-                                                        //     .hideLoader();
+                                                        // .hideLoader();
                                                         //_ambulancegetController.selectedvhicleCatagary();
                                                         //_ambulancegetController.ambulancecatagaryyApi();
                                                         //Get.to((MapView));
@@ -184,12 +209,12 @@ class ServiceVehicleAppcat extends StatelessWidget {
                                                         ///
                                                       },
                                                     );
-                                                    //CallLoader.hideLoader();
+                                                    CallLoader.hideLoader();
                                                   });
                                                 },
                                                 child: Container(
-                                                  width: size.width * 0.35,
-                                                  height: size.height * 0.1,
+                                                  width: size.width * 0.33,
+                                                  height: size.height * 0.07,
                                                   decoration: BoxDecoration(
                                                     border: Border.all(
                                                         color: Colors.black),
@@ -203,7 +228,7 @@ class ServiceVehicleAppcat extends StatelessWidget {
                                                     'Book Now',
                                                     style: TextStyle(
                                                       fontSize:
-                                                          size.height * 0.03,
+                                                          size.height * 0.023,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       color: Colors.white,

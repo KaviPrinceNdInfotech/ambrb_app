@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
     <!--uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" tools:node="remove"/-->
    <application
-        android:label="ambrd_appss"
+        android:label="Ambrd"
         android:name="${applicationName}"
        android:usesCleartextTraffic="true"
        android:icon="@mipmap/launcher_icon">

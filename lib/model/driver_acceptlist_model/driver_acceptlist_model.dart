@@ -11,7 +11,7 @@ String driveracceptModeluserToJson(DriveracceptModeluser data) =>
     json.encode(data.toJson());
 
 class DriveracceptModeluser {
-  num? id;
+  int? id;
   num? driverId;
   String? driverName;
   String? mobileNumber;
@@ -20,7 +20,7 @@ class DriveracceptModeluser {
   num? totalPrice;
   String? vehicleNumber;
   String? vehicleTypeName;
-  num? toatlDistance;
+  num? totalDistance;
 
   DriveracceptModeluser({
     this.id,
@@ -32,7 +32,7 @@ class DriveracceptModeluser {
     this.totalPrice,
     this.vehicleNumber,
     this.vehicleTypeName,
-    this.toatlDistance,
+    this.totalDistance,
   });
 
   factory DriveracceptModeluser.fromJson(Map<String, dynamic> json) =>
@@ -46,7 +46,7 @@ class DriveracceptModeluser {
         totalPrice: json["TotalPrice"],
         vehicleNumber: json["VehicleNumber"],
         vehicleTypeName: json["VehicleTypeName"],
-        toatlDistance: json["ToatlDistance"],
+        totalDistance: json["TotalDistance"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -59,6 +59,6 @@ class DriveracceptModeluser {
         "TotalPrice": totalPrice,
         "VehicleNumber": vehicleNumber,
         "VehicleTypeName": vehicleTypeName,
-        "ToatlDistance": toatlDistance,
+        "TotalDistance": totalDistance,
       };
 }

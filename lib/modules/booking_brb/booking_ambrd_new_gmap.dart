@@ -3,8 +3,10 @@ import 'dart:math';
 
 import 'package:ambrd_appss/constants/app_theme/app_color.dart';
 import 'package:ambrd_appss/controllers/all_token_controllers/device_token_controller.dart';
+import 'package:ambrd_appss/controllers/testt.dart';
 import 'package:ambrd_appss/modules/booking_brb/booking_apbrd_map_new_controller.dart';
 import 'package:ambrd_appss/modules/booking_brb/secret_key.dart';
+import 'package:ambrd_appss/widget/circular_loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
@@ -27,6 +29,18 @@ var items = [
   'Item 3',
   'Item 4',
   'Item 5',
+];
+
+tilecolorx _tilecolorr = Get.put(tilecolorx());
+
+final List<String> _itemsss = ['Swift', 'Aura', 'Scorpio', 'Bolero', 'Nexon'];
+
+final List<String> _itemsssimage = [
+  'lib/assets/images/AMB1.png',
+  'lib/assets/images/AMB4.png',
+  'lib/assets/images/AMB3.png',
+  'lib/assets/images/AMB4.png',
+  'lib/assets/images/AMB3.png'
 ];
 
 class _MapViewState extends State<MapView> {
@@ -384,14 +398,19 @@ class _MapViewState extends State<MapView> {
               initialCameraPosition: _initialLocation,
               myLocationEnabled: true,
               myLocationButtonEnabled: true,
-              mapType: MapType.terrain,
+              mapType: MapType.normal,
               zoomGesturesEnabled: true,
               zoomControlsEnabled: false,
               polylines: Set<Polyline>.of(polylines.values),
-              onMapCreated: (GoogleMapController controller) {
+
+              ///todo: here async await in this function.............18dec 2023...
+              onMapCreated: (GoogleMapController controller) async {
                 mapController = controller;
                 newGoogleMapController = controller;
-                _getCurrentLocation();
+                // CallLoader.loader();
+                await Future.delayed(Duration(seconds: 1));
+                CallLoader.hideLoader();
+                await _getCurrentLocation();
               },
             ),
             // Positioned(
@@ -545,63 +564,186 @@ class _MapViewState extends State<MapView> {
                     //     ),
                     //   ),
                     // ),
+                    ///
+                    Container(
+                      height: size.height * 0.115,
+                      decoration: BoxDecoration(
+                          color: Colors.white60,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10))),
+                      // width: size.width,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: size.height * 0.11,
+                            child: ListView.builder(
+                              itemCount:
+                                  //4,
+                                  _itemsss.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (BuildContext context, int index) {
+                                return InkWell(
+                                  onTap: () {
+                                    //..............................
+                                    _tilecolorr.toggle(index);
 
-                    Padding(
-                      padding: EdgeInsets.all(3.0),
-                      child: TextFormField(
-                        controller: _ambulancegetController.offercontroller,
-                        //controller.emailController,
-                        obscureText: false,
-                        keyboardType: TextInputType.number,
-                        // validator: (value) {
-                        //   return _loginMobileController
-                        //       .validatePhone(value!);
-                        // },
-                        decoration: InputDecoration(
-                          //border: InputBorder.none,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                            borderSide: BorderSide(color: Colors.red, width: 1),
-                          ),
-                          contentPadding: const EdgeInsets.only(
-                              left: 14.0, bottom: 8.0, top: 13.0),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.red,
-                            ),
-                            borderRadius: BorderRadius.circular(15.7),
-                          ),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent),
-                            borderRadius: BorderRadius.circular(15.7),
-                          ),
+                                    ///...............................
 
-                          prefixIcon: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Icon(
-                              Icons.currency_rupee,
-                              color: MyTheme.ambapp1,
+                                    //................................
+                                  },
+                                  child: Obx(
+                                    () => Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: PhysicalModel(
+                                        //color: Colors.white,
+                                        shadowColor: Colors.red,
+                                        color: Colors.black,
+                                        borderRadius: BorderRadius.circular(10),
+
+                                        elevation: 5,
+                                        child: Container(
+                                          height: size.height * 0.04,
+                                          width: size.width * 0.19,
+                                          decoration: BoxDecoration(
+                                              color: _tilecolorr.selectedindex
+                                                          .value ==
+                                                      index
+                                                  ? MyTheme.ambapp5
+                                                  : MyTheme.ambapp1,
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              border: Border.all(
+                                                  color: _tilecolorr
+                                                              .selectedindex
+                                                              .value ==
+                                                          index
+                                                      ? MyTheme.ThemeColors
+                                                      : MyTheme.ambapp1,
+                                                  width: 1)),
+
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Container(
+                                                height: size.height * 0.065,
+                                                decoration: BoxDecoration(
+                                                    color: _tilecolorr
+                                                                .selectedindex
+                                                                .value ==
+                                                            index
+                                                        ? MyTheme.ambapp1
+                                                        : MyTheme.ambapp11,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    image: DecorationImage(
+                                                      image: AssetImage(
+                                                          _itemsssimage[index]),
+                                                    )),
+                                              ),
+                                              //Spacer(),
+                                              Text('${_itemsss[index]}',
+                                                  style: TextStyle(
+                                                      color: _tilecolorr
+                                                                  .selectedindex
+                                                                  .value ==
+                                                              index
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                      fontSize:
+                                                          size.height * 0.015,
+                                                      fontWeight:
+                                                          FontWeight.w600)),
+                                              Spacer(),
+                                            ],
+                                          ),
+                                          // ListTile(
+                                          //   title: Obx(() => Text('${_itemsss[index]} item',
+                                          //       style: TextStyle(
+                                          //           color: _tilecolorr.selectedindex.value == index
+                                          //               ? Colors.white
+                                          //               : Colors.black))),
+                                          //   onTap: () => _tilecolorr.toggle(index),
+                                          // ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                              // itemBuilder: (BuildContext context, int index) {
+                              //
+                              // },
                             ),
-                            // Image.asset(
-                            //   "lib/assets/images/pnone4.png",
-                            //   color: MyTheme.ambapp1,
-                            //   height: 10,
-                            //   width: 10,
-                            // ),
                           ),
-                          fillColor: MyTheme.ambapp12,
-                          filled: true,
-                          suffixIcon: null ?? const SizedBox(),
-                          hintText: "Offer Your Fare",
-                          hintStyle: GoogleFonts.poppins(
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w400,
+                          //SizedBox(height: height * 0.06),
+                          SizedBox(
+                            height: 2,
                           ),
-                          // contentPadding:
-                          //const EdgeInsets.only(top: 16.0),
-                        ),
+                        ],
                       ),
                     ),
+
+                    ///.....todo:..your offer......................
+                    // Padding(
+                    //   padding: EdgeInsets.all(3.0),
+                    //   child: TextFormField(
+                    //     controller: _ambulancegetController.offercontroller,
+                    //     //controller.emailController,
+                    //     obscureText: false,
+                    //     keyboardType: TextInputType.number,
+                    //     // validator: (value) {
+                    //     //   return _loginMobileController
+                    //     //       .validatePhone(value!);
+                    //     // },
+                    //     decoration: InputDecoration(
+                    //       //border: InputBorder.none,
+                    //       border: OutlineInputBorder(
+                    //         borderRadius: BorderRadius.circular(15.0),
+                    //         borderSide: BorderSide(color: Colors.red, width: 1),
+                    //       ),
+                    //       contentPadding: const EdgeInsets.only(
+                    //           left: 14.0, bottom: 8.0, top: 13.0),
+                    //       focusedBorder: OutlineInputBorder(
+                    //         borderSide: BorderSide(
+                    //           color: Colors.red,
+                    //         ),
+                    //         borderRadius: BorderRadius.circular(15.7),
+                    //       ),
+                    //       enabledBorder: UnderlineInputBorder(
+                    //         borderSide: BorderSide(color: Colors.transparent),
+                    //         borderRadius: BorderRadius.circular(15.7),
+                    //       ),
+                    //
+                    //       prefixIcon: Padding(
+                    //         padding: const EdgeInsets.all(8.0),
+                    //         child: Icon(
+                    //           Icons.currency_rupee,
+                    //           color: MyTheme.ambapp1,
+                    //         ),
+                    //         // Image.asset(
+                    //         //   "lib/assets/images/pnone4.png",
+                    //         //   color: MyTheme.ambapp1,
+                    //         //   height: 10,
+                    //         //   width: 10,
+                    //         // ),
+                    //       ),
+                    //       fillColor: MyTheme.ambapp12,
+                    //       filled: true,
+                    //       suffixIcon: null ?? const SizedBox(),
+                    //       hintText: "Offer Your Fare",
+                    //       hintStyle: GoogleFonts.poppins(
+                    //         fontSize: 14.0,
+                    //         fontWeight: FontWeight.w400,
+                    //       ),
+                    //       // contentPadding:
+                    //       //const EdgeInsets.only(top: 16.0),
+                    //     ),
+                    //   ),
+                    // ),
+                    ///no od passangers....
                     Padding(
                       padding: const EdgeInsets.all(3.0),
                       child: TextFormField(
@@ -717,7 +859,7 @@ class _MapViewState extends State<MapView> {
                     //       ),
                     //     ),
                     //   ),
-                    // ),
+                    // ),.
 
                     SizedBox(
                       height: size.height * 0.002,
@@ -744,7 +886,14 @@ class _MapViewState extends State<MapView> {
                             "Find Ride",
                             style: TextStyle(fontSize: 14, color: Colors.white),
                           ),
-                          onPressed: () {
+                          onPressed: () async {
+                            ///todo: new...
+                            CallLoader.loader();
+                            await Future.delayed(Duration(seconds: 1));
+                            CallLoader.hideLoader();
+                            await _getCurrentLocation();
+                            //CallLoader.loader();
+
                             _ambulancegetController
                                 .googlerequestambulance(markers);
 
@@ -838,7 +987,12 @@ class _MapViewState extends State<MapView> {
                               prefixIcon: Icon(Icons.looks_one),
                               suffixIcon: IconButton(
                                 icon: Icon(Icons.my_location),
-                                onPressed: () {
+                                onPressed: () async {
+                                  CallLoader.loader();
+                                  await Future.delayed(Duration(seconds: 1));
+                                  CallLoader.hideLoader();
+                                  await _getCurrentLocation();
+                                  await _getCurrentLocation();
                                   startAddressController.text = _currentAddress;
                                   _startAddress = _currentAddress;
                                 },
@@ -847,7 +1001,8 @@ class _MapViewState extends State<MapView> {
                               focusNode: startAddressFocusNode,
                               width: width,
                               locationCallback: (String value) {
-                                setState(() {
+                                setState(() async {
+                                  await _getCurrentLocation();
                                   _startAddress = value;
                                 });
                               }),
@@ -879,7 +1034,9 @@ class _MapViewState extends State<MapView> {
                           ElevatedButton(
                             onPressed: (_startAddress != '' &&
                                     _destinationAddress != '')
-                                ? () async {
+                                ? () {
+                                    CallLoader.loader();
+                                    //await Future.delayed(Duration(seconds: 1));
                                     startAddressFocusNode.unfocus();
                                     desrinationAddressFocusNode.unfocus();
                                     setState(() {
@@ -889,6 +1046,7 @@ class _MapViewState extends State<MapView> {
                                       if (polylineCoordinates.isNotEmpty)
                                         polylineCoordinates.clear();
                                       _placeDistance = null;
+                                      // CallLoader.hideLoader();
                                     });
 
                                     _calculateDistance().then((isCalculated) {

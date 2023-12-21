@@ -361,6 +361,7 @@ class EditProfilePage extends StatelessWidget {
                   SizedBox(
                     height: size.height * 0.03,
                   ),
+
                   Directionality(
                     textDirection: TextDirection.ltr,
                     child: Padding(

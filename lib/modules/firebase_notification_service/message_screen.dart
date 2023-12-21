@@ -317,7 +317,7 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                 style: GoogleFonts.aBeeZee(
                                                   fontSize: size.width * 0.06,
                                                   fontWeight: FontWeight.w700,
-                                                  color: MyTheme.ambapp4,
+                                                  color: MyTheme.ambapp,
                                                 ),
                                               ),
                                               Spacer(),
@@ -480,7 +480,7 @@ class _MessageScreen2State extends State<MessageScreen2> {
                                                 width: size.width * 0.01,
                                               ),
                                               Text(
-                                                "${_driverAcceptlistController.getDriveracceptDetail?.toatlDistance ?? 0} Km",
+                                                "${_driverAcceptlistController.getDriveracceptDetail?.totalDistance ?? 0} Km",
 
                                                 // "10 km.",
                                                 //'2020 Honda Clive',

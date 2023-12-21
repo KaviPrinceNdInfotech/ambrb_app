@@ -724,6 +724,186 @@ class ApiProvider {
     }
   }
 
+  ///todo: google post ambulance api on ....offer post driver by user.....,,,,,......200..
+
+  static OfferBypatientApi(
+    var OfferPrice,
+  ) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var AmbulancecatserviceId = preferences.getString("AmbulancecatserviceId");
+    print("AmbulancecatserviceId: ${AmbulancecatserviceId}");
+    //todo:...............
+    //http://admin.ambrd.in/api/PatientApi/RequestOffer
+    var url = '${baseUrl}PatientApi/RequestOffer';
+    var prefs = GetStorage();
+    userId = prefs.read("userId").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&usergoogle:${userId}');
+    var body = {
+      "VehicleType_id": "$AmbulancecatserviceId",
+      "Patient_Id": "$userId",
+      "OfferPrice": "$OfferPrice"
+    };
+    //
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    print("bvehicletypwee${AmbulancecatserviceId}");
+    print("uid33${userId}");
+    print("OfferPrice33: ${OfferPrice}");
+
+    print(r.body);
+    if (r.statusCode == 200) {
+      Get.snackbar('Successful', r.body);
+
+      ///ambulance..
+      ///
+      print("bbbbbodyza${body}");
+      print("rbodyaz${r.body}");
+      //saved id..........
+      var prefs = GetStorage();
+      prefs.write("ambulancetypeid".toString(),
+          json.decode(r.body)['AmbulanceType_id']);
+      ambulancetypeid = prefs.read("AmbulanceType_id").toString();
+      print('&userdriambulance:${ambulancetypeid}');
+
+      ///vehicle
+      prefs.write(
+          "vehicletypeid".toString(), json.decode(r.body)['VehicleType_id']);
+      vehicletypeid = prefs.read("VehicleType_id").toString();
+      print('&user33vehicleid:${vehicletypeid}');
+
+      ///driverid
+      ///userdriverid
+      // prefs.write("userdriverid".toString(),
+      //     json.decode(r.body)['Message'][1]);
+      // userdriverid = prefs.read("DriverId");
+      // print('&user33vehicleid667eee:${VehicleType_id}');
+
+      print(r.body);
+      print(r.statusCode);
+      Get.snackbar("Booking Status", 'Request Send Successfully');
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Errorgoogle', r.body);
+      return r;
+    }
+  }
+
+  ///todo: here from post request all post api......201...19dec..2023..
+  static AcceptallPostApi() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var AmbulancecatserviceId = preferences.getString("AmbulancecatserviceId");
+    print("AmbulancecatserviceId: ${AmbulancecatserviceId}");
+    var prefs = GetStorage();
+    print('&userdriambulance:${ambulancetypeid}');
+    userId = prefs.read("userId").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&usergoogle:${userId}');
+    //SharedPreferences preferences = await SharedPreferences.getInstance();
+    var startLat5 = preferences.getString("startLat5");
+    print("driverlistssId88899: ${startLat5}");
+    //lat1
+    var startLong5 = preferences.getString("startLong5");
+    print("driverlistssId88899: ${startLong5}");
+    //lat1
+    var endLat5 = preferences.getString("endLat5");
+    print("lat133: ${endLat5}");
+    //lat1
+    var endLong5 = preferences.getString("endLong5");
+    print("lng244: ${endLong5}");
+    //lat1
+
+    var url = '${baseUrl}PatientApi/RequestToAll';
+
+    var body = {
+      //"start_Lat": "$startLat5",
+      // "start_Long": "$startLong5",
+      // "end_Long": "$endLong5",
+      // "end_Lat": "$endLat5",
+      "Patient_Id": userId,
+      //"VehicleType_id": "${AmbulancecatserviceId}",
+    };
+    //
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    //print(r.body);
+    if (r.statusCode == 200) {
+      print(r.body);
+      print(r.statusCode);
+      Get.snackbar("Booking Status", 'Request Send Successfully');
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Errorgoogle', r.body);
+      return r;
+    }
+  }
+
+  ///todo: here from post request individual post api......201...19dec..2023..
+  static AcceptIndividualPostApi() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var AmbulancecatserviceId = preferences.getString("AmbulancecatserviceId");
+    print("AmbulancecatserviceId: ${AmbulancecatserviceId}");
+
+    var driverId = preferences.getString("driverId");
+    print("driverId: ${driverId}");
+    //driverId
+    var prefs = GetStorage();
+    print('&userdriambulance:${ambulancetypeid}');
+    userId = prefs.read("userId").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&usergoogle:${userId}');
+    //SharedPreferences preferences = await SharedPreferences.getInstance();
+    var startLat5 = preferences.getString("startLat5");
+    print("driverlistssId88899: ${startLat5}");
+    //lat1
+    var startLong5 = preferences.getString("startLong5");
+    print("driverlistssId88899: ${startLong5}");
+    //lat1
+    var endLat5 = preferences.getString("endLat5");
+    print("lat133: ${endLat5}");
+    //lat1
+    var endLong5 = preferences.getString("endLong5");
+    print("lng244: ${endLong5}");
+    //lat1
+
+    var url = '${baseUrl}PatientApi/BookDriver';
+
+    var body = {
+      "Driver_Id": "$driverId",
+      "Patient_Id": userId,
+      // "end_Long": "$endLong5",
+      // "end_Lat": "$endLat5",
+      // "Patient_Id": userId,
+      // "VehicleType_id": "${AmbulancecatserviceId}",
+    };
+    //
+    print(body);
+    http.Response r = await http.post(
+      Uri.parse(url), body: body,
+      //headers: headers
+    );
+    print("bodyyy: ${r.body}");
+    //print(r.body);
+    if (r.statusCode == 200) {
+      print(r.body);
+      print(r.statusCode);
+      Get.snackbar("Booking Status", 'Request Send Successfully');
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar('message', r.body);
+    } else {
+      Get.snackbar('Errorgoogle', r.body);
+      return r;
+    }
+  }
+
   ///todo: online payment ....................20
   static AmbulancepaynowOnlineApi() async {
     var url = baseUrl + 'api/DriverApi/DriverPayNow';
@@ -769,14 +949,15 @@ class ApiProvider {
     }
   }
 
-  ///todo: accepted driver list  ...user api...21
+  ///todo: accepted driver list  ambrd message screen...user api..21 ........21 dec 2023....
   static AcceptDriverDetailUserApi() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var driverlistbookingId = preferences.getString("driverlistbookingId");
     print("driverlistbookingId: ${driverlistbookingId}");
     //driverlistbookingId
+    //http://admin.ambrd.in/api/PatientApi/GetAcceptedReqDriverDetail?Id=1
     var url =
-        '${baseUrl}api/DriverApi/GetAcceptedReqDriverDetail?Id=$driverlistbookingId';
+        '${baseUrl}PatientApi/GetAcceptedReqDriverDetail?Id=$driverlistbookingId';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {

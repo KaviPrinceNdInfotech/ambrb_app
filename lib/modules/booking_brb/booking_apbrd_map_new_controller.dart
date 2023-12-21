@@ -123,7 +123,7 @@ class AmbulancegetsController extends GetxController {
       //final accountData = driverListApiFromJson(r.body);
       //print("ACCOUNT ${accountData.toJson()}");
       //await accountService.setAccountData(accountData);
-      Get.snackbar('List', "This is driver's nearby list ");
+      // Get.snackbar('List', "This is driver's nearby list ");
       var data = jsonDecode(r.body);
       //nearlistdriverApi();
 
@@ -171,6 +171,100 @@ class AmbulancegetsController extends GetxController {
       //getvehicletype(markers);
     }
   }
+
+  ///todo: request all for user to  all driver..........19 dec 2023...prince..
+  Future<void> postRequestAllApi() async {
+    //CallLoader.loader();
+    http.Response r = await ApiProvider.AcceptallPostApi();
+    if (r.statusCode == 200) {
+      //CallLoader.hideLoader();
+      print("ACCOUNT ${r.body}");
+      //Get.snackbar('Successfully', "Request send");
+
+      /// we can navigate to user page.....................................
+      //Get.offAll(UserHomePage());
+      //Driver_List_LocationId
+      //_nearambulancelistController.nearlistdriverApi();
+      //_nearambulancelistController.update();
+
+      accountService.getAccountData.then((accountData) {
+        //CallLoader.loader();
+        // nearlistdriverApi();
+
+        Timer(
+          const Duration(seconds: 05),
+          () {
+            ///Get.to(UserHomePage());
+            // nearlistdriverApi();
+            // Get.to(
+            //   Driver_List_LocationId(
+            //     driverlist: driverListApiFromJson(r.body),
+            //   ),
+            // );
+            //Get.to((MapView));
+            //postAmbulancerequestApi(markers);
+
+            ///
+          },
+        );
+        CallLoader.hideLoader();
+      });
+
+      //Get.to(Driver_List_LocationId());
+
+      //Get.offAll(() => UserHomePage());
+      // ambulancecatagaryyApi();
+      //getvehicletype(markers);
+    }
+  }
+
+  ///todo: request all for user to  individual driver..........19 dec 2023...prince..
+  Future<void> postRequestIndividualApi() async {
+    //CallLoader.loader();
+    http.Response r = await ApiProvider.AcceptIndividualPostApi();
+    if (r.statusCode == 200) {
+      //CallLoader.hideLoader();
+      print("ACCOUNT ${r.body}");
+      //Get.snackbar('Successfully', "Request send");
+
+      /// we can navigate to user page.....................................
+      //Get.offAll(UserHomePage());
+      //Driver_List_LocationId
+      //_nearambulancelistController.nearlistdriverApi();
+      //_nearambulancelistController.update();
+
+      accountService.getAccountData.then((accountData) {
+        //CallLoader.loader();
+        // nearlistdriverApi();
+
+        Timer(
+          const Duration(seconds: 05),
+          () {
+            ///Get.to(UserHomePage());
+            // nearlistdriverApi();
+            // Get.to(
+            //   Driver_List_LocationId(
+            //     driverlist: driverListApiFromJson(r.body),
+            //   ),
+            // );
+            //Get.to((MapView));
+            //postAmbulancerequestApi(markers);
+
+            ///
+          },
+        );
+        CallLoader.hideLoader();
+      });
+
+      //Get.to(Driver_List_LocationId());
+
+      //Get.offAll(() => UserHomePage());
+      // ambulancecatagaryyApi();
+      //getvehicletype(markers);
+    }
+  }
+
+  ///todo:..................google offer price...list...
 
   ///todo: google book ambulance api post Api...........2 may 2023.....
 

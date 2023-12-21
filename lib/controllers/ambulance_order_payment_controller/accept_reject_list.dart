@@ -78,7 +78,7 @@ class UseracptrejectController extends GetxController {
             // );
             //Get.to(() => CheckupSchedulePage());
             //Get.to((page))
-            ///
+            ///..........
           },
         );
       });
