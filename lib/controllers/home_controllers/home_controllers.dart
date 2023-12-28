@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:ambrd_appss/model/all_services_model.dart';
 import 'package:ambrd_appss/model/banner_model.dart';
 import 'package:ambrd_appss/model/service_dertail_model.dart';
@@ -37,10 +39,34 @@ class HomeController extends GetxController {
 
   ///todo: all services detail.....................
   Future<void> AllServicesDetailApi() async {
-    isLoading(true);
+    isLoading(false);
     serviceDetailModel = await ApiProvider.detailServicesbApi();
+    if (serviceDetailModel == null) {
+      Timer(
+        const Duration(seconds: 1),
+        () {
+          //Get.snackbar("Fail", "${medicinecheckoutModel?.data}");
+          //Get.to(() => MedicineCart());
+          //Get.to((page))
+          ///
+        },
+      );
+      isLoading(true);
+      serviceDetailModel = await ApiProvider.detailServicesbApi();
+    }
     if (serviceDetailModel != null) {
+      //Get.to(() => TotalPrice());
       isLoading(false);
+      // accountService.getAccountData.then((accountData) {
+      //   Timer(
+      //     const Duration(seconds: 1),
+      //     () {
+      //       Get.to(CheckOutMedicine());
+      //       //Get.to((page))
+      //       ///
+      //     },
+      //   );
+      // });
     } else {}
   }
 

@@ -1,7 +1,6 @@
 import 'package:ambrd_appss/constants/app_theme/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lottie/lottie.dart';
 
 class UserAboutUsView extends StatelessWidget {
   UserAboutUsView({Key? key}) : super(key: key);
@@ -48,12 +47,14 @@ class UserAboutUsView extends StatelessWidget {
                             fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
-                        height: size.height * 0.07,
-                        width: size.width * 0.25,
-                        child: Lottie.asset(
-                            // 'lib/assets/image/68816-about.zip'
-                            'assets/animation_lnk7o8on.zip'),
-                      )
+                          height: size.height * 0.09,
+                          width: size.width * 0.25,
+                          child: Image.asset(
+                              'lib/assets/images/CommonLogoAmbrd.png')
+                          // Lottie.asset(
+                          //     // 'lib/assets/image/68816-about.zip'
+                          //     'assets/animation_lnk7o8on.zip'),
+                          )
                     ],
                   ),
                   SizedBox(

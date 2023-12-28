@@ -1,3 +1,4 @@
+import 'package:ambrd_appss/constants/app_theme/app_color.dart';
 import 'package:ambrd_appss/controllers/home_controllers/home_controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,7 +15,17 @@ class ServicesDetail extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
-          title: Text("Service Details"),
+          backgroundColor: MyTheme.ambapp,
+          centerTitle: true,
+          title: Text(
+            "${_homePageController.serviceDetailModel?.serviceName}",
+            style: TextStyle(
+                fontSize: size.height * 0.02,
+                fontWeight: FontWeight.w800,
+                color: MyTheme.ambapp4),
+
+            // "Service Details"
+          ),
         ),
         body: Obx(
           () => (_homePageController.isLoading.value)
@@ -28,22 +39,25 @@ class ServicesDetail extends StatelessWidget {
                   : Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "${_homePageController.serviceDetailModel?.serviceName}",
-                            style: TextStyle(
-                              fontSize: size.height * 0.02,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.all(8.0),
+                        //   child: Text(
+                        //     "${_homePageController.serviceDetailModel?.serviceName}",
+                        //     style: TextStyle(
+                        //         fontSize: size.height * 0.02,
+                        //         fontWeight: FontWeight.w800,
+                        //         color: MyTheme.ambapp2),
+                        //   ),
+                        // ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
-                            height: size.height * 0.2,
+                            height: size.height * 0.27,
                             width: size.width,
-                            color: Colors.red,
+                            decoration: BoxDecoration(
+                                color: Colors.red,
+                                border: Border.all(
+                                    color: Colors.blueAccent, width: 2)),
                             child: Image.network(
                               '$img${_homePageController.serviceDetailModel?.image}'
                               // "https://images.unsplash.com/photo-1502740479091-635887520276?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80"

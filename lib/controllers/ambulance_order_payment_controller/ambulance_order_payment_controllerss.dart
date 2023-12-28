@@ -1,3 +1,5 @@
+import 'package:ambrd_appss/modules/botttom_nav_bar/bottom_nav_bar_controller.dart';
+import 'package:ambrd_appss/modules/botttom_nav_bar/bottom_navbar.dart';
 import 'package:ambrd_appss/services/api_provider.dart';
 import 'package:ambrd_appss/widget/circular_loader.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +10,7 @@ class AmbulanceOrderpaymentController extends GetxController {
   RxBool isLoading = true.obs;
   GlobalKey<FormState> postorderambulanceforms =
       GlobalKey(debugLabel: "postorderambulanceforms");
+  NavController _navcontroller = Get.put(NavController(), permanent: true);
 
   var Id = '';
 
@@ -20,11 +23,19 @@ class AmbulanceOrderpaymentController extends GetxController {
     if (r.statusCode == 200) {
       //Navigator.push(context, MaterialPageRoute(builder: (context)=>MainPage()));
       //Get.to(()=> LoginPage());
+      _navcontroller.tabindex(0);
+
+      Get.to(BottommNavBar());
       CallLoader.hideLoader();
       isLoading(false);
       // Get.to(() => NavBar());
       //_timeController.email = Email.text;
       //_timeController.phoneNumber = OrderNo.text;
+    } else {
+      _navcontroller.tabindex(0);
+
+      Get.to(BottommNavBar());
+      CallLoader.hideLoader();
     }
     return r.statusCode;
   }

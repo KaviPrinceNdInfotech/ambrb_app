@@ -241,24 +241,7 @@ class _DriverListByIdState extends State<DriverListById> {
                                       .then((value) async {
                                     var data = {
                                       //this the particular device id.....
-                                      'to':
-                                          // 'dGfwUGj3SHqXCbyphoJCx5:APA91bH95Ml3sUBeWocVR2zlX1gTsnaVxcdjmfV732J6npvq_itlQKGkMiWDG-ndQfFMP4E7a-E1rWeQrFoEGGAB4Jb3fKe4Ow5VQfEnyikJNOeJY2xpQ2cxQwxVIUY_4gOj-Exja5MZ',
-                                          //'caK4UmMZQ2qfntD6ojs3n-:APA91bE6hmA3i8mG2H0x4v4Sd3cyG6DyEcyL34NHj-y4L6tWzbgWqC0JvOd8H3rsGaHb7pL547UjZEQAKXG4OD1imPaUTHVFvW0zZUFG3sxYVFkrbqnJDGOF7_Zog49MpbgFdX71ukHQ',
-                                          //'dGfwUGj3SHqXCbyphoJCx5:APA91bH95Ml3sUBeWocVR2zlX1gTsnaVxcdjmfV732J6npvq_itlQKGkMiWDG-ndQfFMP4E7a-E1rWeQrFoEGGAB4Jb3fKe4Ow5VQfEnyikJNOeJY2xpQ2cxQwxVIUY_4gOj-Exja5MZ',
-
-                                          ///todo device token......
-                                          // "${widget.driverlist?.message?[0].deviceId}"
-                                          "${element.deviceId}".toString(),
-
-                                      ///
-                                      //
-                                      //'mytokeneOs6od2nTlqsaFZl8-6ckc:APA91bHzcTpftAHsg7obx0CqhrgY1dyTlSwB5fxeUiBvGtAzX_us6iT6Xp-vXA8rIURK45EehE25_uKiE5wRIUKCF-8Ck-UKir96zS-PGRrpxxOkwPPUKS4M5Em2ql1GmYPY9FVOC4FC'
-                                      //'emW_j62UQnGX04QHLSiufM:APA91bHu2uM9C7g9QEc3io7yTVMqdNpdQE3n6vNmFwcKN6z-wq5U9S7Nyl79xJzP_Z-Ve9kjGIzMf4nnaNwSrz94Rcel0-4em9C_r7LvtmCBOWzU-VyPclHXdqyBc3Nrq7JROBqUUge9'
-                                      //.toString(),
-
-                                      ///this is same device token....
-                                      //value
-                                      //.toString(),
+                                      'to': "${element.deviceId}".toString(),
                                       'notification': {
                                         'title': 'Ambrd User',
                                         'body':
@@ -277,6 +260,7 @@ class _DriverListByIdState extends State<DriverListById> {
                                     };
                                     print("data1${data}");
 
+                                    ///todo: this is the post api for firebase.............
                                     await http.post(
                                         Uri.parse(
                                             'https://fcm.googleapis.com/fcm/send'),
@@ -285,9 +269,8 @@ class _DriverListByIdState extends State<DriverListById> {
                                           'Content-Type':
                                               'application/json; charset=UTF-8',
                                           'Authorization':
-                                              //AAAAbao_0RU:APA91bHpyO-8c4J99Om_QhpWFt4H12OqtuPQaBYopza-hFkcsmIrBSYzUUmlLBwiBxprS1zih61UVRYarHFYjeppTBmIlwQZ6DQp54XTufeTKGyRyeVFHJMWHPWkPYoGe6ZvgrCr4YZK
-                                              //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
-                                              'key=AAAAbao_0RU:APA91bFNp9i75TwjvU16WgWfPltmSZS4RLdHKCXmk93D5RBLXBSmI2ArbPbd4mcSvNaN8w_A-JuERFWLHf00NkRannNN4dJBR_ok3SkDM_erMRYUUUZChujPJXJK8-MFmxtN23Vodtyv'
+                                              'key=AAAAp6CyXz4:APA91bEKZ_ArxpUWyMYnP8Do3oYrgXFVdNm2jQk-i1DjKcR8duPeccS64TohP-OAqxL57-840qWe0oeYDBAOO68-aOO2z9EWIcBbUIsXc-3kA5usYMviDYc_wK6qMsQecvAdM54xfZsO'
+                                          //'AAAAbao_0RU:APA91bFNp9i75TwjvU16WgWfPltmSZS4RLdHKCXmk93D5RBLXBSmI2ArbPbd4mcSvNaN8w_A-JuERFWLHf00NkRannNN4dJBR_ok3SkDM_erMRYUUUZChujPJXJK8-MFmxtN23Vodtyv'
                                         }).then((value) {
                                       if (kDebugMode) {
                                         print(
@@ -1389,6 +1372,9 @@ class _DriverListByIdState extends State<DriverListById> {
                                                                   await SharedPreferences
                                                                       .getInstance();
                                                               await prefs.setString(
+                                                                  "driverId",
+                                                                  "${widget.driverlist?.message?[index].driverId}");
+                                                              await prefs.setString(
                                                                   "startLat5",
                                                                   "${widget.driverlist?.startLat}");
                                                               await prefs.setString(
@@ -1439,7 +1425,6 @@ class _DriverListByIdState extends State<DriverListById> {
                                                                     // ));
                                                                     //Get.to((MapView));
                                                                     //postAmbulancerequestApi(markers);
-
                                                                     ///
                                                                   },
                                                                 );
@@ -1549,7 +1534,8 @@ class _DriverListByIdState extends State<DriverListById> {
                                                                             'application/json; charset=UTF-8',
                                                                         'Authorization':
                                                                             //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
-                                                                            'key=AAAAbao_0RU:APA91bFNp9i75TwjvU16WgWfPltmSZS4RLdHKCXmk93D5RBLXBSmI2ArbPbd4mcSvNaN8w_A-JuERFWLHf00NkRannNN4dJBR_ok3SkDM_erMRYUUUZChujPJXJK8-MFmxtN23Vodtyv'
+                                                                            'key=AAAAp6CyXz4:APA91bEKZ_ArxpUWyMYnP8Do3oYrgXFVdNm2jQk-i1DjKcR8duPeccS64TohP-OAqxL57-840qWe0oeYDBAOO68-aOO2z9EWIcBbUIsXc-3kA5usYMviDYc_wK6qMsQecvAdM54xfZsO'
+                                                                        //'AAAAbao_0RU:APA91bFNp9i75TwjvU16WgWfPltmSZS4RLdHKCXmk93D5RBLXBSmI2ArbPbd4mcSvNaN8w_A-JuERFWLHf00NkRannNN4dJBR_ok3SkDM_erMRYUUUZChujPJXJK8-MFmxtN23Vodtyv'
                                                                       }).then(
                                                                       (value) {
                                                                     if (kDebugMode) {

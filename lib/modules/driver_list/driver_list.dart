@@ -592,6 +592,7 @@ class _BookingdriverListState extends State<BookingdriverList> {
                           //   ),
                           // ),
                         ),
+
                         Padding(
                           padding: const EdgeInsets.all(3.0),
                           child: Container(
@@ -677,8 +678,7 @@ class _BookingdriverListState extends State<BookingdriverList> {
                           // ),
                         ),
 
-                        ///
-
+                        ///........................................
                         Padding(
                           padding: const EdgeInsets.all(3.0),
                           child: Container(
@@ -709,6 +709,8 @@ class _BookingdriverListState extends State<BookingdriverList> {
                                     ),
                                   ),
                                 ),
+
+                                ///...........................................
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -727,6 +729,8 @@ class _BookingdriverListState extends State<BookingdriverList> {
                                     ),
                                   ],
                                 ),
+
+                                ///...............
                                 Padding(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: size.width * 0.03),
@@ -757,6 +761,8 @@ class _BookingdriverListState extends State<BookingdriverList> {
                                     ),
                                   ),
                                 ),
+
+                                ///..................................
                               ],
                             ),
                           ),

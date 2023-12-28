@@ -11,6 +11,7 @@ import 'package:ambrd_appss/model/driver_acceptlist_model/driver_acceptlist_mode
 import 'package:ambrd_appss/model/gallary_model.dart';
 import 'package:ambrd_appss/model/get_profile_details.dart';
 import 'package:ambrd_appss/model/get_wallet_model.dart';
+import 'package:ambrd_appss/model/payment_history_model.dart';
 import 'package:ambrd_appss/model/service_dertail_model.dart';
 import 'package:ambrd_appss/model/user_list_model_indriver/user_list_model_indriverrr.dart';
 import 'package:ambrd_appss/modules/firebase_notification_service/firebase_notification_servc.dart';
@@ -380,10 +381,12 @@ class ApiProvider {
   ) async {
     var url = '${baseUrl}CommonApi/AddBankDetail';
     var prefs = GetStorage();
+    AdminLogin_Id = prefs.read("AdminLogin_Id").toString();
+    print('&&&&&&&&&&&&bankadmin:${AdminLogin_Id}');
     userId = prefs.read("userId").toString();
     print('&readuserbank:${userId}');
     var body = {
-      "Login_Id": userId,
+      "Login_Id": AdminLogin_Id,
       "AccountNumber": "$AccountNumber",
       "IFSCCode": "$IFSCCode",
       "BranchName": "$BranchName",
@@ -392,6 +395,57 @@ class ApiProvider {
       "MobileNumber": "$MobileNumber"
     };
     print("ok1:${body}");
+    http.Response r = await http.post(
+      Uri.parse(url),
+      body: body,
+    );
+    print("okup:${r.body}");
+    if (r.statusCode == 200) {
+      print(r.body);
+      Get.snackbar(
+        'Success',
+        r.body,
+        duration: const Duration(seconds: 2),
+      );
+      print(r.body);
+
+      return r;
+    } else if (r.statusCode == 401) {
+      Get.snackbar(
+        'Message',
+        r.body,
+        duration: Duration(seconds: 2),
+      );
+    } else {
+      Get.snackbar('Error', r.body, duration: Duration(seconds: 2));
+      return r;
+    }
+  }
+
+  ///todo: edit bank detail...ambrb....111
+
+  static EditBankDetailApi(
+    var AccountNumber,
+    var IFSCCode,
+    var BranchName,
+    var BranchAddress,
+    var HolderName,
+    //var MobileNumber,
+  ) async {
+    var url = '${baseUrl}CommonApi/UpdateBankDetail';
+    var prefs = GetStorage();
+    userId = prefs.read("userId").toString();
+    print('&readuserbank:${userId}');
+    var body = {
+      "Login_Id": AdminLogin_Id,
+      "AccountNumber": "$AccountNumber",
+      "IFSCCode": "$IFSCCode",
+      "BranchName": "$BranchName",
+      "BranchAddress": "$BranchAddress",
+      "HolderName": "$HolderName",
+      // "MobileNumber": "$MobileNumber"
+    };
+    print("ok1edit:${body}");
     http.Response r = await http.post(
       Uri.parse(url),
       body: body,
@@ -836,7 +890,7 @@ class ApiProvider {
     if (r.statusCode == 200) {
       print(r.body);
       print(r.statusCode);
-      Get.snackbar("Booking Status", 'Request Send Successfully');
+      Get.snackbar("Booking Status", r.body);
       return r;
     } else if (r.statusCode == 401) {
       Get.snackbar('message', r.body);
@@ -889,12 +943,14 @@ class ApiProvider {
       Uri.parse(url), body: body,
       //headers: headers
     );
-    print("bodyyy: ${r.body}");
+    print("bodyyy123: ${r.body}");
     //print(r.body);
     if (r.statusCode == 200) {
+      print("bodyyy1234: ${r.body}");
+
       print(r.body);
       print(r.statusCode);
-      Get.snackbar("Booking Status", 'Request Send Successfully');
+      Get.snackbar("Booking Status", r.body);
       return r;
     } else if (r.statusCode == 401) {
       Get.snackbar('message', r.body);
@@ -906,7 +962,9 @@ class ApiProvider {
 
   ///todo: online payment ....................20
   static AmbulancepaynowOnlineApi() async {
-    var url = baseUrl + 'api/DriverApi/DriverPayNow';
+    //var url = '${baseUrl}PatientApi/DriverPayNow';
+    var url = 'http://admin.ambrd.in/api/PatientApi/DriverPayNow';
+    //http://admin.ambrd.in/api/PatientApi/DriverPayNow
     var prefs = GetStorage();
     userId = prefs.read("userId").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&usergoogle:${userId}');
@@ -919,13 +977,23 @@ class ApiProvider {
     print("drivertotalamount: ${drivertotalamount}");
     var ambulanceFee = preferences.getString("ambulanceFee");
     print("ambulanceFee: ${drivertotalamount}");
+
+    var ListpayId = preferences.getString("ListpayId");
+    print("ListpayId: ${drivertotalamount}");
     // ambulanceFee
 
     //Labfeess......
+    //    "Id":"147",
+    ///list id 147
+    ///ListpayId
+    //     "PatientId": "7",
+    //     "DriverId": "1",
+    //     "Amount": "1000"
 
     var body = {
+      "Id": "$ListpayId",
       "PatientId": userId,
-      "Driver_Id": "$driverlistssId",
+      "DriverId": "$driverlistssId",
       "Amount": "$ambulanceFee",
     };
     print("ambulanceonline444:${body}");
@@ -939,6 +1007,7 @@ class ApiProvider {
     if (r.statusCode == 200) {
 //adminId
       print("ambulanceonline:${body}");
+      Get.snackbar('Success', r.body);
 
       return r;
     } else if (r.statusCode == 401) {
@@ -989,6 +1058,29 @@ class ApiProvider {
         UserListModeldriver? userListModeldriver =
             userListModeldriverFromJson(r.body);
         return userListModeldriver;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+
+  ///todo: payment history......
+
+  /// todo driverPaymentHistory...................
+  static UserPaymentHistory() async {
+    var prefs = GetStorage();
+    userId = prefs.read("userId").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&usergoogle:${userId}');
+    var url = '${baseUrl}PatientApi/DriverBookingHistory?PatientId=$userId';
+    //176
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        //DriverAppoinmentDetailModel driverAppoinmentDetail =
+        //             driverAppoinmentDetailModelFromJson(r.body);
+        DriverPaymentHistoryModel driverPaymentHistoryModel =
+            driverPaymentHistoryModelFromJson(r.body);
+        return driverPaymentHistoryModel;
       }
     } catch (error) {
       return;

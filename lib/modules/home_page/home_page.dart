@@ -417,12 +417,18 @@ class _HomePageState extends State<HomePage> {
                                                       .getInstance();
                                               prefs.setString("ServiceId",
                                                   "${_homePageController.allServicesUser?.ourService?[index].id.toString()}");
+                                              // await _homePageController
+                                              //.AllServicesApi();
                                               await _homePageController
-                                                  .AllServicesApi();
+                                                  .AllServicesDetailApi();
                                               _homePageController.update();
                                               _homePageController.onInit();
-                                              _ambulancegetController.update();
-                                              _ambulancegetController.refresh();
+                                              //  _ambulancegetController.update();
+                                              // _ambulancegetController.refresh();
+                                              CallLoader.loader();
+                                              await Future.delayed(
+                                                  Duration(milliseconds: 200));
+                                              CallLoader.hideLoader();
                                               await Get.to(ServicesDetail());
 
                                               //_medicineListController

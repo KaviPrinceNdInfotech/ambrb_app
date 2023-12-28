@@ -6,8 +6,8 @@ import 'package:http/http.dart' as http;
 import '../../services/api_provider.dart';
 import '../../widget/circular_loader.dart';
 
-class AddbankdetailController extends GetxController {
-  final GlobalKey<FormState> AddbankdetailFormKey = GlobalKey<FormState>();
+class EditbankdetailController extends GetxController {
+  final GlobalKey<FormState> editbankdetailFormKey = GlobalKey<FormState>();
 
   TextEditingController AccountNumber = TextEditingController();
   TextEditingController IFSCCode = TextEditingController();
@@ -27,21 +27,20 @@ class AddbankdetailController extends GetxController {
   var mobileNumber = '';
   //var dateofbirth = "";
 
-  void addbankdetailApi() async {
+  void editbankdetailApi() async {
     CallLoader.loader();
-    http.Response r = await ApiProvider.AddBankDetailApi(
+    http.Response r = await ApiProvider.EditBankDetailApi(
       AccountNumber.text,
       IFSCCode.text,
       BranchName.text,
       BranchAddress.text,
       HolderName.text,
-      MobileNumber.text,
+      // MobileNumber.text,
     );
     if (r.statusCode == 200) {
       CallLoader.hideLoader();
-      Get.snackbar('Success', 'Add Bank SuccessFully');
+      Get.snackbar('Success', 'Edit Bank SuccessFully');
       //_loginMobileController.login();
-
       Get.to(() => BottommNavBar());
     }
   }
@@ -149,9 +148,9 @@ class AddbankdetailController extends GetxController {
   }
 
   void checkaddbankuser() {
-    if (AddbankdetailFormKey.currentState!.validate()) {
-      addbankdetailApi();
+    if (editbankdetailFormKey.currentState!.validate()) {
+      editbankdetailApi();
     }
-    AddbankdetailFormKey.currentState!.save();
+    editbankdetailFormKey.currentState!.save();
   }
 }

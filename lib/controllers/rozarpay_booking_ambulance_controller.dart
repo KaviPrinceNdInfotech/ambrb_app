@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:ambrd_appss/controllers/ambulance_order_payment_controller/ambulance_order_payment_controllerss.dart';
 import 'package:ambrd_appss/controllers/ambulance_order_payment_controller/driver_list_new.dart';
 import 'package:ambrd_appss/controllers/get_profile_detail_controller/get_profile_details_controller.dart';
+import 'package:ambrd_appss/modules/botttom_nav_bar/bottom_nav_bar_controller.dart';
+import 'package:ambrd_appss/modules/botttom_nav_bar/bottom_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -19,6 +21,8 @@ class RozarPayAmbulanceController extends GetxController {
 
   DriverAcceptlistController _driverAcceptlistController =
       Get.put(DriverAcceptlistController());
+
+  NavController _navcontroller = Get.put(NavController(), permanent: true);
 
   GetProfileController _userrsProfileControllers =
       Get.put(GetProfileController());
@@ -51,6 +55,9 @@ class RozarPayAmbulanceController extends GetxController {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var ambulanceFee = preferences.getString("ambulanceFee");
     print("ambulance: ${ambulanceFee}");
+    var ListpayId = preferences.getString("ambulanceFee");
+    print("ambulance: ${ambulanceFee}");
+    //ListpayId
     var options = {
       //'key': 'rzp_live_sTN4TNvGmEs3C1',
       'key': 'rzp_test_aeRns0u8gPpOUK',
@@ -116,8 +123,9 @@ class RozarPayAmbulanceController extends GetxController {
           Timer(
             const Duration(microseconds: 500),
             () {
-              // nearlistdriverApi();
-              Get.to(BottomAppBar());
+              _navcontroller.tabindex(0);
+
+              Get.to(BottommNavBar());
               // Get.to(MessageScreen(
               //   id: message.data['id'],
               // ));

@@ -1,10 +1,13 @@
+import 'package:ambrd_appss/controllers/booking_payment_history.dart';
 import 'package:ambrd_appss/controllers/edit_profile_controller/edit_profile_controllerr.dart';
 import 'package:ambrd_appss/controllers/get_profile_detail_controller/get_profile_details_controller.dart';
 import 'package:ambrd_appss/controllers/otp_correctcode_controller/otp_verification_maim_page.dart';
 import 'package:ambrd_appss/controllers/signup_controller/signup_controler.dart';
+import 'package:ambrd_appss/modules/booking_brb/map_experiments/testing_map_experiment.dart';
 import 'package:ambrd_appss/modules/botttom_nav_bar/bottom_nav_bar_controller.dart';
 import 'package:ambrd_appss/modules/drawer/page_drower/about_us.dart';
 import 'package:ambrd_appss/modules/drawer/page_drower/complain_patient.dart';
+import 'package:ambrd_appss/modules/drawer/page_drower/edit_bank.dart';
 import 'package:ambrd_appss/modules/drawer/page_drower/edit_profile.dart';
 import 'package:ambrd_appss/modules/drawer/page_drower/payment_history.dart';
 import 'package:ambrd_appss/modules/drawer/page_drower/payout_history.dart';
@@ -29,11 +32,12 @@ class MainAmbrbDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     NavController _navcontroller = Get.put(NavController(), permanent: true);
-
     SignUpController _signUpController = Get.put(SignUpController());
 
     GetProfileController _getProfileController =
         Get.put(GetProfileController());
+    DriverPaymentHistoryController _driverPaymentHistoryController =
+        Get.put(DriverPaymentHistoryController());
 
     EditprofileController _editprofile = Get.put(EditprofileController());
 
@@ -103,7 +107,10 @@ class MainAmbrbDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 // Get.back();
-                _navcontroller.tabindex(1);
+                Get.to(
+                    MapPracticeExperiment(title: 'Places Autocomplete Demo'));
+                //BookingAmb
+                /// _navcontroller.tabindex(1);
 
                 // Get.to(() => BookingAmb());
                 //Get.to(() => AllProducts());
@@ -252,6 +259,38 @@ class MainAmbrbDrawer extends StatelessWidget {
               },
             ),
 
+            ///EditbankPage
+            ///
+            ListTile(
+              //horizontalTitleGap: 2.h,
+              leading: Icon(
+                Icons.edit_note,
+                color: Colors.black,
+                size: 14,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                size: 11,
+                color: Colors.black,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              // visualDensity: VisualDensity(horizontal: 0, vertical: -1),
+              title: Text(
+                'Edit your bank',
+                //'Gift Boxes',
+                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
+              ),
+              tileColor:
+                  Get.currentRoute == '/AddbankPage' ? Colors.grey[300] : null,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.back();
+                Get.to(() => EditbankPage());
+                //Get.offNamed('/GiftBox');
+              },
+            ),
+
             /// wallet
             ListTile(
               //horizontalTitleGap: 2.h,
@@ -317,10 +356,13 @@ class MainAmbrbDrawer extends StatelessWidget {
               tileColor: Get.currentRoute == '/DriverPaymentHistory'
                   ? Colors.grey[300]
                   : null,
-              onTap: () {
+              onTap: () async {
+                await _driverPaymentHistoryController.userPaymentHistoryApi();
+                _driverPaymentHistoryController.onInit();
+                _driverPaymentHistoryController.update();
                 print(Get.currentRoute);
                 Get.back();
-                Get.to(() => DriverPaymentHistory());
+                await Get.to(() => DriverPaymentHistory());
                 //Get.offNamed('/OurStory');
               },
             ),
@@ -346,10 +388,13 @@ class MainAmbrbDrawer extends StatelessWidget {
               tileColor: Get.currentRoute == '/DriverPayoutHistory'
                   ? Colors.grey[300]
                   : null,
-              onTap: () {
+              onTap: () async {
+                await _driverPaymentHistoryController.userPaymentHistoryApi();
+                _driverPaymentHistoryController.onInit();
+                _driverPaymentHistoryController.update();
                 print(Get.currentRoute);
-                //Get.back();
-                Get.to(() => DriverPayoutHistory());
+                Get.back();
+                await Get.to(() => DriverPayoutHistory());
                 Get.offNamed('/DriverPayoutHistory');
               },
               //
