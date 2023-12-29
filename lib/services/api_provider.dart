@@ -435,6 +435,8 @@ class ApiProvider {
     var url = '${baseUrl}CommonApi/UpdateBankDetail';
     var prefs = GetStorage();
     userId = prefs.read("userId").toString();
+    AdminLogin_Id = prefs.read("AdminLogin_Id").toString();
+    print('&&&&&&&&&&&&bankadmgcgin:${AdminLogin_Id}');
     print('&readuserbank:${userId}');
     var body = {
       "Login_Id": AdminLogin_Id,

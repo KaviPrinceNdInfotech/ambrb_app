@@ -25,15 +25,15 @@ import 'package:neopop/utils/constants.dart';
 import 'package:neopop/widgets/buttons/neopop_button/neopop_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class MessageScreen2 extends StatefulWidget {
+class MessageScreen5 extends StatefulWidget {
   final String id;
-  const MessageScreen2({Key? key, required this.id}) : super(key: key);
+  const MessageScreen5({Key? key, required this.id}) : super(key: key);
 
   @override
-  State<MessageScreen2> createState() => _MessageScreen2State();
+  State<MessageScreen5> createState() => _MessageScreen5State();
 }
 
-class _MessageScreen2State extends State<MessageScreen2> {
+class _MessageScreen5State extends State<MessageScreen5> {
   //DriverPayoutController _driverPayoutController =
   // AmbulancegetController _ambulancegetController =
   //     Get.put(AmbulancegetController());

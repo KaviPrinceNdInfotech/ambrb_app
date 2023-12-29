@@ -198,7 +198,7 @@ class NotificationServices {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => MessageScreen(
+                    builder: (context) => MessageScreen3(
                           id: message.data['id'],
                         )));
             // Get.to(MessageScreen(
@@ -246,7 +246,7 @@ class NotificationServices {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => MessageScreen2(
+                    builder: (context) => MessageScreen5(
                           id: message.data['id'],
                         )));
             // Get.to(MessageScreen(
@@ -357,7 +357,7 @@ class NotificationServices {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => MessageScreen2(
+                    builder: (context) => MessageScreen5(
                           id: message.data['id'],
                         )));
             // Get.to(MessageScreen(
