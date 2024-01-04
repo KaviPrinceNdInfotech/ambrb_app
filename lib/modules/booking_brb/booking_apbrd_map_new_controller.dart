@@ -140,7 +140,7 @@ class AmbulancegetsController extends GetxController {
         // nearlistdriverApi();
 
         Timer(
-          const Duration(seconds: 2),
+          const Duration(milliseconds: 600),
           () {
             //DriverListById
             // nearlistdriverApi();
@@ -207,7 +207,7 @@ class AmbulancegetsController extends GetxController {
             ///
           },
         );
-        CallLoader.hideLoader();
+        //CallLoader.hideLoader();
       });
 
       //Get.to(Driver_List_LocationId());
@@ -253,7 +253,7 @@ class AmbulancegetsController extends GetxController {
             ///
           },
         );
-        CallLoader.hideLoader();
+        //CallLoader.hideLoader();
       });
 
       //Get.to(Driver_List_LocationId());

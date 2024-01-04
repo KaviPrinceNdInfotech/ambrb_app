@@ -2,8 +2,9 @@ import 'package:ambrd_appss/controllers/booking_payment_history.dart';
 import 'package:ambrd_appss/controllers/edit_profile_controller/edit_profile_controllerr.dart';
 import 'package:ambrd_appss/controllers/get_profile_detail_controller/get_profile_details_controller.dart';
 import 'package:ambrd_appss/controllers/otp_correctcode_controller/otp_verification_maim_page.dart';
+import 'package:ambrd_appss/controllers/periodic_function_controller.dart';
 import 'package:ambrd_appss/controllers/signup_controller/signup_controler.dart';
-import 'package:ambrd_appss/modules/booking_brb/map_experiments/testing_map_experiment.dart';
+import 'package:ambrd_appss/modules/booking_brb/map_experiments/map_exp_30dec2023.dart';
 import 'package:ambrd_appss/modules/botttom_nav_bar/bottom_nav_bar_controller.dart';
 import 'package:ambrd_appss/modules/drawer/page_drower/about_us.dart';
 import 'package:ambrd_appss/modules/drawer/page_drower/complain_patient.dart';
@@ -24,11 +25,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constants/app_theme/app_color.dart';
 
 class MainAmbrbDrawer extends StatelessWidget {
+  static String lat22 = '';
+
+  static String lng22 = '';
+
+  static String lat33 = '';
+
+  static String lng33 = '';
   @override
   Widget build(BuildContext context) {
     NavController _navcontroller = Get.put(NavController(), permanent: true);
@@ -43,6 +52,9 @@ class MainAmbrbDrawer extends StatelessWidget {
 
     OtpVerifyController _otpVerifyController = Get.put(OtpVerifyController());
 
+    PeriodicFunctionController _periodicFunctionController =
+        Get.put(PeriodicFunctionController());
+
     //GetProfileController _getProfileController = Get.put(GetProfileController());
     //WalletController _walletController = Get.put(WalletController());
     //GetProfileController _getProfileController = Get.put(GetProfileController());
@@ -54,7 +66,7 @@ class MainAmbrbDrawer extends StatelessWidget {
 
     return SafeArea(
       child: Drawer(
-        backgroundColor: Colors.white,
+        backgroundColor: MyTheme.ambapp6,
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
@@ -71,7 +83,7 @@ class MainAmbrbDrawer extends StatelessWidget {
                         child: Padding(
                           padding: EdgeInsets.all(10),
                           child: Image.asset(
-                              'lib/assets/images/CommonLogoAmbrd.png'),
+                              'lib/assets/images/ambrduserplaystore.jpg'),
                         ),
                       ),
                     ),
@@ -79,7 +91,7 @@ class MainAmbrbDrawer extends StatelessWidget {
                 ),
               ),
               decoration: BoxDecoration(
-                color: MyTheme.ambapp2,
+                color: MyTheme.ambapp12,
               ),
             ),
             ListTile(
@@ -98,23 +110,41 @@ class MainAmbrbDrawer extends StatelessWidget {
               dense: true,
               // visualDensity: VisualDensity(horizontal: 0, vertical: -4),
               title: Text(
-                'Home',
+                'Track Driver',
                 style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
               ),
               // tileColor: Get.currentRoute == '/AllProducts'
               //     ? Colors.grey[300]
               //     : Colors.transparent,
-              onTap: () {
+              onTap: () async {
                 print(Get.currentRoute);
                 // Get.back();
-                Get.to(
-                    MapPracticeExperiment(title: 'Places Autocomplete Demo'));
-                //BookingAmb
-                /// _navcontroller.tabindex(1);
+                await _periodicFunctionController.driveracceptuserDetailApi2();
+                _periodicFunctionController.onInit();
+                _periodicFunctionController.update();
 
-                // Get.to(() => BookingAmb());
-                //Get.to(() => AllProducts());
-                //Get.offNamed('/NavBar');
+                var prefs = GetStorage();
+                //saved id....admin id......
+                lat22 = prefs.read("lat22").toString();
+                print('lat22888834:${lat22}');
+                //
+                // SharedPreferences prefs = await SharedPreferences.getInstance();
+                // await prefs.setString("driverLat",
+                //     "${_periodicFunctionController.getDriveracceptDetail?.latDriver}");
+                // await prefs.setString("driverLang",
+                //     "${_periodicFunctionController.getDriveracceptDetail?.langDriver}");
+                CallLoader.loader();
+                await Future.delayed(Duration(milliseconds: 500));
+                CallLoader.hideLoader();
+                //SearchLocationScreen
+
+                /// transModel: this._translatorModel
+                await Get.to(MapPage(
+                  id: 12334,
+                ));
+                // await Get.to(MapPracticeExperiment(
+                //   title: 'map list',
+                // ));
               },
             ),
             ListTile(
@@ -142,7 +172,10 @@ class MainAmbrbDrawer extends StatelessWidget {
               onTap: () {
                 print(Get.currentRoute);
                 // Get.back();
+                //Get.to(SearchLocationScreen());
                 _navcontroller.tabindex(1);
+
+                ///SearchLocationScreen
 
                 // Get.to(() => BookingAmb());
                 //Get.to(() => AllProducts());

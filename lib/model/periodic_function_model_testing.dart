@@ -1,16 +1,16 @@
 // To parse this JSON data, do
 //
-//     final driveracceptModeluser = driveracceptModeluserFromJson(jsonString);
+//     final priodicFunctionModel = priodicFunctionModelFromJson(jsonString);
 
 import 'dart:convert';
 
-DriveracceptModeluser driveracceptModeluserFromJson(String str) =>
-    DriveracceptModeluser.fromJson(json.decode(str));
+PriodicFunctionModel priodicFunctionModelFromJson(String str) =>
+    PriodicFunctionModel.fromJson(json.decode(str));
 
-String driveracceptModeluserToJson(DriveracceptModeluser data) =>
+String priodicFunctionModelToJson(PriodicFunctionModel data) =>
     json.encode(data.toJson());
 
-class DriveracceptModeluser {
+class PriodicFunctionModel {
   int? id;
   num? driverId;
   String? driverName;
@@ -21,13 +21,8 @@ class DriveracceptModeluser {
   String? vehicleNumber;
   String? vehicleTypeName;
   num? totalDistance;
-  String? deviceId;
-  double? latDriver;
-  double? langDriver;
-  double? endLong;
-  double? endLat;
 
-  DriveracceptModeluser({
+  PriodicFunctionModel({
     this.id,
     this.driverId,
     this.driverName,
@@ -38,15 +33,10 @@ class DriveracceptModeluser {
     this.vehicleNumber,
     this.vehicleTypeName,
     this.totalDistance,
-    this.deviceId,
-    this.latDriver,
-    this.langDriver,
-    this.endLong,
-    this.endLat,
   });
 
-  factory DriveracceptModeluser.fromJson(Map<String, dynamic> json) =>
-      DriveracceptModeluser(
+  factory PriodicFunctionModel.fromJson(Map<String, dynamic> json) =>
+      PriodicFunctionModel(
         id: json["Id"],
         driverId: json["DriverId"],
         driverName: json["DriverName"],
@@ -57,11 +47,6 @@ class DriveracceptModeluser {
         vehicleNumber: json["VehicleNumber"],
         vehicleTypeName: json["VehicleTypeName"],
         totalDistance: json["TotalDistance"],
-        deviceId: json["DeviceId"],
-        latDriver: json["Lat_Driver"]?.toDouble(),
-        langDriver: json["Lang_Driver"]?.toDouble(),
-        endLong: json["end_Long"]?.toDouble(),
-        endLat: json["end_Lat"]?.toDouble(),
       );
 
   Map<String, dynamic> toJson() => {
@@ -75,10 +60,5 @@ class DriveracceptModeluser {
         "VehicleNumber": vehicleNumber,
         "VehicleTypeName": vehicleTypeName,
         "TotalDistance": totalDistance,
-        "DeviceId": deviceId,
-        "Lat_Driver": latDriver,
-        "Lang_Driver": langDriver,
-        "end_Long": endLong,
-        "end_Lat": endLat,
       };
 }

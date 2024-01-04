@@ -6,7 +6,6 @@ import 'package:ambrd_appss/modules/botttom_nav_bar/bottom_nav_bar_controller.da
 import 'package:ambrd_appss/modules/botttom_nav_bar/bottom_navbar.dart';
 import 'package:ambrd_appss/modules/login_view/login_page.dart';
 import 'package:ambrd_appss/services/acount_service_for_autologin.dart';
-import 'package:ambrd_appss/widget/circular_loader.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_ticket_provider_mixin.dart';
 import 'package:get_storage/get_storage.dart';
@@ -36,7 +35,7 @@ class SplashController extends GetxController
             await _homePageController.sliderBannerApi();
             _homePageController.onInit();
 
-            await _vehicleservicecatController.servicecatvehicleApi();
+            _vehicleservicecatController.servicecatvehicleApi();
             _vehicleservicecatController.onInit();
             _vehicleservicecatController.update();
             await Get.to(LoginScreen());
@@ -55,7 +54,7 @@ class SplashController extends GetxController
             //     .update();
 
             accountService.getAccountData.then((accountData) {
-              CallLoader.loader();
+              //CallLoader.loader();
               Timer(
                 const Duration(seconds: 3),
                 () {
@@ -72,16 +71,19 @@ class SplashController extends GetxController
               );
               //CallLoader.hideLoader();
             });
-            await _navController.tabindex(0);
-            await Get.to(BottommNavBar());
 
             await _homePageController.AllServicesApi();
             await _homePageController.sliderBannerApi();
             _homePageController.onInit();
-
-            await _vehicleservicecatController.servicecatvehicleApi();
+            _vehicleservicecatController.servicecatvehicleApi();
             _vehicleservicecatController.onInit();
             _vehicleservicecatController.update();
+            // CallLoader.loader();
+            // await Future.delayed(Duration(milliseconds: 1000));
+            // CallLoader.hideLoader();
+            await _navController.tabindex(0);
+
+            await Get.to(BottommNavBar());
 
             // switch (accountData.role) {
             //   case 'patient':

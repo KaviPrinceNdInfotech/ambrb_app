@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:ambrd_appss/constants/app_theme/app_color.dart';
 import 'package:ambrd_appss/controllers/ambulance_order_payment_controller/ambulance_order_payment_controllerss.dart';
 import 'package:ambrd_appss/controllers/ambulance_order_payment_controller/driver_list_new.dart';
+import 'package:ambrd_appss/controllers/periodic_function_controller.dart';
 import 'package:ambrd_appss/controllers/rozarpay_booking_ambulance_controller.dart';
 import 'package:ambrd_appss/controllers/wallet_controllers/wallet_controllers.dart';
 import 'package:ambrd_appss/modules/botttom_nav_bar/bottom_nav_bar_controller.dart';
@@ -19,11 +21,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 import 'package:neopop/utils/color_utils.dart';
 import 'package:neopop/utils/constants.dart';
 import 'package:neopop/widgets/buttons/neopop_button/neopop_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../driver_list/driver_offer_listss.dart';
 
 class MessageScreen5 extends StatefulWidget {
   final String id;
@@ -40,6 +47,9 @@ class _MessageScreen5State extends State<MessageScreen5> {
   NotificationServices notificationServices = NotificationServices();
   DriverAcceptlistController _driverAcceptlistController =
       Get.put(DriverAcceptlistController());
+
+  PeriodicFunctionController _periodicFunctionController =
+      Get.put(PeriodicFunctionController());
 
   NavController _navcontroller = Get.put(NavController(), permanent: true);
 
@@ -362,71 +372,81 @@ class _MessageScreen5State extends State<MessageScreen5> {
                                                 ),
 
                                                 ///
-                                                child: Container(
-                                                  height: size.height * 0.12,
-                                                  width: size.width * 0.18,
-                                                  decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                        color: Colors.black38),
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                  child: ClipRect(
-                                                    child: CachedNetworkImage(
-                                                      imageUrl: base +
-                                                          '${_driverAcceptlistController.getDriveracceptDetail?.driverImage}',
-                                                      //'https://pbs.twimg.com/profile_images/945853318273761280/0U40alJG_400x400.jpg',
-                                                      imageBuilder: (context,
-                                                              imageProvider) =>
-                                                          Container(
-                                                        width: 80.0,
-                                                        height: 80.0,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          shape:
-                                                              BoxShape.circle,
-                                                          image: DecorationImage(
-                                                              image:
-                                                                  imageProvider,
-                                                              fit:
-                                                                  BoxFit.cover),
-                                                        ),
-                                                      ),
-                                                      placeholder: (context,
-                                                              url) =>
-                                                          CircularProgressIndicator(),
-                                                      errorWidget: (context,
-                                                              url, error) =>
-                                                          Icon(Icons.error),
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    // MapUtils.openMap(
+                                                    //     47.628293260721,
+                                                    //     -122.34263420105);
+
+                                                    ///todo:.........................................uuuuuu.....google map application open.......
+                                                  },
+                                                  child: Container(
+                                                    height: size.height * 0.12,
+                                                    width: size.width * 0.18,
+                                                    decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                          color:
+                                                              Colors.black38),
+                                                      shape: BoxShape.circle,
                                                     ),
-                                                    // CachedNetworkImage(
-                                                    //   imageUrl: base +
-                                                    //       "${_driverAcceptlistController.getDriveracceptDetail?.driverImage.toString()}",
-                                                    //   fit: BoxFit.fill,
-                                                    //   placeholder: (context, url) =>
-                                                    //       Container(
-                                                    //           height: size.height *
-                                                    //               0.17,
-                                                    //           width:
-                                                    //               size.width * 0.36,
-                                                    //
-                                                    //           //width: 4.w,
-                                                    //           child: Center(
-                                                    //             child: Image.asset(
-                                                    //               "lib/assets/icons/drdriver.png",
-                                                    //               fit: BoxFit.fill,
-                                                    //               height:
-                                                    //                   size.height *
-                                                    //                       0.17,
-                                                    //             ),
-                                                    //             //CircularProgressIndicator()
-                                                    //           )),
-                                                    //   errorWidget:
-                                                    //       (context, url, error) =>
-                                                    //           Icon(
-                                                    //     Icons.error,
-                                                    //     color: Colors.red,
-                                                    //   ),
-                                                    // ),
+                                                    child: ClipRect(
+                                                      child: CachedNetworkImage(
+                                                        imageUrl: base +
+                                                            '${_driverAcceptlistController.getDriveracceptDetail?.driverImage}',
+                                                        //'https://pbs.twimg.com/profile_images/945853318273761280/0U40alJG_400x400.jpg',
+                                                        imageBuilder: (context,
+                                                                imageProvider) =>
+                                                            Container(
+                                                          width: 80.0,
+                                                          height: 80.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            shape:
+                                                                BoxShape.circle,
+                                                            image: DecorationImage(
+                                                                image:
+                                                                    imageProvider,
+                                                                fit: BoxFit
+                                                                    .cover),
+                                                          ),
+                                                        ),
+                                                        placeholder: (context,
+                                                                url) =>
+                                                            CircularProgressIndicator(),
+                                                        errorWidget: (context,
+                                                                url, error) =>
+                                                            Icon(Icons.error),
+                                                      ),
+                                                      // CachedNetworkImage(
+                                                      //   imageUrl: base +
+                                                      //       "${_driverAcceptlistController.getDriveracceptDetail?.driverImage.toString()}",
+                                                      //   fit: BoxFit.fill,
+                                                      //   placeholder: (context, url) =>
+                                                      //       Container(
+                                                      //           height: size.height *
+                                                      //               0.17,
+                                                      //           width:
+                                                      //               size.width * 0.36,
+                                                      //
+                                                      //           //width: 4.w,
+                                                      //           child: Center(
+                                                      //             child: Image.asset(
+                                                      //               "lib/assets/icons/drdriver.png",
+                                                      //               fit: BoxFit.fill,
+                                                      //               height:
+                                                      //                   size.height *
+                                                      //                       0.17,
+                                                      //             ),
+                                                      //             //CircularProgressIndicator()
+                                                      //           )),
+                                                      //   errorWidget:
+                                                      //       (context, url, error) =>
+                                                      //           Icon(
+                                                      //     Icons.error,
+                                                      //     color: Colors.red,
+                                                      //   ),
+                                                      // ),
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -798,6 +818,158 @@ class _MessageScreen5State extends State<MessageScreen5> {
                                                                   "Payment Success",
                                                                   "Your booking confirmed");
 
+                                                              ///todo: start notification.....
+                                                              try {
+                                                                notificationServices
+                                                                    .getDeviceToken()
+                                                                    .then(
+                                                                        (value) async {
+                                                                  var data = {
+                                                                    //this the particular device id.....
+                                                                    'to':
+                                                                        // 'dGfwUGj3SHqXCbyphoJCx5:APA91bH95Ml3sUBeWocVR2zlX1gTsnaVxcdjmfV732J6npvq_itlQKGkMiWDG-ndQfFMP4E7a-E1rWeQrFoEGGAB4Jb3fKe4Ow5VQfEnyikJNOeJY2xpQ2cxQwxVIUY_4gOj-Exja5MZ',
+                                                                        //'caK4UmMZQ2qfntD6ojs3n-:APA91bE6hmA3i8mG2H0x4v4Sd3cyG6DyEcyL34NHj-y4L6tWzbgWqC0JvOd8H3rsGaHb7pL547UjZEQAKXG4OD1imPaUTHVFvW0zZUFG3sxYVFkrbqnJDGOF7_Zog49MpbgFdX71ukHQ',
+                                                                        //'dGfwUGj3SHqXCbyphoJCx5:APA91bH95Ml3sUBeWocVR2zlX1gTsnaVxcdjmfV732J6npvq_itlQKGkMiWDG-ndQfFMP4E7a-E1rWeQrFoEGGAB4Jb3fKe4Ow5VQfEnyikJNOeJY2xpQ2cxQwxVIUY_4gOj-Exja5MZ',
+
+                                                                        ///todo device token......
+                                                                        "${_driverAcceptlistController.getDriveracceptDetail?.deviceId}"
+                                                                            .toString(),
+
+                                                                    ///
+                                                                    //
+                                                                    //'mytokeneOs6od2nTlqsaFZl8-6ckc:APA91bHzcTpftAHsg7obx0CqhrgY1dyTlSwB5fxeUiBvGtAzX_us6iT6Xp-vXA8rIURK45EehE25_uKiE5wRIUKCF-8Ck-UKir96zS-PGRrpxxOkwPPUKS4M5Em2ql1GmYPY9FVOC4FC'
+                                                                    //'emW_j62UQnGX04QHLSiufM:APA91bHu2uM9C7g9QEc3io7yTVMqdNpdQE3n6vNmFwcKN6z-wq5U9S7Nyl79xJzP_Z-Ve9kjGIzMf4nnaNwSrz94Rcel0-4em9C_r7LvtmCBOWzU-VyPclHXdqyBc3Nrq7JROBqUUge9'
+                                                                    //.toString(),
+
+                                                                    ///this is same device token....
+                                                                    //value
+                                                                    //.toString(),
+                                                                    'notification':
+                                                                        {
+                                                                      'title':
+                                                                          'Ambrd User',
+                                                                      'body':
+                                                                          'Your payment done  by user',
+                                                                      //"sound": "jetsons_doorbell.mp3"
+                                                                    },
+                                                                    'android': {
+                                                                      'notification':
+                                                                          {
+                                                                        'notification_count':
+                                                                            23,
+                                                                      },
+                                                                    },
+                                                                    'data': {
+                                                                      'type':
+                                                                          'payment_case',
+                                                                      'id':
+                                                                          '1233'
+                                                                    }
+                                                                  };
+
+                                                                  print(
+                                                                      "data3${data}");
+
+                                                                  await http.post(
+                                                                      Uri.parse(
+                                                                          'https://fcm.googleapis.com/fcm/send'),
+                                                                      body: jsonEncode(
+                                                                          data),
+                                                                      headers: {
+                                                                        'Content-Type':
+                                                                            'application/json; charset=UTF-8',
+                                                                        'Authorization':
+                                                                            //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
+                                                                            'key=AAAAp6CyXz4:APA91bEKZ_ArxpUWyMYnP8Do3oYrgXFVdNm2jQk-i1DjKcR8duPeccS64TohP-OAqxL57-840qWe0oeYDBAOO68-aOO2z9EWIcBbUIsXc-3kA5usYMviDYc_wK6qMsQecvAdM54xfZsO'
+                                                                        //'AAAAbao_0RU:APA91bFNp9i75TwjvU16WgWfPltmSZS4RLdHKCXmk93D5RBLXBSmI2ArbPbd4mcSvNaN8w_A-JuERFWLHf00NkRannNN4dJBR_ok3SkDM_erMRYUUUZChujPJXJK8-MFmxtN23Vodtyv'
+                                                                      }).then(
+                                                                      (value) {
+                                                                    if (kDebugMode) {
+                                                                      print(
+                                                                          "bookdriver${value.body.toString()}");
+                                                                    }
+                                                                  }).onError((error,
+                                                                      stackTrace) {
+                                                                    if (kDebugMode) {
+                                                                      print(
+                                                                          error);
+                                                                    }
+                                                                  });
+
+                                                                  ///todo: from here custom from backend start...
+                                                                  var prefs =
+                                                                      GetStorage();
+
+                                                                  ///todo: from here custom from backend start...
+                                                                  // PatientRegNo =
+                                                                  // prefs.read("PatientRegNo").toString();
+
+                                                                  AdminLogin_Id = prefs
+                                                                      .read(
+                                                                          "AdminLogin_Id")
+                                                                      .toString();
+                                                                  PatientRegNo = prefs
+                                                                      .read(
+                                                                          "PatientRegNo")
+                                                                      .toString();
+                                                                  print(
+                                                                      '&&&&&&&&&&&&&&&&&&&&&&usecredentials:${PatientRegNo}');
+                                                                  var body = {
+                                                                    "AdminLoginId":
+                                                                        "${AdminLogin_Id}",
+                                                                    "DeviceId":
+                                                                        value
+                                                                            .toString(),
+                                                                  };
+                                                                  print(
+                                                                      "uqdtt${body}");
+                                                                  http.Response
+                                                                      r =
+                                                                      await http
+                                                                          .post(
+                                                                    Uri.parse(
+                                                                        'http://admin.ambrd.in/api/CommonApi/UpdateDeviceId'),
+                                                                    body: body,
+                                                                  );
+
+                                                                  print(r.body);
+                                                                  if (r.statusCode ==
+                                                                      200) {
+                                                                    print(
+                                                                        "usesxssxedd99999${body}");
+                                                                    return r;
+                                                                  } else if (r
+                                                                          .statusCode ==
+                                                                      401) {
+                                                                    Get.snackbar(
+                                                                        'message',
+                                                                        r.body);
+                                                                  } else {
+                                                                    Get.snackbar(
+                                                                        'Error',
+                                                                        r.body);
+                                                                    return r;
+                                                                  }
+
+                                                                  ///todo end post api from backend..
+                                                                  ///
+                                                                  ///call message 2 screen....from book driver....21 july..
+
+                                                                  _driverAcceptlistController
+                                                                      .update();
+                                                                  accountService
+                                                                      .getAccountData
+                                                                      .then(
+                                                                          (accountData) {});
+                                                                });
+                                                              } catch (e, s) {
+                                                                print(s);
+                                                              }
+
+                                                              ///todo: end notificattion....
+                                                              ///
+                                                              //
+
                                                               ///_navcontroller.tabindex(0);
                                                               //
                                                               //       Get.to(BottommNavBar());
@@ -811,8 +983,6 @@ class _MessageScreen5State extends State<MessageScreen5> {
                                                                   .driveracceptuserDetailApi();
                                                               _driverAcceptlistController
                                                                   .update();
-                                                              _driverAcceptlistController
-                                                                  .onInit();
 
                                                               _driverAcceptlistController
                                                                   .refresh();
@@ -833,35 +1003,13 @@ class _MessageScreen5State extends State<MessageScreen5> {
 
                                                                     await Get.to(
                                                                         BottommNavBar());
-                                                                    // nearlistdriverApi();
-
-                                                                    ///await Get.to(
-                                                                    ///BottomAppBar());
-                                                                    // Get.to(MessageScreen(
-                                                                    //   id: message.data['id'],
-                                                                    // ));
-                                                                    //Get.to((MapView));
-                                                                    //postAmbulancerequestApi(markers);
-
-                                                                    ///
                                                                   },
                                                                 );
                                                                 CallLoader
                                                                     .hideLoader();
                                                               });
 
-                                                              ///
-                                                              //
-                                                              // Get.to(
-                                                              //   () =>
-                                                              //       UserHomePage(), //next page class
-                                                              //   duration: Duration(
-                                                              //       milliseconds:
-                                                              //           500), //duration of transitions, default 1 sec
-                                                              //   transition:
-                                                              //       Transition
-                                                              //           .zoom,
-                                                              // );
+                                                              ///todo: from here notification service........
 
                                                               ///This is the main thing to provide updated list history...
 
@@ -1163,3 +1311,20 @@ class _MessageScreen5State extends State<MessageScreen5> {
 //     );
 //   }
 // }
+
+///todo:here google map function.......
+class MapUtils {
+  MapUtils._();
+  static Future<void> openMap(
+    double latitude,
+    double longitude,
+  ) async {
+    String googleMapUrl =
+        "https://www.google.com/maps/search/?api=1&query=$latitude,$longitude";
+    if (await canLaunch(googleMapUrl)) {
+      await launch(googleMapUrl);
+    } else {
+      throw 'Could not open the map';
+    }
+  }
+}

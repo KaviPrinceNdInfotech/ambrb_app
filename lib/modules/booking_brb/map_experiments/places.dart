@@ -40,7 +40,6 @@ class PlaceApiProvider {
   PlaceApiProvider(this.sessionToken);
 
   final sessionToken;
-
   static final String androidKey = 'AIzaSyBrbWFXlOYpaq51wteSyFS2UjdMPOWBlQw';
   static final String iosKey = 'AIzaSyBrbWFXlOYpaq51wteSyFS2UjdMPOWBlQw';
   final apiKey = Platform.isAndroid ? androidKey : iosKey;
@@ -71,7 +70,6 @@ class PlaceApiProvider {
     String request =
         'https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&fields=address_component&key=$apiKey&sessiontoken=$sessionToken';
     final response = await client.get(Uri.parse(request));
-
     if (response.statusCode == 200) {
       final result = json.decode(response.body);
       if (result['status'] == 'OK') {

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:ambrd_appss/controllers/ambulance_order_payment_controller/accept_reject_list.dart';
 import 'package:ambrd_appss/controllers/ambulance_order_payment_controller/driver_list_new.dart';
+import 'package:ambrd_appss/modules/booking_brb/map_experiments/map_exp_30dec2023.dart';
 import 'package:ambrd_appss/modules/firebase_notification_service/message2.dart';
 import 'package:ambrd_appss/modules/firebase_notification_service/message_screen.dart';
 import 'package:ambrd_appss/services/acount_service_for_autologin.dart';
@@ -267,6 +268,53 @@ class NotificationServices {
       //         builder: (context) => MessageScreen(
       //               id: message.data['id'],
       //             )));
+    }
+
+    ///todo: ..............
+    else if (message.data['type'] == 'comingride_case') {
+      print("dataridecoming${message.data['id']}");
+      await Future.delayed(Duration(milliseconds: 200));
+      _driverAcceptlistController.driveracceptuserDetailApi();
+      _driverAcceptlistController.update();
+      accountService.getAccountData.then((accountData) {
+        Timer(
+          const Duration(milliseconds: 600),
+          () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MapPage(
+                          id: message.data['id'],
+                        )));
+            //postAmbulancerequestApi(markers);
+
+            ///
+          },
+        );
+        CallLoader.hideLoader();
+      });
+    } else if (message.data['type'] == 'payment_case') {
+      print("datauserpayment${message.data['id']}");
+      await Future.delayed(Duration(milliseconds: 200));
+      _driverAcceptlistController.driveracceptuserDetailApi();
+      _driverAcceptlistController.update();
+      accountService.getAccountData.then((accountData) {
+        Timer(
+          const Duration(milliseconds: 600),
+          () {
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) => OngoingRideTracking(
+            //               id: message.data['id'],
+            //             )));
+            //postAmbulancerequestApi(markers);
+
+            ///
+          },
+        );
+        CallLoader.hideLoader();
+      });
     } else if (message.data['type'] == 'reject_case') {
       print("reject${message.data['id']}");
     } else if (message.data['type'] == 'cancel_case_doctor') {

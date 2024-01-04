@@ -12,6 +12,7 @@ import 'package:ambrd_appss/model/gallary_model.dart';
 import 'package:ambrd_appss/model/get_profile_details.dart';
 import 'package:ambrd_appss/model/get_wallet_model.dart';
 import 'package:ambrd_appss/model/payment_history_model.dart';
+import 'package:ambrd_appss/model/periodic_function_model_testing.dart';
 import 'package:ambrd_appss/model/service_dertail_model.dart';
 import 'package:ambrd_appss/model/user_list_model_indriver/user_list_model_indriverrr.dart';
 import 'package:ambrd_appss/modules/firebase_notification_service/firebase_notification_servc.dart';
@@ -58,6 +59,14 @@ class ApiProvider {
   static String lat2 = '';
 
   static String lng2 = '';
+
+  static String lat22 = '';
+
+  static String lng22 = '';
+
+  static String lat33 = '';
+
+  static String lng33 = '';
 
   static String vehicletypeid = '';
 
@@ -1035,9 +1044,38 @@ class ApiProvider {
         print("ambulanceonlinerrreeeww:${r.body}");
         print("ambulanceonlinerrreeeww:${url}");
 
+        var prefs = GetStorage();
+        //saved id....admin id......
+        prefs.write("lat22".toString(), json.decode(r.body)['Lat_Driver']);
+        lat22 = prefs.read("lat22").toString();
+        print('lat228888:${lat22}');
         DriveracceptModeluser driveracceptuserDetail =
             driveracceptModeluserFromJson(r.body);
         return driveracceptuserDetail;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+
+  ///todo: accepted driver list  ambrd message screen testing periodic function...user api..21 ........21 dec 2023....
+  static AcceptDriverDetailUserApi2() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var driverlistbookingId = preferences.getString("driverlistbookingId");
+    print("driverlistbookingId: ${driverlistbookingId}");
+    //driverlistbookingId
+    //http://admin.ambrd.in/api/PatientApi/GetAcceptedReqDriverDetail?Id=1
+    var url =
+        '${baseUrl}PatientApi/GetAcceptedReqDriverDetail?Id=$driverlistbookingId';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        print("ambulanceonlinerrreeeww:${r.body}");
+        print("ambulanceonlinerrreeeww:${url}");
+
+        PriodicFunctionModel driveracceptuserDetail2 =
+            priodicFunctionModelFromJson(r.body);
+        return driveracceptuserDetail2;
       }
     } catch (error) {
       return;

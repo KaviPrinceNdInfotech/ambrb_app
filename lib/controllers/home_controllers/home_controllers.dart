@@ -21,9 +21,15 @@ class HomeController extends GetxController {
   Future<void> sliderBannerApi() async {
     isLoading(true);
     getsliderbaner = await ApiProvider.getbannerGetApi();
-    if (getsliderbaner?.banner != null
-        //getsliderbaner!.bannerImageList!.isNotEmpty
-        ) {
+    if (getsliderbaner?.banner == null) {
+      Timer(
+        const Duration(seconds: 1),
+        () {},
+      );
+      isLoading(true);
+      getsliderbaner = await ApiProvider.getbannerGetApi();
+    }
+    if (getsliderbaner?.banner != null) {
       isLoading(false);
     } else {}
   }
@@ -32,6 +38,19 @@ class HomeController extends GetxController {
   Future<void> AllServicesApi() async {
     isLoading(true);
     allServicesUser = await ApiProvider.allServicesApi();
+    if (allServicesUser == null) {
+      Timer(
+        const Duration(seconds: 1),
+        () {
+          //Get.snackbar("Fail", "${medicinecheckoutModel?.data}");
+          //Get.to(() => MedicineCart());
+          //Get.to((page))
+          ///
+        },
+      );
+      isLoading(true);
+      allServicesUser = await ApiProvider.allServicesApi();
+    }
     if (allServicesUser != null) {
       isLoading(false);
     } else {}
@@ -39,7 +58,7 @@ class HomeController extends GetxController {
 
   ///todo: all services detail.....................
   Future<void> AllServicesDetailApi() async {
-    isLoading(false);
+    isLoading(true);
     serviceDetailModel = await ApiProvider.detailServicesbApi();
     if (serviceDetailModel == null) {
       Timer(

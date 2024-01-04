@@ -6,17 +6,20 @@ import 'package:get/get.dart';
 
 Timer? timer;
 
-class DriverAcceptlistController extends GetxController {
+class PeriodicFunctionController extends GetxController {
   RxBool isLoading = true.obs;
   //List<DriverProfileDetailModel>? getDriverProfileDetail;
   DriveracceptModeluser? getDriveracceptDetail;
-  //PriodicFunctionModel? getDriveracceptDetail2;
 
-  Future<void> driveracceptuserDetailApi() async {
+  ///PriodicFunctionModel? getDriveracceptDetail2;
+
+  Future<void> driveracceptuserDetailApi2() async {
     isLoading(true);
 
     getDriveracceptDetail = await ApiProvider.AcceptDriverDetailUserApi();
     if (getDriveracceptDetail?.driverName == null) {
+      print("ambucedriver:${getDriveracceptDetail?.driverName}");
+
       Timer(
         const Duration(seconds: 1),
         () {
@@ -27,9 +30,11 @@ class DriverAcceptlistController extends GetxController {
         },
       );
       isLoading(false);
-      getDriveracceptDetail = await ApiProvider.AcceptDriverDetailUserApi2();
+      getDriveracceptDetail = await ApiProvider.AcceptDriverDetailUserApi();
     }
     if (getDriveracceptDetail?.driverName != null) {
+      print("ambucedriver:${getDriveracceptDetail?.driverName}");
+
       //Get.to(() => TotalPrice());
       isLoading(false);
       // accountService.getAccountData.then((accountData) {
@@ -81,10 +86,16 @@ class DriverAcceptlistController extends GetxController {
 
   @override
   void onInit() {
-    driveracceptuserDetailApi();
+    ///driveracceptuserDetailApi();
     super.onInit();
     // timer = Timer.periodic(
-    //     Duration(seconds: 10), (Timer t) => driveracceptuserDetailApi2());
+    //   Duration(seconds: 30),
+    //   (Timer t) => driveracceptuserDetailApi2(),
+    // );
+    Timer.periodic(
+      Duration(seconds: 20),
+      (Timer t) => driveracceptuserDetailApi2(),
+    );
   }
 
   @override

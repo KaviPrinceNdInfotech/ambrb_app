@@ -6,9 +6,10 @@ import 'package:ambrd_appss/controllers/ambulance_order_payment_controller/drive
 import 'package:ambrd_appss/controllers/booking_vehicle_controller_common/user_offer_controller.dart';
 import 'package:ambrd_appss/model/driver_list_by_post_book_ambulance_api_model/driver_list_by_post_model.dart';
 import 'package:ambrd_appss/modules/booking_brb/booking_apbrd_map_new_controller.dart';
+import 'package:ambrd_appss/modules/botttom_nav_bar/bottom_nav_bar_controller.dart';
+import 'package:ambrd_appss/modules/botttom_nav_bar/bottom_navbar.dart';
 import 'package:ambrd_appss/modules/firebase_notification_service/firebase_notification_servc.dart';
 import 'package:ambrd_appss/modules/firebase_notification_service/local_notifications.dart';
-import 'package:ambrd_appss/modules/firebase_notification_service/message_screen.dart';
 import 'package:ambrd_appss/services/acount_service_for_autologin.dart';
 import 'package:ambrd_appss/widget/circular_loader.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -146,6 +147,8 @@ class _DriverListByIdState extends State<DriverListById> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
+    NavController _navcontroller = Get.put(NavController(), permanent: true);
+
     ///for each loop......przactice.........
     List<String> driverlist = ['weqweqeqeqqddqdq', 'dsdwdwd'];
 
@@ -174,12 +177,12 @@ class _DriverListByIdState extends State<DriverListById> {
                           top: size.height * 0.007,
                           //bottom: size.height * 0.64,
                           //left: -30,
-                          left: -size.width * 0.024,
+                          left: -size.width * -0.00,
                           child: Padding(
                             padding: const EdgeInsets.all(12.0),
                             child: Container(
                               height: size.height * 0.15,
-                              width: size.width * 0.3,
+                              width: size.width * 0.4,
                               decoration: BoxDecoration(
                                   //color: Colors.,
                                   borderRadius: BorderRadius.only(
@@ -187,17 +190,17 @@ class _DriverListByIdState extends State<DriverListById> {
                                   ),
                                   image: DecorationImage(
                                       image: AssetImage(
-                                        'lib/assets/images/AMB4.png',
+                                        'lib/assets/images/AMB3new.png',
                                       ),
                                       fit: BoxFit.cover)),
                             ),
                           ),
                         ),
                         Positioned(
-                          top: size.height * 0.09,
+                          top: size.height * 0.012,
                           //bottom: size.height * 0.64,
                           //left: -30,
-                          right: size.width * 0.024,
+                          right: size.width * 0.028,
                           child: Container(
                             height: size.height * 0.05,
                             width: size.width * 0.3,
@@ -230,11 +233,11 @@ class _DriverListByIdState extends State<DriverListById> {
                                 //widget.driverlist?.
                                 widget.driverlist?.message
                                     ?.forEach((element) async {
-                                  ///....start...this is not neswssary i thik i am removing....11 dec 2023
+                                  ///....start...post request all
                                   await _ambulancegetController
                                       .postRequestAllApi();
 
-                                  ///..end.....this is not neswssary i thik i am removing....11 dec 2023
+                                  ///..end.....post request all
                                   print('princee notification');
                                   notificationServices
                                       .getDeviceToken()
@@ -305,6 +308,13 @@ class _DriverListByIdState extends State<DriverListById> {
 
                                     print(r.body);
                                     if (r.statusCode == 200) {
+                                      ///todo: bottom nav bar......start..
+                                      _navcontroller.tabindex(0);
+
+                                      Get.to(BottommNavBar());
+
+                                      ///todo: bottom nav bar......end...
+
                                       print("userrrtokenupdateeedd111${body}");
                                       return r;
                                     } else if (r.statusCode == 401) {
@@ -512,45 +522,45 @@ class _DriverListByIdState extends State<DriverListById> {
                                     child: Padding(
                                       padding:
                                           EdgeInsets.only(top: 4, right: 0),
-                                      child: InkWell(
-                                        onTap: () async {
-                                          _driverAcceptlistController
-                                              .driveracceptuserDetailApi();
-                                          _driverAcceptlistController.update();
-                                          accountService.getAccountData
-                                              .then((accountData) {
-                                            // CallLoader.loader();
-                                            // nearlistdriverApi();
-
-                                            Timer(
-                                              const Duration(microseconds: 300),
-                                              () {
-                                                // nearlistdriverApi();
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            MessageScreen5(
-                                                              id: "12345678",
-                                                            )));
-                                                // Get.to(MessageScreen(
-                                                //   id: message.data['id'],
-                                                // ));
-                                                //Get.to((MapView));
-                                                //postAmbulancerequestApi(markers);
-
-                                                ///
-                                              },
-                                            );
-                                            CallLoader.hideLoader();
-                                          });
-                                        },
-                                        child: Icon(
-                                          Icons.notifications_active_rounded,
-                                          size: size.height * 0.04,
-                                          color: MyTheme.ambapp2,
-                                        ),
-                                      ),
+                                      // child: InkWell(
+                                      //   onTap: () async {
+                                      //     _driverAcceptlistController
+                                      //         .driveracceptuserDetailApi();
+                                      //     _driverAcceptlistController.update();
+                                      //     accountService.getAccountData
+                                      //         .then((accountData) {
+                                      //       // CallLoader.loader();
+                                      //       // nearlistdriverApi();
+                                      //
+                                      //       Timer(
+                                      //         const Duration(microseconds: 300),
+                                      //         () {
+                                      //           // nearlistdriverApi();
+                                      //           Navigator.push(
+                                      //               context,
+                                      //               MaterialPageRoute(
+                                      //                   builder: (context) =>
+                                      //                       MessageScreen5(
+                                      //                         id: "12345678",
+                                      //                       )));
+                                      //           // Get.to(MessageScreen(
+                                      //           //   id: message.data['id'],
+                                      //           // ));
+                                      //           //Get.to((MapView));
+                                      //           //postAmbulancerequestApi(markers);
+                                      //
+                                      //           ///
+                                      //         },
+                                      //       );
+                                      //       CallLoader.hideLoader();
+                                      //     });
+                                      //   },
+                                      //   child: Icon(
+                                      //     Icons.notifications_active_rounded,
+                                      //     size: size.height * 0.04,
+                                      //     color: MyTheme.ambapp2,
+                                      //   ),
+                                      // ),
                                     ),
                                   ),
                                 ],
@@ -1411,7 +1421,7 @@ class _DriverListByIdState extends State<DriverListById> {
                                                                 Timer(
                                                                   const Duration(
                                                                       milliseconds:
-                                                                          900),
+                                                                          500),
                                                                   () {
                                                                     // nearlistdriverApi();
                                                                     // Navigator.push(
@@ -1589,6 +1599,16 @@ class _DriverListByIdState extends State<DriverListById> {
                                                                   print(r.body);
                                                                   if (r.statusCode ==
                                                                       200) {
+                                                                    ///todo: bottom nav bar......start..
+                                                                    //
+                                                                    _navcontroller
+                                                                        .tabindex(
+                                                                            0);
+
+                                                                    Get.to(
+                                                                        BottommNavBar());
+
+                                                                    ///todo: bottom nav bar......end...
                                                                     print(
                                                                         "usesxssxedd99999${body}");
                                                                     return r;
@@ -1619,38 +1639,13 @@ class _DriverListByIdState extends State<DriverListById> {
                                                                   accountService
                                                                       .getAccountData
                                                                       .then(
-                                                                          (accountData) {
-                                                                    // CallLoader.loader();
-                                                                    // nearlistdriverApi();
-
-                                                                    // Timer(
-                                                                    //   const Duration(
-                                                                    //       seconds:
-                                                                    //           2),
-                                                                    //   () {
-                                                                    //     // nearlistdriverApi();
-                                                                    //     Navigator.push(
-                                                                    //         context,
-                                                                    //         MaterialPageRoute(
-                                                                    //             builder: (context) => MessageScreen2(
-                                                                    //                   id: "12345678",
-                                                                    //                 )));
-                                                                    //     // Get.to(MessageScreen(
-                                                                    //     //   id: message.data['id'],
-                                                                    //     // ));
-                                                                    //     //Get.to((MapView));
-                                                                    //     //postAmbulancerequestApi(markers);
-                                                                    //
-                                                                    //     ///
-                                                                    //   },
-                                                                    // );
-                                                                    // CallLoader
-                                                                    //     .hideLoader();
-                                                                  });
+                                                                          (accountData) {});
                                                                 });
                                                               } catch (e, s) {
                                                                 print(s);
                                                               }
+
+                                                              ///todo;;
                                                             },
                                                             border: Border.all(
                                                               color: Colors

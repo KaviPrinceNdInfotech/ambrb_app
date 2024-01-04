@@ -16,6 +16,12 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        //todo:** this line for android not crasing api......
+        configurations.all{
+            resolutionStrategy{
+                force "com.google.android.gms:play-services-location:21.0.1"
+            }
+        }
     }
 }
 

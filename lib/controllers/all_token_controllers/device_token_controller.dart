@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:ambrd_appss/services/api_provider.dart';
-import 'package:ambrd_appss/widget/circular_loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -13,13 +12,13 @@ class DevicetokenController extends GetxController {
 
   ///todo: this is user token.....28..august..2023...
   void UsertokenApi() async {
-    CallLoader.loader();
+    // CallLoader.loader();
     http.Response r = await ApiProvider.UserdevicetokenApi();
 
     if (r.statusCode == 200) {
       var data = jsonDecode(r.body);
 
-      CallLoader.hideLoader();
+      // CallLoader.hideLoader();
       // _labListController.labListApi();
       // _labListController.update();
 
@@ -31,13 +30,13 @@ class DevicetokenController extends GetxController {
 
   ///todo: this  driver is device token.....28..august..2023...
   void DrivertokenApi() async {
-    CallLoader.loader();
+    //CallLoader.loader();
     http.Response r = await ApiProvider.DriverdevicetokenApi();
 
     if (r.statusCode == 200) {
       var data = jsonDecode(r.body);
 
-      CallLoader.hideLoader();
+      // CallLoader.hideLoader();
       // _labListController.labListApi();
       // _labListController.update();
 

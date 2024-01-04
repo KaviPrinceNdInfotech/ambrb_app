@@ -5,9 +5,7 @@ import 'dart:io';
 class Suggestion {
   final String placeId;
   final String description;
-
   Suggestion(this.placeId, this.description);
-
   @override
   String toString() {
     return 'Suggestion(description: $description, placeId: $placeId)';
@@ -21,8 +19,8 @@ class PlaceApiProvider {
 
   final sessionToken;
 
-  static final String androidKey = 'YOUR_API_KEY_HERE';
-  static final String iosKey = 'YOUR_API_KEY_HERE';
+  static final String androidKey = 'AIzaSyBrbWFXlOYpaq51wteSyFS2UjdMPOWBlQw';
+  static final String iosKey = 'AIzaSyBrbWFXlOYpaq51wteSyFS2UjdMPOWBlQw';
   final apiKey = Platform.isAndroid ? androidKey : iosKey;
 
   Future<List<Suggestion>> fetchSuggestions(String input, String lang) async {
@@ -30,7 +28,6 @@ class PlaceApiProvider {
         'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&types=address&language=$lang&components=country:ch&key=$apiKey&sessiontoken=$sessionToken';
     var client;
     final response = await client.get(request);
-
     if (response.statusCode == 200) {
       final result = json.decode(response.body);
       if (result['status'] == 'OK') {

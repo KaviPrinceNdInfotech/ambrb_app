@@ -1,12 +1,18 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:ambrd_appss/controllers/ambulance_order_payment_controller/ambulance_order_payment_controllerss.dart';
 import 'package:ambrd_appss/controllers/ambulance_order_payment_controller/driver_list_new.dart';
 import 'package:ambrd_appss/controllers/get_profile_detail_controller/get_profile_details_controller.dart';
 import 'package:ambrd_appss/modules/botttom_nav_bar/bottom_nav_bar_controller.dart';
 import 'package:ambrd_appss/modules/botttom_nav_bar/bottom_navbar.dart';
+import 'package:ambrd_appss/modules/driver_list/driver_offer_listss.dart';
+import 'package:ambrd_appss/services/api_provider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart' as http;
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -135,6 +141,106 @@ class RozarPayAmbulanceController extends GetxController {
               ///
             },
           );
+
+          ///todo: start notification.....
+          try {
+            notificationServices.getDeviceToken().then((value) async {
+              var data = {
+                //this the particular device id.....
+                'to':
+                    // 'dGfwUGj3SHqXCbyphoJCx5:APA91bH95Ml3sUBeWocVR2zlX1gTsnaVxcdjmfV732J6npvq_itlQKGkMiWDG-ndQfFMP4E7a-E1rWeQrFoEGGAB4Jb3fKe4Ow5VQfEnyikJNOeJY2xpQ2cxQwxVIUY_4gOj-Exja5MZ',
+                    //'caK4UmMZQ2qfntD6ojs3n-:APA91bE6hmA3i8mG2H0x4v4Sd3cyG6DyEcyL34NHj-y4L6tWzbgWqC0JvOd8H3rsGaHb7pL547UjZEQAKXG4OD1imPaUTHVFvW0zZUFG3sxYVFkrbqnJDGOF7_Zog49MpbgFdX71ukHQ',
+                    //'dGfwUGj3SHqXCbyphoJCx5:APA91bH95Ml3sUBeWocVR2zlX1gTsnaVxcdjmfV732J6npvq_itlQKGkMiWDG-ndQfFMP4E7a-E1rWeQrFoEGGAB4Jb3fKe4Ow5VQfEnyikJNOeJY2xpQ2cxQwxVIUY_4gOj-Exja5MZ',
+
+                    ///todo device token......
+                    "${_driverAcceptlistController.getDriveracceptDetail?.deviceId}"
+                        .toString(),
+
+                ///
+                //
+                //'mytokeneOs6od2nTlqsaFZl8-6ckc:APA91bHzcTpftAHsg7obx0CqhrgY1dyTlSwB5fxeUiBvGtAzX_us6iT6Xp-vXA8rIURK45EehE25_uKiE5wRIUKCF-8Ck-UKir96zS-PGRrpxxOkwPPUKS4M5Em2ql1GmYPY9FVOC4FC'
+                //'emW_j62UQnGX04QHLSiufM:APA91bHu2uM9C7g9QEc3io7yTVMqdNpdQE3n6vNmFwcKN6z-wq5U9S7Nyl79xJzP_Z-Ve9kjGIzMf4nnaNwSrz94Rcel0-4em9C_r7LvtmCBOWzU-VyPclHXdqyBc3Nrq7JROBqUUge9'
+                //.toString(),
+
+                ///this is same device token....
+                //value
+                //.toString(),
+                'notification': {
+                  'title': 'Ambrd User',
+                  'body': 'Your payment done  by user',
+                  //"sound": "jetsons_doorbell.mp3"
+                },
+                'android': {
+                  'notification': {
+                    'notification_count': 23,
+                  },
+                },
+                'data': {'type': 'payment_case', 'id': '1233'}
+              };
+
+              print("data3${data}");
+
+              await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
+                  body: jsonEncode(data),
+                  headers: {
+                    'Content-Type': 'application/json; charset=UTF-8',
+                    'Authorization':
+                        //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
+                        'key=AAAAp6CyXz4:APA91bEKZ_ArxpUWyMYnP8Do3oYrgXFVdNm2jQk-i1DjKcR8duPeccS64TohP-OAqxL57-840qWe0oeYDBAOO68-aOO2z9EWIcBbUIsXc-3kA5usYMviDYc_wK6qMsQecvAdM54xfZsO'
+                    //'AAAAbao_0RU:APA91bFNp9i75TwjvU16WgWfPltmSZS4RLdHKCXmk93D5RBLXBSmI2ArbPbd4mcSvNaN8w_A-JuERFWLHf00NkRannNN4dJBR_ok3SkDM_erMRYUUUZChujPJXJK8-MFmxtN23Vodtyv'
+                  }).then((value) {
+                if (kDebugMode) {
+                  print("bookdriver${value.body.toString()}");
+                }
+              }).onError((error, stackTrace) {
+                if (kDebugMode) {
+                  print(error);
+                }
+              });
+
+              ///todo: from here custom from backend start...
+              var prefs = GetStorage();
+
+              ///todo: from here custom from backend start...
+              // PatientRegNo =
+              // prefs.read("PatientRegNo").toString();
+
+              AdminLogin_Id = prefs.read("AdminLogin_Id").toString();
+              PatientRegNo = prefs.read("PatientRegNo").toString();
+              print('&&&&&&&&&&&&&&&&&&&&&&usecredentials:${PatientRegNo}');
+              var body = {
+                "AdminLoginId": "${AdminLogin_Id}",
+                "DeviceId": value.toString(),
+              };
+              print("uqdtt${body}");
+              http.Response r = await http.post(
+                Uri.parse('http://admin.ambrd.in/api/CommonApi/UpdateDeviceId'),
+                body: body,
+              );
+
+              print(r.body);
+              if (r.statusCode == 200) {
+                print("usesxssxedd99999${body}");
+                return r;
+              } else if (r.statusCode == 401) {
+                Get.snackbar('message', r.body);
+              } else {
+                Get.snackbar('Error', r.body);
+                return r;
+              }
+
+              ///todo end post api from backend..
+              ///
+              ///call message 2 screen....from book driver....21 july..
+
+              _driverAcceptlistController.update();
+              accountService.getAccountData.then((accountData) {});
+            });
+          } catch (e, s) {
+            print(s);
+          }
+
+          ///todo: end notificattion....
           //CallLoader.hideLoader();
         });
         //_doctorHistoryController.update();
