@@ -1,6 +1,6 @@
 //import 'package:ambrd_driver_app/constantsss/app_theme/app_color.dart';
 import 'package:ambrd_appss/constants/app_theme/app_color.dart';
-import 'package:ambrd_appss/controllers/booking_payment_history.dart';
+import 'package:ambrd_appss/controllers/user_payment_history_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,13 +8,15 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-class DriverPaymentHistory extends StatelessWidget {
-  DriverPaymentHistory({Key? key}) : super(key: key);
+class UserPaymentHistory extends StatelessWidget {
+  UserPaymentHistory({Key? key}) : super(key: key);
 
   // DriverpaymentController _driverpaymentController =
   //Get.put(DriverpaymentController());
   DriverPaymentHistoryController _driverPaymentHistoryController =
       Get.put(DriverPaymentHistoryController());
+  // DriverBookingHistoryController _driverPaymentHistoryController =
+  //     Get.put(DriverBookingHistoryController());
 
   ///.............
 
@@ -294,7 +296,7 @@ class DriverPaymentHistory extends StatelessWidget {
                                                                     ),
                                                                   ),
                                                                   Text(
-                                                                    'Vehicle No:',
+                                                                    'Mobile No:',
                                                                     style: GoogleFonts
                                                                         .poppins(
                                                                       //color: MyTheme.text1,
@@ -364,7 +366,7 @@ class DriverPaymentHistory extends StatelessWidget {
                                                                   ),
                                                                   Text(
                                                                     //'₹ 10',
-                                                                    "₹ ${item?[index].paidAmount!.toInt()}",
+                                                                    "₹ ${item?[index].amount!.toInt()}",
                                                                     style: GoogleFonts.raleway(
                                                                         color: MyTheme
                                                                             .ambapp,
@@ -390,7 +392,7 @@ class DriverPaymentHistory extends StatelessWidget {
                                                                   ),
                                                                   Text(
                                                                     // 'ewewrewrewr',
-                                                                    '${item?[index].vehicleNumber}',
+                                                                    '${item?[index].mobileNumber}',
                                                                     style: GoogleFonts.raleway(
                                                                         color: MyTheme
                                                                             .ambapp,

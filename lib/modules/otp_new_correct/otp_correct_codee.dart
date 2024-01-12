@@ -12,7 +12,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 class OtpVerification extends StatelessWidget {
   OtpVerification({Key? key}) : super(key: key);
-
   // LoginMobileController _loginMobileController = Get.find();
 
   //LoginMobileController loginMobileController = Get.find();
@@ -171,9 +170,12 @@ class OtpVerification extends StatelessWidget {
                               onSubmit: (String verificationCode) {
                                 _otpVerifyController
                                     .callOtpApi(verificationCode);
-                                _homePageController.AllServicesApi();
                                 _homePageController.sliderBannerApi();
+                                _homePageController.AllServicesApi();
                                 _homePageController.onInit();
+                                //await _homePageController.AllServicesApi();
+                                // await _homePageController.sliderBannerApi();
+                                // _homePageController.onInit();
 
                                 /* showDialog(
                                     context: context,
@@ -213,7 +215,8 @@ class OtpVerification extends StatelessWidget {
                                 'Resend',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: size.width * 0.035,
+                                  fontSize: size.width * 0.04,
+                                  color: Colors.white,
                                 ),
                               ),
                               //"Continue".text.bold.center.size(14).make()

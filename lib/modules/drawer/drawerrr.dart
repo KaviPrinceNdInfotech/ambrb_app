@@ -1,4 +1,5 @@
-import 'package:ambrd_appss/controllers/booking_payment_history.dart';
+import 'package:ambrd_appss/controllers/booking_boking_history.dart';
+import 'package:ambrd_appss/controllers/edit_bank_controller/edit_bank_detail_controller.dart';
 import 'package:ambrd_appss/controllers/edit_profile_controller/edit_profile_controllerr.dart';
 import 'package:ambrd_appss/controllers/get_profile_detail_controller/get_profile_details_controller.dart';
 import 'package:ambrd_appss/controllers/otp_correctcode_controller/otp_verification_maim_page.dart';
@@ -43,10 +44,14 @@ class MainAmbrbDrawer extends StatelessWidget {
     NavController _navcontroller = Get.put(NavController(), permanent: true);
     SignUpController _signUpController = Get.put(SignUpController());
 
+    EditbankdetailController _editbankdetailController =
+        Get.put(EditbankdetailController());
+
     GetProfileController _getProfileController =
         Get.put(GetProfileController());
-    DriverPaymentHistoryController _driverPaymentHistoryController =
-        Get.put(DriverPaymentHistoryController());
+    // await _getProfileController.getProfileApi();
+    DriverBookingHistoryController _driverPaymentHistoryController =
+        Get.put(DriverBookingHistoryController());
 
     EditprofileController _editprofile = Get.put(EditprofileController());
 
@@ -54,13 +59,6 @@ class MainAmbrbDrawer extends StatelessWidget {
 
     PeriodicFunctionController _periodicFunctionController =
         Get.put(PeriodicFunctionController());
-
-    //GetProfileController _getProfileController = Get.put(GetProfileController());
-    //WalletController _walletController = Get.put(WalletController());
-    //GetProfileController _getProfileController = Get.put(GetProfileController());
-
-    // WalletPostController _walletPostController = Get.put(WalletPostController());
-    //_walletController.walletListssApi();
 
     Size size = MediaQuery.of(context).size;
 
@@ -127,12 +125,6 @@ class MainAmbrbDrawer extends StatelessWidget {
                 //saved id....admin id......
                 lat22 = prefs.read("lat22").toString();
                 print('lat22888834:${lat22}');
-                //
-                // SharedPreferences prefs = await SharedPreferences.getInstance();
-                // await prefs.setString("driverLat",
-                //     "${_periodicFunctionController.getDriveracceptDetail?.latDriver}");
-                // await prefs.setString("driverLang",
-                //     "${_periodicFunctionController.getDriveracceptDetail?.langDriver}");
                 CallLoader.loader();
                 await Future.delayed(Duration(milliseconds: 500));
                 CallLoader.hideLoader();
@@ -142,8 +134,12 @@ class MainAmbrbDrawer extends StatelessWidget {
                 await Get.to(MapPage(
                   id: 12334,
                 ));
-                // await Get.to(MapPracticeExperiment(
-                //   title: 'map list',
+
+                ///
+                ///await Get.to(GoogleSearchPlacesApi());
+                //await
+                //Get.to(MapPracticeExperiment(
+                //title: 'map list',
                 // ));
               },
             ),
@@ -169,11 +165,14 @@ class MainAmbrbDrawer extends StatelessWidget {
               // tileColor: Get.currentRoute == '/AllProducts'
               //     ? Colors.grey[300]
               //     : Colors.transparent,
-              onTap: () {
+              onTap: () async {
                 print(Get.currentRoute);
                 // Get.back();
-                //Get.to(SearchLocationScreen());
+                ///Get.to(SearchLocationScreen());
                 _navcontroller.tabindex(1);
+
+                ///
+                //await Get.to(GoogleSearchPlacesApi());
 
                 ///SearchLocationScreen
 
@@ -211,7 +210,7 @@ class MainAmbrbDrawer extends StatelessWidget {
               onTap: () async {
                 print(Get.currentRoute);
                 //Get.back();
-                await _getProfileController.editProfileApi();
+                await _getProfileController.getProfileApi();
                 _getProfileController.update();
                 await Get.to(ProfilePagess());
 
@@ -249,12 +248,21 @@ class MainAmbrbDrawer extends StatelessWidget {
                 print(Get.currentRoute);
 
                 //Get.back();
-                await _editprofile.getStateApi();
-                _editprofile.update();
+                //await _editprofile.getStateApi();
+                //_editprofile.update();
                 //await _signUpController
                 //.getCityByStateID(stateID);
                 //_signUpController.update();
-                _editprofile.refresh();
+                // _editprofile.refresh();
+
+                await _getProfileController.getProfileApi();
+                _getProfileController.update();
+                _getProfileController.onInit();
+
+                ///todo: edit profile.......
+
+                // await _editprofile.editProfileApi2();
+                _editprofile.onInit();
 
                 //await Get.to(() => SignUpPage());
                 await Get.to(() => EditProfilePage());
@@ -293,7 +301,7 @@ class MainAmbrbDrawer extends StatelessWidget {
             ),
 
             ///EditbankPage
-            ///
+            ///.......///........///...........
             ListTile(
               //horizontalTitleGap: 2.h,
               leading: Icon(
@@ -316,10 +324,14 @@ class MainAmbrbDrawer extends StatelessWidget {
               ),
               tileColor:
                   Get.currentRoute == '/AddbankPage' ? Colors.grey[300] : null,
-              onTap: () {
-                print(Get.currentRoute);
+              onTap: () async {
+                //print(Get.currentRoute);
+
+                await _editbankdetailController.getBankProfileApi();
+                _editbankdetailController.onInit();
+                _editbankdetailController.update();
                 Get.back();
-                Get.to(() => EditbankPage());
+                await Get.to(() => EditbankPage());
                 //Get.offNamed('/GiftBox');
               },
             ),
@@ -341,7 +353,7 @@ class MainAmbrbDrawer extends StatelessWidget {
               dense: true,
               visualDensity: VisualDensity(horizontal: 0, vertical: -1),
               title: Text(
-                'Wollet',
+                'Wallet',
                 style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
               ),
               tileColor:
@@ -390,12 +402,14 @@ class MainAmbrbDrawer extends StatelessWidget {
                   ? Colors.grey[300]
                   : null,
               onTap: () async {
-                await _driverPaymentHistoryController.userPaymentHistoryApi();
+                await _driverPaymentHistoryController.userBookingHistoryApi();
                 _driverPaymentHistoryController.onInit();
+
+                ///....///.......///.....///.......///.........///.........
                 _driverPaymentHistoryController.update();
                 print(Get.currentRoute);
                 Get.back();
-                await Get.to(() => DriverPaymentHistory());
+                await Get.to(() => UserPaymentHistory());
                 //Get.offNamed('/OurStory');
               },
             ),
@@ -415,19 +429,22 @@ class MainAmbrbDrawer extends StatelessWidget {
               dense: true,
               //visualDensity: VisualDensity(horizontal: 0, vertical: -1),
               title: Text(
-                'Payout History',
+                'Booking History',
                 style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
               ),
               tileColor: Get.currentRoute == '/DriverPayoutHistory'
                   ? Colors.grey[300]
                   : null,
               onTap: () async {
-                await _driverPaymentHistoryController.userPaymentHistoryApi();
+                await _driverPaymentHistoryController.userBookingHistoryApi();
                 _driverPaymentHistoryController.onInit();
                 _driverPaymentHistoryController.update();
                 print(Get.currentRoute);
                 Get.back();
-                await Get.to(() => DriverPayoutHistory());
+
+                ///.....///..........///.....///........todo:6 jan 2023.................
+                ///.....///......///.......///......payout now booking website.........
+                await Get.to(() => UserBookingHistory());
                 Get.offNamed('/DriverPayoutHistory');
               },
               //

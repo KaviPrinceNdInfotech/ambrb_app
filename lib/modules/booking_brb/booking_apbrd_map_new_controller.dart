@@ -36,8 +36,8 @@
 //
 // ///todo from here checkout model value..............
 import 'dart:async';
-import 'dart:convert';
 
+import 'package:ambrd_appss/constants/app_theme/app_color.dart';
 import 'package:ambrd_appss/controllers/booking_vehicle_controller_common/vehicle_controller_new_comman.dart';
 import 'package:ambrd_appss/controllers/booking_vehicle_controller_common/vehicle_detail_common_controller.dart';
 import 'package:ambrd_appss/model/driver_list_by_post_book_ambulance_api_model/driver_list_by_post_model.dart';
@@ -120,27 +120,25 @@ class AmbulancegetsController extends GetxController {
     );
     if (r.statusCode == 200) {
       print("ACCOUNT ${r.body}");
-      //final accountData = driverListApiFromJson(r.body);
-      //print("ACCOUNT ${accountData.toJson()}");
-      //await accountService.setAccountData(accountData);
-      // Get.snackbar('List', "This is driver's nearby list ");
-      var data = jsonDecode(r.body);
-      //nearlistdriverApi();
-
-      CallLoader.hideLoader();
-
-      /// we can navigate to user page.....................................
-      //Get.offAll(UserHomePage());
-      //Driver_List_LocationId
-      //_nearambulancelistController.nearlistdriverApi();
-      //_nearambulancelistController.update();
+      Get.showSnackbar(
+        GetSnackBar(
+          snackPosition: SnackPosition.TOP,
+          title: 'Available Ambulance',
+          message: 'Book your Ambulance',
+          // colorText: Colors.white,
+          backgroundColor: MyTheme.ambapp1,
+          icon: const Icon(Icons.car_crash_outlined),
+          duration: const Duration(seconds: 3),
+        ),
+      );
+      //ScaffoldMessenger.of(context).showSnackBar(snackdemo);
 
       accountService.getAccountData.then((accountData) {
         // CallLoader.loader();
         // nearlistdriverApi();
 
         Timer(
-          const Duration(milliseconds: 600),
+          const Duration(milliseconds: 200),
           () {
             //DriverListById
             // nearlistdriverApi();
@@ -163,6 +161,8 @@ class AmbulancegetsController extends GetxController {
         );
         //CallLoader.hideLoader();
       });
+
+      // latiudecontroller.clear();
 
       //Get.to(Driver_List_LocationId());
 
@@ -275,12 +275,6 @@ class AmbulancegetsController extends GetxController {
       print("ACCOUNT ${r.body}");
       Get.snackbar('Successfully', "Request send");
 
-      /// we can navigate to user page.....................................
-      //Get.offAll(UserHomePage());
-      //Driver_List_LocationId
-      //_nearambulancelistController.nearlistdriverApi();
-      //_nearambulancelistController.update();
-
       accountService.getAccountData.then((accountData) {
         //CallLoader.loader();
         // nearlistdriverApi();
@@ -303,60 +297,8 @@ class AmbulancegetsController extends GetxController {
         );
         CallLoader.hideLoader();
       });
-
-      //Get.to(Driver_List_LocationId());
-
-      //Get.offAll(() => UserHomePage());
-      // ambulancecatagaryyApi();
-      //getvehicletype(markers);
     }
   }
-
-  ///todo: google book ambulance api post Api...........2 may 2023.....
-
-  // void postAmbulancerequestApi2() async {
-  //   //CallLoader.loader();
-  //   http.Response r = await ApiProvider.Googlebookambulance2Api();
-  //   if (r.statusCode == 200) {
-  //     print("ACCOUNT ${r.body}");
-  //     Get.snackbar('Successfully', "Request send");
-  //
-  //     /// we can navigate to user page.....................................
-  //     //Get.offAll(UserHomePage());
-  //     //Driver_List_LocationId
-  //     //_nearambulancelistController.nearlistdriverApi();
-  //     //_nearambulancelistController.update();
-  //
-  //     accountService.getAccountData.then((accountData) {
-  //       //CallLoader.loader();
-  //       // nearlistdriverApi();
-  //
-  //       Timer(
-  //         const Duration(seconds: 05),
-  //         () {
-  //           ///Get.to(UserHomePage());
-  //           // nearlistdriverApi();
-  //           // Get.to(
-  //           //   Driver_List_LocationId(
-  //           //     driverlist: driverListApiFromJson(r.body),
-  //           //   ),
-  //           // );
-  //           //Get.to((MapView));
-  //           //postAmbulancerequestApi(markers);
-  //
-  //           ///
-  //         },
-  //       );
-  //       CallLoader.hideLoader();
-  //     });
-  //
-  //     //Get.to(Driver_List_LocationId());
-  //
-  //     //Get.offAll(() => UserHomePage());
-  //     // ambulancecatagaryyApi();
-  //     //getvehicletype(markers);
-  //   }
-  // }
 
   late TextEditingController latiudecontroller,
       longitudecontroller,
@@ -402,34 +344,22 @@ class AmbulancegetsController extends GetxController {
     // clinicnameController.dispose();
     // mobileController.dispose();
   }
+  // int.parse(value) < 1 || int.parse(value) > 10
 
-  String? validClinicname(String value) {
+  String? validptient(String value) {
     if (value.isEmpty) {
-      return '              This field is required';
+      return 'Enter no of passengers *';
     }
-
-    return null;
-  }
-
-  String? validPhone(String value) {
-    if (value.isEmpty) {
-      return '              This field is required';
-    }
-    if (value.length != 10) {
-      return '              A valid phone number should be of 10 digits';
+    if (int.parse(value) < 2 || int.parse(value) > 4) {
+      return 'No of passengers not more then 4.';
     }
     return null;
   }
 
   void googlerequestambulance(Set<Marker> markers) {
-    postAmbulancerequestApi(markers);
-
-    //nearlistdriverApi();
-
-    //Get.to(Driver_List_LocationId());
-
-    // if (Chooseambulancevehicletypekey.currentState!.validate()) {
-    // }
-    // Chooseambulancevehicletypekey.currentState!.save();
+    if (Chooseambulancevehicletypekey.currentState!.validate()) {
+      postAmbulancerequestApi(markers);
+    }
+    Chooseambulancevehicletypekey.currentState!.save();
   }
 }

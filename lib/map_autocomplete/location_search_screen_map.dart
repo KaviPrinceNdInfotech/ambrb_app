@@ -5,6 +5,7 @@ import 'package:ambrd_appss/map_autocomplete/modelsmap/autocomplate_prediction.d
 import 'package:ambrd_appss/map_autocomplete/modelsmap/place_auto_complate_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:geocoding/geocoding.dart';
 
 class SearchLocationScreen extends StatefulWidget {
   const SearchLocationScreen({Key? key}) : super(key: key);
@@ -148,7 +149,14 @@ class _SearchLocationScreenState extends State<SearchLocationScreen> {
             child: ListView.builder(
               itemCount: placePredictions.length,
               itemBuilder: (context, index) => LocationListTile(
-                press: () {},
+                press: () async {
+                  List<Location> location = await locationFromAddress(
+                      placePredictions[index].description!);
+                  print("langoooo33${location.last.longitude}");
+                  print("latttttoo44${location.last.latitude}");
+                  var laongitudeplace = location.last.longitude;
+                  var latitudeplace = location.last.latitude;
+                },
                 location: placePredictions[index].description!,
               ),
             ),

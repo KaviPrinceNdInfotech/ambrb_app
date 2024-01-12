@@ -1,3 +1,4 @@
+import 'package:ambrd_appss/controllers/home_controllers/home_controllers.dart';
 import 'package:ambrd_appss/model/account_model_login_autologin/account_login_account_model.dart';
 import 'package:ambrd_appss/modules/otp_new_correct/otp_correct_codee.dart';
 import 'package:ambrd_appss/services/acount_service_for_autologin.dart';
@@ -12,6 +13,8 @@ import '../../widget/circular_loader.dart';
 class LoginMobileController extends GetxController {
   final getStorage = GetStorage();
   RxBool isLoading = false.obs;
+  HomeController _homePageController = Get.put(HomeController());
+
   final GlobalKey<FormState> MobileLoginFormKey =
       GlobalKey(debugLabel: "MobileLoginFormKey");
   TextEditingController MobileOrEmail = TextEditingController();
@@ -25,6 +28,13 @@ class LoginMobileController extends GetxController {
     );
 
     if (r.statusCode == 200) {
+      // CallLoader.hideLoader();
+      // _homePageController.AllServicesApi();
+      //_homePageController.sliderBannerApi();
+      //_homePageController.onInit();
+      // _homePageController.update();
+      CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 500));
       CallLoader.hideLoader();
       await Get.to(() => OtpVerification());
       print("ACCOUNT ${r.body}");

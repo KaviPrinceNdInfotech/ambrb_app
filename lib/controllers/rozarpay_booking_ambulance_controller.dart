@@ -57,7 +57,7 @@ class RozarPayAmbulanceController extends GetxController {
     super.dispose();
   }
 
-  void openCheckout() async {
+  Future<void> openCheckout() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var ambulanceFee = preferences.getString("ambulanceFee");
     print("ambulance: ${ambulanceFee}");
@@ -127,7 +127,7 @@ class RozarPayAmbulanceController extends GetxController {
           // nearlistdriverApi();
 
           Timer(
-            const Duration(microseconds: 500),
+            const Duration(microseconds: 1000),
             () {
               _navcontroller.tabindex(0);
 
@@ -148,27 +148,12 @@ class RozarPayAmbulanceController extends GetxController {
               var data = {
                 //this the particular device id.....
                 'to':
-                    // 'dGfwUGj3SHqXCbyphoJCx5:APA91bH95Ml3sUBeWocVR2zlX1gTsnaVxcdjmfV732J6npvq_itlQKGkMiWDG-ndQfFMP4E7a-E1rWeQrFoEGGAB4Jb3fKe4Ow5VQfEnyikJNOeJY2xpQ2cxQwxVIUY_4gOj-Exja5MZ',
-                    //'caK4UmMZQ2qfntD6ojs3n-:APA91bE6hmA3i8mG2H0x4v4Sd3cyG6DyEcyL34NHj-y4L6tWzbgWqC0JvOd8H3rsGaHb7pL547UjZEQAKXG4OD1imPaUTHVFvW0zZUFG3sxYVFkrbqnJDGOF7_Zog49MpbgFdX71ukHQ',
-                    //'dGfwUGj3SHqXCbyphoJCx5:APA91bH95Ml3sUBeWocVR2zlX1gTsnaVxcdjmfV732J6npvq_itlQKGkMiWDG-ndQfFMP4E7a-E1rWeQrFoEGGAB4Jb3fKe4Ow5VQfEnyikJNOeJY2xpQ2cxQwxVIUY_4gOj-Exja5MZ',
-
-                    ///todo device token......
                     "${_driverAcceptlistController.getDriveracceptDetail?.deviceId}"
                         .toString(),
 
-                ///
-                //
-                //'mytokeneOs6od2nTlqsaFZl8-6ckc:APA91bHzcTpftAHsg7obx0CqhrgY1dyTlSwB5fxeUiBvGtAzX_us6iT6Xp-vXA8rIURK45EehE25_uKiE5wRIUKCF-8Ck-UKir96zS-PGRrpxxOkwPPUKS4M5Em2ql1GmYPY9FVOC4FC'
-                //'emW_j62UQnGX04QHLSiufM:APA91bHu2uM9C7g9QEc3io7yTVMqdNpdQE3n6vNmFwcKN6z-wq5U9S7Nyl79xJzP_Z-Ve9kjGIzMf4nnaNwSrz94Rcel0-4em9C_r7LvtmCBOWzU-VyPclHXdqyBc3Nrq7JROBqUUge9'
-                //.toString(),
-
-                ///this is same device token....
-                //value
-                //.toString(),
                 'notification': {
                   'title': 'Ambrd User',
                   'body': 'Your payment done  by user',
-                  //"sound": "jetsons_doorbell.mp3"
                 },
                 'android': {
                   'notification': {

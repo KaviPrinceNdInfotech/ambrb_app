@@ -27,7 +27,7 @@ class DriverAcceptlistController extends GetxController {
         },
       );
       isLoading(false);
-      getDriveracceptDetail = await ApiProvider.AcceptDriverDetailUserApi2();
+      getDriveracceptDetail = await ApiProvider.AcceptDriverDetailUserApi();
     }
     if (getDriveracceptDetail?.driverName != null) {
       //Get.to(() => TotalPrice());

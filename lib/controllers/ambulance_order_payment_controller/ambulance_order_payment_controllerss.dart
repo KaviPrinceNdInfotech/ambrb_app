@@ -23,11 +23,12 @@ class AmbulanceOrderpaymentController extends GetxController {
     if (r.statusCode == 200) {
       //Navigator.push(context, MaterialPageRoute(builder: (context)=>MainPage()));
       //Get.to(()=> LoginPage());
-      _navcontroller.tabindex(0);
 
+      _navcontroller.tabindex(0);
       Get.to(BottommNavBar());
       CallLoader.hideLoader();
       isLoading(false);
+
       // Get.to(() => NavBar());
       //_timeController.email = Email.text;
       //_timeController.phoneNumber = OrderNo.text;
@@ -39,31 +40,6 @@ class AmbulanceOrderpaymentController extends GetxController {
     }
     return r.statusCode;
   }
-
-  ///offline doctor.....
-  // Future<int> postOrderDoctorofflineApi() async {
-  //   //isLoading(true);
-  //   CallLoader.loader();
-  //   //print(ProductName.text);
-  //   http.Response r = await ApiProvider.DoctorpaynowOfflineApi();
-  //   if (r.statusCode == 200) {
-  //     //Navigator.push(context, MaterialPageRoute(builder: (context)=>MainPage()));
-  //     //Get.to(()=> LoginPage());
-  //     CallLoader.hideLoader();
-  //     isLoading(false);
-  //     // Get.to(() => NavBar());
-  //     //_timeController.email = Email.text;
-  //     //_timeController.phoneNumber = OrderNo.text;
-  //   }
-  //   return r.statusCode;
-  // }
-  ///
-
-  //from here add member and add patient both ccontroller function ..............
-
-  // TextEditingController ProductName = TextEditingController();
-  // TextEditingController Total_Item = TextEditingController();
-  // TextEditingController Price = TextEditingController();
 
   @override
   void onInit() {

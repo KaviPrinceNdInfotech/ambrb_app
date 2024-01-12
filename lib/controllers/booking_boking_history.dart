@@ -1,17 +1,17 @@
-import 'package:ambrd_appss/model/payment_history_model.dart';
+import 'package:ambrd_appss/model/booking_history_model.dart';
 import 'package:ambrd_appss/services/api_provider.dart';
 import 'package:get/get.dart';
 //import 'package:ps_welness_new_ui/servicess_api/api_services_all_api.dart';
 
-class DriverPaymentHistoryController extends GetxController {
+class DriverBookingHistoryController extends GetxController {
   RxBool isLoading = true.obs;
   // List<DriverPaymentHistory>? getDriverPaymentHistory;
-  DriverPaymentHistoryModel? getDriverPaymentHistory;
+  DriverBookingHistoryModel? getDriverPaymentHistory;
   //DriverPaymentHistoryModel
 
-  Future<void> userPaymentHistoryApi() async {
+  Future<void> userBookingHistoryApi() async {
     isLoading(true);
-    getDriverPaymentHistory = await ApiProvider.UserPaymentHistory();
+    getDriverPaymentHistory = await ApiProvider.UserBookingHistory();
     if (getDriverPaymentHistory != null) {
       isLoading(false);
       foundpaymenthistorydriver.value = getDriverPaymentHistory!.driverDetails!;
@@ -21,7 +21,7 @@ class DriverPaymentHistoryController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    userPaymentHistoryApi();
+    userBookingHistoryApi();
   }
 
   @override

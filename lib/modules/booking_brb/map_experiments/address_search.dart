@@ -1,7 +1,6 @@
-import 'package:ambrd_appss/modules/booking_brb/map_experiments/suggessions.dart';
 import 'package:flutter/material.dart';
 
-class AddressSearch extends SearchDelegate<Suggestion> {
+class AddressSearch extends SearchDelegate<String> {
   @override
   List<Widget> buildActions(BuildContext context) {
     return [

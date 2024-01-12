@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:ambrd_appss/modules/botttom_nav_bar/bottom_nav_bar_controller.dart';
+import 'package:ambrd_appss/modules/botttom_nav_bar/bottom_navbar.dart';
 import 'package:ambrd_appss/modules/driver_lists/driver_listss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places_hoc081098/flutter_google_places_hoc081098.dart';
@@ -432,10 +433,11 @@ class _BookingAmbState extends State<BookingAmb> {
             child: Padding(
               padding: EdgeInsets.only(left: 12, top: 02),
               child: InkWell(
-                  onTap: () {
+                  onTap: () async {
                     // Get.to(BottommNavBar());
                     /// Get.back();
-                    _navcontroller.tabindex(0);
+                    await Get.to(BottommNavBar());
+                    await _navcontroller.tabindex(0);
 
                     ///............................
                     //_navController.tabindex(1);

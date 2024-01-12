@@ -18,7 +18,7 @@ class ProfilePagess extends StatelessWidget {
     return Obx(
       () => (_getProfileController.isLoading.value)
           ? Center(child: CircularProgressIndicator())
-          : _getProfileController.getProfileDetail?.patientName == null
+          : _getProfileController.getProfileDetail?.pinCode == null
               ? Center(
                   child: Text('No data'),
                 )

@@ -449,7 +449,7 @@ class _HomePageState extends State<HomePage> {
                                               // _ambulancegetController.refresh();
                                               CallLoader.loader();
                                               await Future.delayed(
-                                                  Duration(milliseconds: 200));
+                                                  Duration(milliseconds: 10));
                                               CallLoader.hideLoader();
                                               await Get.to(ServicesDetail());
 

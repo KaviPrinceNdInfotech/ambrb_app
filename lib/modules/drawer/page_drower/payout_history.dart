@@ -1,6 +1,6 @@
 ///import '../../../constantsss/app_theme/app_color.dart';
 import 'package:ambrd_appss/constants/app_theme/app_color.dart';
-import 'package:ambrd_appss/controllers/booking_payment_history.dart';
+import 'package:ambrd_appss/controllers/booking_boking_history.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,17 +8,11 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-class DriverPayoutHistory extends StatelessWidget {
-  DriverPayoutHistory({Key? key}) : super(key: key);
+class UserBookingHistory extends StatelessWidget {
+  UserBookingHistory({Key? key}) : super(key: key);
 
-  DriverPaymentHistoryController _driverPaymentHistoryController =
-      Get.put(DriverPaymentHistoryController());
-
-  //DriverPayoutController _driverPayoutController =
-  // Get.put(DriverPayoutController());
-  ///
-  // DriverPayoutHistoryController _driverPayoutHistoryController =
-  // Get.put(DriverPayoutHistoryController());
+  DriverBookingHistoryController _driverPaymentHistoryController =
+      Get.put(DriverBookingHistoryController());
   final img = 'http://admin.ambrd.in/Images/';
 
   @override
@@ -287,7 +281,7 @@ class DriverPayoutHistory extends StatelessWidget {
                                                               return Icon(
                                                                 Icons.error,
                                                                 color:
-                                                                    Colors.grey,
+                                                                    Colors.red,
                                                               );
                                                             },
 
@@ -365,11 +359,32 @@ class DriverPayoutHistory extends StatelessWidget {
                                                             SizedBox(
                                                               height:
                                                                   size.height *
-                                                                      0.02,
+                                                                      0.01,
                                                             ),
                                                             Text(
                                                               '${Date}',
 
+                                                              // 'efewfdewfew',
+                                                              //'${_driverPayoutHistoryController.foundpayoutdriver?[index].paymentDate}',
+                                                              style: GoogleFonts
+                                                                  .roboto(
+                                                                fontSize:
+                                                                    size.width *
+                                                                        0.03,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                                color:
+                                                                    Colors.grey,
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                              height:
+                                                                  size.height *
+                                                                      0.01,
+                                                            ),
+                                                            Text(
+                                                              '${item?[index].vehicleNumber}',
                                                               // 'efewfdewfew',
                                                               //'${_driverPayoutHistoryController.foundpayoutdriver?[index].paymentDate}',
                                                               style: GoogleFonts
@@ -411,7 +426,7 @@ class DriverPayoutHistory extends StatelessWidget {
                                                               ),
                                                             ),
                                                             Text(
-                                                              "Received",
+                                                              "Done",
                                                               style: TextStyle(
                                                                   color: Colors
                                                                       .green),

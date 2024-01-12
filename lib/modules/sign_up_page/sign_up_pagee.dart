@@ -691,6 +691,59 @@ class SignUpPage extends StatelessWidget {
                       ),
                     ),
                   ),
+                  SizedBox(
+                    height: size.height * 0.03,
+                  ),
+                  Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: Padding(
+                      padding: const EdgeInsets.all(0.0),
+                      child: TextFormField(
+                        //maxLines: 5,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: MyTheme.ambapp12,
+                          //fillColor: MyTheme.t1Iconcolor,
+                          hintText: 'Pin Code',
+                          contentPadding: const EdgeInsets.only(
+                              left: 14.0, bottom: 4.0, top: 16.0),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: new BorderSide(color: Colors.green),
+                            borderRadius: new BorderRadius.circular(10),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide:
+                                new BorderSide(color: Colors.transparent),
+                            borderRadius: new BorderRadius.circular(10.0),
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.red, width: 2.0),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          prefixIcon: Icon(Icons.pin),
+                          // Padding(
+                          //   padding: EdgeInsets.symmetric(
+                          //       vertical: size.height * 0.012,
+                          //       horizontal: size.width * 0.02),
+                          //   child: Image.asset(
+                          //     'lib/assets/images/home.png',
+                          //     // color: MyTheme.t1Iconcolor,
+                          //     height: 10,
+                          //     width: 10,
+                          //   ),
+                          // ),
+                        ),
+                        keyboardType: TextInputType.streetAddress,
+                        //obscureText: true,
+                        controller: _signUpController.PinCode,
+                        validator: (value) {
+                          return _signUpController.validatePin(value!);
+                        },
+                      ),
+                    ),
+                  ),
+
                   // SizedBox(
                   //   height: size.height * 0.03,
                   // ),

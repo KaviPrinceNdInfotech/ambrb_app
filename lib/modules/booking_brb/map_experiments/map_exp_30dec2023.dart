@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:ambrd_appss/constants/app_theme/app_color.dart';
-import 'package:ambrd_appss/controllers/ambulance_order_payment_controller/driver_list_new.dart';
 import 'package:ambrd_appss/controllers/periodic_function_controller.dart';
 import 'package:ambrd_appss/modules/booking_brb/map_experiments/map_exp_30dec_2023_constant.dart';
 import 'package:flutter/material.dart';
@@ -31,8 +30,8 @@ class _MapPageState extends State<MapPage> {
   PeriodicFunctionController _periodicFunctionController =
       Get.put(PeriodicFunctionController());
 
-  DriverAcceptlistController _driverAcceptlistController =
-      Get.put(DriverAcceptlistController());
+  // DriverAcceptlistController _driverAcceptlistController =
+  //     Get.put(DriverAcceptlistController());
 
   // (_periodicFunctionController.getDriveracceptDetail?.?.toDouble() ?? 00.00);
   // static LatLng _pGooglePlex = LatLng(28.5355161, 77.3910265);
@@ -76,15 +75,13 @@ class _MapPageState extends State<MapPage> {
     ///todo:driver start lat
     final driverlat =
         //(28.5355161.toDouble());
-        (_periodicFunctionController.getDriveracceptDetail?.latDriver
-                ?.toDouble() ??
+        (_periodicFunctionController.driverTrackModel?.latDriver?.toDouble() ??
             00.00);
 
     ///todo:driver start lat
     final driverlang =
         //(28.5355161.toDouble());
-        (_periodicFunctionController.getDriveracceptDetail?.langDriver
-                ?.toDouble() ??
+        (_periodicFunctionController.driverTrackModel?.langDriver?.toDouble() ??
             00.00);
 
     LatLng _pGooglePlex = LatLng(driverlat, driverlang);
@@ -92,15 +89,13 @@ class _MapPageState extends State<MapPage> {
     ///todo: end lat
     final destinationlat =
         //(28.5355161.toDouble());
-        (_periodicFunctionController.getDriveracceptDetail?.endLat
-                ?.toDouble() ??
+        (_periodicFunctionController.driverTrackModel?.endLat?.toDouble() ??
             00.00);
 
     ///todo:end lang
     final destinationlang =
         //(28.5355161.toDouble());
-        (_periodicFunctionController.getDriveracceptDetail?.endLong
-                ?.toDouble() ??
+        (_periodicFunctionController.driverTrackModel?.endLong?.toDouble() ??
             00.00);
 
     final LatLng _pApplePark = LatLng(destinationlat, destinationlang);
@@ -133,10 +128,14 @@ class _MapPageState extends State<MapPage> {
                               child: CircularProgressIndicator(),
                             )
                           : _periodicFunctionController
-                                      .getDriveracceptDetail?.latDriver ==
+                                      .driverTrackModel?.latDriver ==
                                   null
                               ? Center(
-                                  child: Text('No Data'),
+                                  child: SizedBox(
+                                      height: size.height * 0.645,
+                                      width: size.width,
+                                      child: Center(
+                                          child: Text('No Driver Available!'))),
                                 )
                               : SizedBox(
                                   height: size.height * 0.65,
@@ -241,7 +240,7 @@ class _MapPageState extends State<MapPage> {
                                         alignment: Alignment.centerLeft,
                                         child: Text(
                                           // _driverAcceptlistController
-                                          "${_driverAcceptlistController.getDriveracceptDetail?.driverName}",
+                                          "${_periodicFunctionController.driverTrackModel?.driverName ?? 0}",
                                           style: TextStyle(
                                               fontSize: size.width * 0.035,
                                               fontWeight: FontWeight.w500,
@@ -291,7 +290,7 @@ class _MapPageState extends State<MapPage> {
                                         alignment: Alignment.centerLeft,
                                         child: Text(
                                           // _driverAcceptlistController
-                                          "${_driverAcceptlistController.getDriveracceptDetail?.mobileNumber}",
+                                          "${_periodicFunctionController.driverTrackModel?.mobileNumber ?? 0}",
                                           style: TextStyle(
                                               fontSize: size.width * 0.035,
                                               fontWeight: FontWeight.w500,
@@ -341,7 +340,7 @@ class _MapPageState extends State<MapPage> {
                                         alignment: Alignment.centerLeft,
                                         child: Text(
                                           // _driverAcceptlistController
-                                          "${_driverAcceptlistController.getDriveracceptDetail?.dlNumber}",
+                                          "${_periodicFunctionController.driverTrackModel?.dlNumber ?? 0}",
                                           style: TextStyle(
                                               fontSize: size.width * 0.035,
                                               fontWeight: FontWeight.w500,
@@ -391,7 +390,7 @@ class _MapPageState extends State<MapPage> {
                                         alignment: Alignment.centerLeft,
                                         child: Text(
                                           // _driverAcceptlistController
-                                          "${_driverAcceptlistController.getDriveracceptDetail?.vehicleNumber}",
+                                          "${_periodicFunctionController.driverTrackModel?.vehicleNumber ?? 0}",
                                           style: TextStyle(
                                               fontSize: size.width * 0.035,
                                               fontWeight: FontWeight.w500,
@@ -441,7 +440,7 @@ class _MapPageState extends State<MapPage> {
                                         alignment: Alignment.centerLeft,
                                         child: Text(
                                           // _driverAcceptlistController
-                                          "${_driverAcceptlistController.getDriveracceptDetail?.totalDistance}KM",
+                                          "${_periodicFunctionController.driverTrackModel?.totalDistance ?? 0.0} Km",
                                           style: TextStyle(
                                               fontSize: size.width * 0.035,
                                               fontWeight: FontWeight.w500,
@@ -568,15 +567,13 @@ class _MapPageState extends State<MapPage> {
   Future<List<LatLng>> getPolylinePoints() async {
     final driverlat =
         //(28.5355161.toDouble());
-        (_periodicFunctionController.getDriveracceptDetail?.latDriver
-                ?.toDouble() ??
+        (_periodicFunctionController.driverTrackModel?.latDriver?.toDouble() ??
             00.00);
 
     ///todo:driver start lat
     final driverlang =
         //(28.5355161.toDouble());
-        (_periodicFunctionController.getDriveracceptDetail?.langDriver
-                ?.toDouble() ??
+        (_periodicFunctionController.driverTrackModel?.langDriver?.toDouble() ??
             00.00);
     LatLng _pGooglePlex = LatLng(driverlat, driverlang);
 
@@ -584,15 +581,13 @@ class _MapPageState extends State<MapPage> {
     ///todo: end lat
     final destinationlat =
         //(28.5355161.toDouble());
-        (_periodicFunctionController.getDriveracceptDetail?.endLat
-                ?.toDouble() ??
+        (_periodicFunctionController.driverTrackModel?.endLat?.toDouble() ??
             00.00);
 
     ///todo:end lang
     final destinationlang =
         //(28.5355161.toDouble());
-        (_periodicFunctionController.getDriveracceptDetail?.endLong
-                ?.toDouble() ??
+        (_periodicFunctionController.driverTrackModel?.endLong?.toDouble() ??
             00.00);
 
     final LatLng _pApplePark = LatLng(destinationlat, destinationlang);

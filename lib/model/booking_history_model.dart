@@ -4,21 +4,21 @@
 
 import 'dart:convert';
 
-DriverPaymentHistoryModel driverPaymentHistoryModelFromJson(String str) =>
-    DriverPaymentHistoryModel.fromJson(json.decode(str));
+DriverBookingHistoryModel driverPaymentHistoryModelFromJson(String str) =>
+    DriverBookingHistoryModel.fromJson(json.decode(str));
 
-String driverPaymentHistoryModelToJson(DriverPaymentHistoryModel data) =>
+String driverPaymentHistoryModelToJson(DriverBookingHistoryModel data) =>
     json.encode(data.toJson());
 
-class DriverPaymentHistoryModel {
+class DriverBookingHistoryModel {
   List<DriverDetail>? driverDetails;
 
-  DriverPaymentHistoryModel({
+  DriverBookingHistoryModel({
     this.driverDetails,
   });
 
-  factory DriverPaymentHistoryModel.fromJson(Map<String, dynamic> json) =>
-      DriverPaymentHistoryModel(
+  factory DriverBookingHistoryModel.fromJson(Map<String, dynamic> json) =>
+      DriverBookingHistoryModel(
         driverDetails: json["driverDetails"] == null
             ? []
             : List<DriverDetail>.from(

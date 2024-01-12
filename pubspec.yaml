@@ -74,6 +74,7 @@ dependencies:
   google_maps_webservice: ^0.0.20-nullsafety.5
   google_places_flutter: ^2.0.6
   flutter_svg: ^1.1.5
+  uuid: ^4.1.0
 
   #google_maps_flutter: ^2.1.1
   #google_maps_webservice: ^0.0.20-nullsafety.5

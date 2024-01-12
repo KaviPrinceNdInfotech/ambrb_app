@@ -21,14 +21,14 @@ class HomeController extends GetxController {
   Future<void> sliderBannerApi() async {
     isLoading(true);
     getsliderbaner = await ApiProvider.getbannerGetApi();
-    if (getsliderbaner?.banner == null) {
-      Timer(
-        const Duration(seconds: 1),
-        () {},
-      );
-      isLoading(true);
-      getsliderbaner = await ApiProvider.getbannerGetApi();
-    }
+    // if (getsliderbaner?.banner == null) {
+    //   Timer(
+    //     const Duration(seconds: 1),
+    //     () {},
+    //   );
+    //   isLoading(false);
+    //   getsliderbaner = await ApiProvider.getbannerGetApi();
+    // }
     if (getsliderbaner?.banner != null) {
       isLoading(false);
     } else {}
@@ -38,20 +38,21 @@ class HomeController extends GetxController {
   Future<void> AllServicesApi() async {
     isLoading(true);
     allServicesUser = await ApiProvider.allServicesApi();
-    if (allServicesUser == null) {
-      Timer(
-        const Duration(seconds: 1),
-        () {
-          //Get.snackbar("Fail", "${medicinecheckoutModel?.data}");
-          //Get.to(() => MedicineCart());
-          //Get.to((page))
-          ///
-        },
-      );
-      isLoading(true);
-      allServicesUser = await ApiProvider.allServicesApi();
-    }
-    if (allServicesUser != null) {
+    // if (allServicesUser == null) {
+    //   Timer(
+    //     const Duration(seconds: 1),
+    //     () {
+    //       //Get.snackbar("Fail", "${medicinecheckoutModel?.data}");
+    //       //Get.to(() => MedicineCart());
+    //       //Get.to((page))
+    //       ///
+    //     },
+    //   );
+    //   isLoading(false);
+    //   allServicesUser = await ApiProvider.allServicesApi();
+    // }/////
+    ///...............///............///.......///.......
+    if (allServicesUser?.ourService != null) {
       isLoading(false);
     } else {}
   }
@@ -60,20 +61,20 @@ class HomeController extends GetxController {
   Future<void> AllServicesDetailApi() async {
     isLoading(true);
     serviceDetailModel = await ApiProvider.detailServicesbApi();
-    if (serviceDetailModel == null) {
-      Timer(
-        const Duration(seconds: 1),
-        () {
-          //Get.snackbar("Fail", "${medicinecheckoutModel?.data}");
-          //Get.to(() => MedicineCart());
-          //Get.to((page))
-          ///
-        },
-      );
-      isLoading(true);
-      serviceDetailModel = await ApiProvider.detailServicesbApi();
-    }
-    if (serviceDetailModel != null) {
+    // if (serviceDetailModel == null) {
+    //   Timer(
+    //     const Duration(seconds: 1),
+    //     () {
+    //       //Get.snackbar("Fail", "${medicinecheckoutModel?.data}");
+    //       //Get.to(() => MedicineCart());
+    //       //Get.to((page))
+    //       ///
+    //     },
+    //   );
+    //   isLoading(true);
+    //   serviceDetailModel = await ApiProvider.detailServicesbApi();
+    // }
+    if (serviceDetailModel?.id != null) {
       //Get.to(() => TotalPrice());
       isLoading(false);
       // accountService.getAccountData.then((accountData) {

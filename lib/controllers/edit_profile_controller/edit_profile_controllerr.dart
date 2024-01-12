@@ -1,5 +1,7 @@
+import 'package:ambrd_appss/controllers/get_profile_detail_controller/get_profile_details_controller.dart';
 import 'package:ambrd_appss/model/comman_city_model/comman_city_model.dart';
 import 'package:ambrd_appss/model/comman_state_model/state_model_commen.dart';
+import 'package:ambrd_appss/model/get_profile_details.dart';
 import 'package:ambrd_appss/modules/botttom_nav_bar/bottom_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,7 +11,11 @@ import '../../services/api_provider.dart';
 import '../../widget/circular_loader.dart';
 
 class EditprofileController extends GetxController {
+  RxBool isLoading = false.obs;
+
   final GlobalKey<FormState> EditprofileFormKey = GlobalKey<FormState>();
+
+  GetProfileController _getProfileController = Get.put(GetProfileController());
 
   ///this is radio button function......
   var selectedService = ''.obs;
@@ -37,8 +43,12 @@ class EditprofileController extends GetxController {
   TextEditingController Location = TextEditingController();
   TextEditingController PinCode = TextEditingController();
 
+  //    _lastNameController.text = User.instance.last_name;
+
+  ///final String PatientName = _getProfileController.text;
+
   ///....
-  var name = '';
+  var namee = '';
   var email = '';
   //var password = '';
   var mobile = '';
@@ -65,12 +75,28 @@ class EditprofileController extends GetxController {
     print(cities);
   }
 
+  //RxBool isLoading = true.obs;
+  GetProfileDetail? getProfileDetail;
+  //crusial slider banner api............
+
+  // Future<void> editProfileApi2() async {
+  //   isLoading(true);
+  //   getProfileDetail = await ApiProvider.geProfileApi();
+  //   if (getProfileDetail!.pinCode != null) {
+  //     // onInit();
+  //     print("ookoddee43434${getProfileDetail!.pinCode}");
+  //
+  //     isLoading(false);
+  //   } else {}
+  // }
+
   void editprofileApi() async {
     // final bytes = File(selectedImagePath.value).readAsBytesSync();
     //String img64 = base64Encode(bytes);
     // print('Controolerimage64: ${img64}');
+    isLoading(false);
 
-    CallLoader.loader();
+    //CallLoader.loader();
     http.Response r = await ApiProvider.EditUserApi(
       PatientName.text,
       selectedState.value?.id.toString(),
@@ -78,12 +104,19 @@ class EditprofileController extends GetxController {
       Location.text,
       PinCode.text,
     );
+
     if (r.statusCode == 200) {
       CallLoader.hideLoader();
       Get.snackbar('Success', 'Edit profile SuccessFully');
       //_loginMobileController.login();
 
-      Get.to(() => BottommNavBar());
+      CallLoader.loader();
+      await Future.delayed(Duration(milliseconds: 1000));
+      CallLoader.hideLoader();
+
+      await Get.offAll(() => BottommNavBar());
+
+      isLoading(false);
     }
   }
 
@@ -108,12 +141,23 @@ class EditprofileController extends GetxController {
 
   @override
   void onInit() {
-    super.onInit();
-    PatientName;
-    Location;
-    PinCode;
+    ///  editProfileApi2();
+
+    ///await _loadData();
+
+    PatientName = TextEditingController(
+        text:
+            "${_getProfileController.getProfileDetail?.patientName.toString() ?? 0}");
+    //= TextEditingController(text: "${okok}");
+    //PatientName;
+    Location = TextEditingController(
+        text:
+            "${_getProfileController.getProfileDetail?.location.toString() ?? 0}");
+    PinCode = TextEditingController(
+        text: "${_getProfileController.getProfileDetail?.pinCode ?? 0}");
     StateMaster_Id;
     CityMaster_Id;
+    super.onInit();
 
     getStateApi();
     selectedState.listen((p0) {

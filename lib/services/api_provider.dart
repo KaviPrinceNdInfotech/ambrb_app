@@ -4,16 +4,18 @@ import 'package:ambrd_appss/controllers/booking_vehicle_controller_common/vehicl
 import 'package:ambrd_appss/controllers/booking_vehicle_controller_common/vehicle_detail_common_controller.dart';
 import 'package:ambrd_appss/model/all_services_model.dart';
 import 'package:ambrd_appss/model/ambulance_catagary_service_model.dart';
+import 'package:ambrd_appss/model/bank_model_get.dart';
 import 'package:ambrd_appss/model/banner_model.dart';
+import 'package:ambrd_appss/model/booking_history_model.dart';
 import 'package:ambrd_appss/model/comman_city_model/comman_city_model.dart';
 import 'package:ambrd_appss/model/comman_state_model/state_model_commen.dart';
 import 'package:ambrd_appss/model/driver_acceptlist_model/driver_acceptlist_model.dart';
 import 'package:ambrd_appss/model/gallary_model.dart';
 import 'package:ambrd_appss/model/get_profile_details.dart';
 import 'package:ambrd_appss/model/get_wallet_model.dart';
-import 'package:ambrd_appss/model/payment_history_model.dart';
-import 'package:ambrd_appss/model/periodic_function_model_testing.dart';
+import 'package:ambrd_appss/model/payment_history_modelview.dart';
 import 'package:ambrd_appss/model/service_dertail_model.dart';
+import 'package:ambrd_appss/model/track_driver_model.dart';
 import 'package:ambrd_appss/model/user_list_model_indriver/user_list_model_indriverrr.dart';
 import 'package:ambrd_appss/modules/firebase_notification_service/firebase_notification_servc.dart';
 import 'package:flutter/foundation.dart';
@@ -180,11 +182,11 @@ class ApiProvider {
     print("okup:${r.body}");
     if (r.statusCode == 200) {
       print(r.body);
-      Get.snackbar(
-        'Success',
-        r.body,
-        duration: const Duration(seconds: 2),
-      );
+      // Get.snackbar(
+      //   'Success',
+      //   r.body,
+      //   duration: const Duration(seconds: 2),
+      // );
       print(r.body);
 
       return r;
@@ -377,6 +379,7 @@ class ApiProvider {
       return;
     }
   }
+  //bankGetModelFromJson
 
   ///todo: bank detail...ambrb....10
 
@@ -779,7 +782,7 @@ class ApiProvider {
 
       print(r.body);
       print(r.statusCode);
-      Get.snackbar("Booking Status", 'Request Send Successfully');
+
       return r;
     } else if (r.statusCode == 401) {
       Get.snackbar('message', r.body);
@@ -1058,23 +1061,45 @@ class ApiProvider {
     }
   }
 
-  ///todo: accepted driver list  ambrd message screen testing periodic function...user api..21 ........21 dec 2023....
+  ///todo: accepted driver list  ambrd message screen...user api..21 ........21 dec 2023....
   static AcceptDriverDetailUserApi2() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var driverlistbookingId = preferences.getString("driverlistbookingId");
     print("driverlistbookingId: ${driverlistbookingId}");
     //driverlistbookingId
     //http://admin.ambrd.in/api/PatientApi/GetAcceptedReqDriverDetail?Id=1
-    var url =
-        '${baseUrl}PatientApi/GetAcceptedReqDriverDetail?Id=$driverlistbookingId';
+    var url = '${baseUrl}PatientApi/TrackDriver?Id=$driverlistbookingId';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
         print("ambulanceonlinerrreeeww:${r.body}");
         print("ambulanceonlinerrreeeww:${url}");
 
-        PriodicFunctionModel driveracceptuserDetail2 =
-            priodicFunctionModelFromJson(r.body);
+        DriverTrackModel driveracceptuserDetail2 =
+            driverTrackModelFromJson(r.body);
+        return driveracceptuserDetail2;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+
+  ///todo: accepted driver list  ambrd message screen testing periodic function...user api..21 ........21 dec 2023....
+  static TrackDriverApi() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var driverlistbookingId = preferences.getString("driverlistbookingId");
+    print("driverlistbookingId: ${driverlistbookingId}");
+    //driverlistbookingId
+    //http://admin.ambrd.in/api/PatientApi/GetAcceptedReqDriverDetail?Id=1
+    var url = '${baseUrl}PatientApi/TrackDriver?Id=$driverlistbookingId';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        print("ambulanceonlinerrreeeww:${r.body}");
+        print("ambulanceonlinerrreeeww:${url}");
+
+        DriverTrackModel driveracceptuserDetail2 =
+            driverTrackModelFromJson(r.body);
         return driveracceptuserDetail2;
       }
     } catch (error) {
@@ -1106,8 +1131,8 @@ class ApiProvider {
 
   ///todo: payment history......
 
-  /// todo driverPaymentHistory...................
-  static UserPaymentHistory() async {
+  /// todo driverBookingHistory...................
+  static UserBookingHistory() async {
     var prefs = GetStorage();
     userId = prefs.read("userId").toString();
     print('&&&&&&&&&&&&&&&&&&&&&&usergoogle:${userId}');
@@ -1118,9 +1143,30 @@ class ApiProvider {
       if (r.statusCode == 200) {
         //DriverAppoinmentDetailModel driverAppoinmentDetail =
         //             driverAppoinmentDetailModelFromJson(r.body);
-        DriverPaymentHistoryModel driverPaymentHistoryModel =
+        DriverBookingHistoryModel driverPaymentHistoryModel =
             driverPaymentHistoryModelFromJson(r.body);
         return driverPaymentHistoryModel;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+
+  /// todo driverPaymentHistory...................
+  static UserPaymentHistory() async {
+    var prefs = GetStorage();
+    userId = prefs.read("userId").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&usergoogle:${userId}');
+    var url = '${baseUrl}PatientApi/PatientPaymentHistory?PatientId=$userId';
+    //176
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        //DriverAppoinmentDetailModel driverAppoinmentDetail =
+        //             driverAppoinmentDetailModelFromJson(r.body);
+        DriverPaymentsHistoryModel driverPaymentsHistoryModel =
+            driverPaymentsHistoryModelFromJson(r.body);
+        return driverPaymentsHistoryModel;
       }
     } catch (error) {
       return;
@@ -1485,6 +1531,28 @@ class ApiProvider {
 //       Get.snackbar('Error', r.body);
 //       return r;
 //     }
+  }
+
+  ///todo: get bank apis.....ambrb................29
+  static geBankkApi() async {
+    var prefs = GetStorage();
+    userId = prefs.read("userId").toString();
+    AdminLogin_Id = prefs.read("AdminLogin_Id").toString();
+    print('&&&&&okadmin:${AdminLogin_Id}');
+    userId = prefs.read("userId").toString();
+    print('&readuserprofile:${userId}');
+    //admin.ambrd.in/api/CommonApi/GetBankDetail?AdminLoginId=15
+    var url = '${baseUrl}CommonApi/GetBankDetail?AdminLoginId=$AdminLogin_Id';
+    try {
+      http.Response r = await http.get(Uri.parse(url));
+      if (r.statusCode == 200) {
+        BankGetModel getbankprofileModel = bankGetModelFromJson(r.body);
+        return getbankprofileModel;
+      }
+    } catch (error) {
+      print('Errorprofile: ${error}');
+      return;
+    }
   }
 
   ///end.... ambrd user app.............

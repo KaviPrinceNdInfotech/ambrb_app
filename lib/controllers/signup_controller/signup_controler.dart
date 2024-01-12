@@ -8,11 +8,8 @@ import 'package:intl/intl.dart';
 
 import '../../services/api_provider.dart';
 import '../../widget/circular_loader.dart';
-import '../login_mobile_controller/login_mobile_controllers.dart';
 
 class SignUpController extends GetxController {
-  LoginMobileController _loginMobileController =
-      Get.put(LoginMobileController());
   final GlobalKey<FormState> SignupFormKey = GlobalKey<FormState>();
 
   ///todo: gender......
@@ -25,14 +22,8 @@ class SignUpController extends GetxController {
     selectedgender.value = servicee;
   }
 
-  var selectedDrowpdown = 'abc';
-  List dropdownText = ['abc', 'def', 'ghi'];
-
   ///this is radio button function......
   var selectedService = ''.obs;
-  //image picker
-  // var selectedImagePath = ''.obs;
-  // var selectedImageSize = ''.obs;
 
   ///this is for State....................................
   Rx<City?> selectedCity = (null as City?).obs;
@@ -104,11 +95,19 @@ class SignUpController extends GetxController {
       dateofbirth.text,
     );
     if (r.statusCode == 200) {
-      CallLoader.hideLoader();
-      Get.snackbar('Success', 'Registration SuccessFully');
+      // CallLoader.hideLoader();
+      Get.snackbar(
+        'Success',
+        'Registration SuccessFully Done',
+        duration: const Duration(seconds: 2),
+      );
       //  _loginMobileController.login();
 
-      Get.to(() => LoginScreen());
+      CallLoader.loader();
+      await Future.delayed(Duration(seconds: 1));
+      CallLoader.hideLoader();
+
+      await Get.offAll(() => LoginScreen());
     }
   }
 
@@ -142,7 +141,6 @@ class SignUpController extends GetxController {
     dateofbirth;
     state;
     city;
-
     getStateApi();
     selectedState.listen((p0) {
       if (p0 != null) {
@@ -205,6 +203,13 @@ class SignUpController extends GetxController {
   String? validateCity(String value) {
     if (value.length < 1) {
       return "provide valid address";
+    }
+    return null;
+  }
+
+  String? validatePin(String value) {
+    if (value.length != 6) {
+      return "provide valid pin";
     }
     return null;
   }

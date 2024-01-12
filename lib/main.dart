@@ -35,6 +35,7 @@ Future<void> main() async {
 
   ///i created new class name is firebase api kumar prince extra its not needed
   await FirebaseApi().initNotifications();
+
   runApp(
     GetMaterialApp(
       title: "Application",
