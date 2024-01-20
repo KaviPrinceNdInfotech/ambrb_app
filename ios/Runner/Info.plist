@@ -32,8 +32,8 @@
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
+	<key>NSAllowsArbitraryLoads</key>
+	<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>We require camera access to connect to a live</string>

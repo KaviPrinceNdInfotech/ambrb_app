@@ -39,6 +39,15 @@ end
     flutter_additional_ios_build_settings(target)
     target.build_configurations.each do |config|
       config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+
+      # For those who doesn't want to add a development team id, you can do the following: start kumar princve
+      if target.respond_to?(:product_type) and target.product_type == "com.apple.product-type.bundle"
+        target.build_configurations.each do |config|
+            config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+        end
+      end
+      # For those who doesn't want to add a development team id, you can do the following: end kumar princve
+
     end
   end
 end
