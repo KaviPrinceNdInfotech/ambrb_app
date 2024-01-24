@@ -99,15 +99,17 @@ class EditprofileController extends GetxController {
     //CallLoader.loader();
     http.Response r = await ApiProvider.EditUserApi(
       PatientName.text,
-      selectedState.value?.id.toString(),
-      selectedCity.value?.id.toString(),
+      selectedState.value?.id.toString() ??
+          _getProfileController.getProfileDetail?.stateMasterId,
+      selectedCity.value?.id.toString() ??
+          _getProfileController.getProfileDetail?.cityMasterId,
       Location.text,
       PinCode.text,
     );
 
     if (r.statusCode == 200) {
       CallLoader.hideLoader();
-      Get.snackbar('Success', 'Edit profile SuccessFully');
+      // Get.snackbar('Success', 'Edit profile SuccessFully');
       //_loginMobileController.login();
 
       CallLoader.loader();

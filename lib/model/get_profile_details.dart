@@ -14,13 +14,15 @@ class GetProfileDetail {
   int? id;
   String? patientName;
   String? emailId;
-  dynamic mobileNumber;
+  String? mobileNumber;
   String? location;
   String? pinCode;
   String? stateName;
   String? cityName;
   String? gender;
   DateTime? dob;
+  num? stateMasterId;
+  num? cityMasterId;
 
   GetProfileDetail({
     this.id,
@@ -33,6 +35,8 @@ class GetProfileDetail {
     this.cityName,
     this.gender,
     this.dob,
+    this.stateMasterId,
+    this.cityMasterId,
   });
 
   factory GetProfileDetail.fromJson(Map<String, dynamic> json) =>
@@ -47,6 +51,8 @@ class GetProfileDetail {
         cityName: json["CityName"],
         gender: json["Gender"],
         dob: json["DOB"] == null ? null : DateTime.parse(json["DOB"]),
+        stateMasterId: json["StateMaster_Id"],
+        cityMasterId: json["CityMaster_Id"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -60,5 +66,7 @@ class GetProfileDetail {
         "CityName": cityName,
         "Gender": gender,
         "DOB": dob?.toIso8601String(),
+        "StateMaster_Id": stateMasterId,
+        "CityMaster_Id": cityMasterId,
       };
 }

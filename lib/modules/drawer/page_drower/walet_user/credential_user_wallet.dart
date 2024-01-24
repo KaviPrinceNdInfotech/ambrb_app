@@ -560,16 +560,18 @@ class WalletCredentials extends StatelessWidget {
                                                 ]),
                                             boxShadow: [
                                               BoxShadow(
-                                                offset: Offset(0, 0),
-                                                spreadRadius: 1,
-                                                blurRadius: 1,
-                                                color: darkShadow,
-                                              ),
+                                                  offset: Offset(0, 0),
+                                                  spreadRadius: 1,
+                                                  blurRadius: 1,
+                                                  color: MyTheme.ambapp
+                                                  //darkShadow,
+                                                  ),
                                               BoxShadow(
                                                 offset: Offset(-1, -1),
                                                 spreadRadius: 1,
                                                 blurRadius: 1,
-                                                color: lightShadow,
+                                                color: MyTheme.ambapp5,
+                                                //lightShadow,
                                               ),
                                             ]),
                                         child: Center(

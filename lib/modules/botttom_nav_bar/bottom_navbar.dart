@@ -29,314 +29,329 @@ class BottommNavBar extends StatelessWidget {
     width = size.width;
     print(height);
     print(width);
-    return WillPopScope(
-      onWillPop: () => showExitPopup(context),
-      child: Scaffold(
-        bottomNavigationBar: Obx(() => SizedBox(
-              //height: size.height * 0.08,
-              child: Container(
-                height: size.height * 0.075,
-                decoration: BoxDecoration(
-                    //gradient: gradient4,
-                    color: MyTheme.ambapp13),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            _navController.changeTabIndex(0);
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
+    return SafeArea(
+      top: false,
+      child: WillPopScope(
+        onWillPop: () => showExitPopup(context),
+        child: Scaffold(
+          bottomNavigationBar: Obx(() => SizedBox(
+                //height: size.height * 0.08,
+                child: Container(
+                  height: size.height * 0.060,
+                  decoration: BoxDecoration(
+                      //gradient: gradient4,
+                      color: MyTheme.ambapp13),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25),
+                    child:
+                        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Container(
-                                //height: size.height * 0.05,
-                                width: size.width * 0.06,
-                                child: Icon(
-                                  Icons.home,
-                                  size: 24,
-                                  color: _navController.tabindex.value == 0
-                                      ? MyTheme.ambapp1
-                                      : MyTheme.ambapp,
-                                ),
-                                // Image.asset(
-                                //   'lib/assets/home2.png',
-                                //   color: _bottomController.tabindex.value == 0
-                                //       ? Colors.black
-                                //       : Colors.grey.shade600,
-                                //   fit: BoxFit.fill,
-                                // ),
-                              ),
-
-                              ///...........
-                              // Icon(
-                              //   Icons.home,
-                              //   color: _bottomController.tabindex.value == 0
-                              //       ? Colors.black
-                              //       : Colors.grey.shade600,
-                              //   size: 25,
-                              // ),
-                              Text("Home",
-                                  style: GoogleFonts.poppins(
-                                      color: _navController.tabindex.value == 0
-                                          ? MyTheme.ambapp1
-                                          : MyTheme.ambapp,
-                                      fontSize: size.height * 0.012,
-                                      fontWeight: FontWeight.w600)
-                                  //style: TextStyle(color:_bottomController.tabindex.value==0?Colors.orange:Color(0xFF110d39),fontSize: 13)
-                                  // TextStyles(12.sp, FontWeight.w400, TextDecoration.none,
-                                  //     textcolor
+                          InkWell(
+                            onTap: () {
+                              _navController.changeTabIndex(0);
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  //height: size.height * 0.05,
+                                  width: size.width * 0.075,
+                                  child: Icon(
+                                    Icons.home,
+                                    size: 24,
+                                    color: _navController.tabindex.value == 0
+                                        ? MyTheme.ambapp1
+                                        : MyTheme.ambapp,
+                                  ),
+                                  // Image.asset(
+                                  //   'lib/assets/home2.png',
+                                  //   color: _bottomController.tabindex.value == 0
+                                  //       ? Colors.black
+                                  //       : Colors.grey.shade600,
+                                  //   fit: BoxFit.fill,
                                   // ),
-                                  )
-                            ],
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            print('call');
-                            _navController.changeTabIndex(1);
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                //height: size.height * 0.04,
-                                width: size.height * 0.06,
-                                child: Icon(
-                                  Icons.car_crash_sharp,
-                                  size: 24,
-                                  color: _navController.tabindex.value == 1
-                                      ? MyTheme.ambapp1
-                                      : MyTheme.ambapp,
                                 ),
 
-                                // Image.asset(
-                                //   'lib/assets/home2.png',
+                                ///...........
+                                // Icon(
+                                //   Icons.home,
                                 //   color: _bottomController.tabindex.value == 0
                                 //       ? Colors.black
                                 //       : Colors.grey.shade600,
-                                //   fit: BoxFit.fill,
+                                //   size: 25,
                                 // ),
-                              ),
-                              Text("Booking",
-                                  style: GoogleFonts.poppins(
+                                Text("Home",
+                                    style: GoogleFonts.poppins(
+                                        color:
+                                            _navController.tabindex.value == 0
+                                                ? MyTheme.ambapp1
+                                                : MyTheme.ambapp,
+                                        fontSize: size.height * 0.012,
+                                        fontWeight: FontWeight.w600)
+                                    //style: TextStyle(color:_bottomController.tabindex.value==0?Colors.orange:Color(0xFF110d39),fontSize: 13)
+                                    // TextStyles(12.sp, FontWeight.w400, TextDecoration.none,
+                                    //     textcolor
+                                    // ),
+                                    )
+                              ],
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              print('call');
+                              _navController.changeTabIndex(1);
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    print('call2');
+                                    _navController.changeTabIndex(1);
+                                  },
+                                  child: Container(
+                                    width: size.width * 0.065,
+
+                                    // height: size.height * 0.04,
+                                    // width: size.height * 0.06,
+                                    child: Icon(
+                                      Icons.car_crash_sharp,
+                                      size: 26,
                                       color: _navController.tabindex.value == 1
                                           ? MyTheme.ambapp1
                                           : MyTheme.ambapp,
-                                      fontSize: size.height * 0.012,
-                                      fontWeight: FontWeight.w600)
-                                  //style: TextStyle(color:_bottomController.tabindex.value==0?Colors.orange:Color(0xFF110d39),fontSize: 13)
-                                  // TextStyles(12.sp, FontWeight.w400, TextDecoration.none,
-                                  //     textcolor
-                                  // ),
+                                    ),
+
+                                    // Image.asset(
+                                    //   'lib/assets/home2.png',
+                                    //   color: _bottomController.tabindex.value == 0
+                                    //       ? Colors.black
+                                    //       : Colors.grey.shade600,
+                                    //   fit: BoxFit.fill,
+                                    // ),
                                   ),
-                            ],
-                          ),
-                        ),
-
-                        //.
-                        // ..............................................................
-
-                        ///TODO: explore Icon and text.........but we have to now set cart  page......
-
-                        InkWell(
-                          onTap: () {
-                            print('call');
-                            _navController.changeTabIndex(2);
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                // height: size.height * 0.05,
-                                width: size.width * 0.06,
-                                child: Icon(
-                                  Icons.support_agent,
-                                  size: 24,
-                                  color: _navController.tabindex.value == 2
-                                      ? MyTheme.ambapp1
-                                      : MyTheme.ambapp,
                                 ),
-
-                                // Image.asset(
-                                //   'lib/assets/home2.png',
-                                //   color: _bottomController.tabindex.value == 0
-                                //       ? Colors.black
-                                //       : Colors.grey.shade600,
-                                //   fit: BoxFit.fill,
-                                // ),
-                              ),
-                              Text("Support",
-                                  style: GoogleFonts.poppins(
-                                      color: _navController.tabindex.value == 2
-                                          ? MyTheme.ambapp1
-                                          : MyTheme.ambapp,
-                                      fontSize: size.height * 0.012,
-                                      fontWeight: FontWeight.w600)
-                                  //style: TextStyle(color:_bottomController.tabindex.value==0?Colors.orange:Color(0xFF110d39),fontSize: 13)
-                                  // TextStyles(12.sp, FontWeight.w400, TextDecoration.none,
-                                  //     textcolor
-                                  // ),
-                                  ),
-                            ],
+                                Text("Booking",
+                                    style: GoogleFonts.poppins(
+                                        color:
+                                            _navController.tabindex.value == 1
+                                                ? MyTheme.ambapp1
+                                                : MyTheme.ambapp,
+                                        fontSize: size.height * 0.012,
+                                        fontWeight: FontWeight.w600)
+                                    //style: TextStyle(color:_bottomController.tabindex.value==0?Colors.orange:Color(0xFF110d39),fontSize: 13)
+                                    // TextStyles(12.sp, FontWeight.w400, TextDecoration.none,
+                                    //     textcolor
+                                    // ),
+                                    ),
+                                //Spacer(),
+                              ],
+                            ),
                           ),
-                        ),
 
-                        ///.............
-                        // InkWell(
-                        //   onTap: () {
-                        //     print('call');
-                        //     _navController.changeTabIndex(3);
-                        //   },
-                        //   child: Column(
-                        //     mainAxisAlignment: MainAxisAlignment.center,
-                        //     crossAxisAlignment: CrossAxisAlignment.center,
-                        //     children: [
-                        //       Container(
-                        //         height: size.height * 0.05,
-                        //         width: size.width * 0.05,
-                        //         child: Icon(
-                        //           Icons.local_offer,
-                        //           size: 24,
-                        //           color: _navController.tabindex.value == 3
-                        //               ? MyTheme.ambapp1
-                        //               : MyTheme.ambapp,
-                        //         ),
-                        //
-                        //         // Image.asset(
-                        //         //   'lib/assets/home2.png',
-                        //         //   color: _bottomController.tabindex.value == 0
-                        //         //       ? Colors.black
-                        //         //       : Colors.grey.shade600,
-                        //         //   fit: BoxFit.fill,
-                        //         // ),
-                        //       ),
-                        //       Text("Deals",
-                        //           style: GoogleFonts.poppins(
-                        //               color: _navController.tabindex.value == 3
-                        //                   ? MyTheme.ambapp1
-                        //                   : MyTheme.ambapp,
-                        //               fontSize: size.height * 0.012,
-                        //               fontWeight: FontWeight.w600)
-                        //           //style: TextStyle(color:_bottomController.tabindex.value==0?Colors.orange:Color(0xFF110d39),fontSize: 13)
-                        //           // TextStyles(12.sp, FontWeight.w400, TextDecoration.none,
-                        //           //     textcolor
-                        //           // ),
-                        //           ),
-                        //     ],
-                        //   ),
-                        // ),
-                        // InkWell(
-                        //   onTap: () {
-                        //     print('call');
-                        //     _navController.changeTabIndex(4);
-                        //   },
-                        //   child: Column(
-                        //     mainAxisAlignment: MainAxisAlignment.center,
-                        //     crossAxisAlignment: CrossAxisAlignment.center,
-                        //     children: [
-                        //       Container(
-                        //         height: size.height * 0.05,
-                        //         width: size.width * 0.05,
-                        //         child: Icon(
-                        //           Icons.read_more_rounded,
-                        //           size: 24,
-                        //           color: _navController.tabindex.value == 4
-                        //               ? MyTheme.ambapp1
-                        //               : MyTheme.ambapp,
-                        //         ),
-                        //
-                        //         // Image.asset(
-                        //         //   'lib/assets/home2.png',
-                        //         //   color: _bottomController.tabindex.value == 0
-                        //         //       ? Colors.black
-                        //         //       : Colors.grey.shade600,
-                        //         //   fit: BoxFit.fill,
-                        //         // ),
-                        //       ),
-                        //       Text("More",
-                        //           style: GoogleFonts.poppins(
-                        //               color: _navController.tabindex.value == 4
-                        //                   ? MyTheme.ambapp1
-                        //                   : MyTheme.ambapp,
-                        //               fontSize: size.height * 0.012,
-                        //               fontWeight: FontWeight.w600)
-                        //           //style: TextStyle(color:_bottomController.tabindex.value==0?Colors.orange:Color(0xFF110d39),fontSize: 13)
-                        //           // TextStyles(12.sp, FontWeight.w400, TextDecoration.none,
-                        //           //     textcolor
-                        //           // ),
-                        //           ),
-                        //     ],
-                        //   ),
-                        // ),
-                        ///....................
-                      ]),
+                          //.
+                          // ..............................................................
+
+                          ///TODO: explore Icon and text.........but we have to now set cart  page......
+
+                          InkWell(
+                            onTap: () {
+                              print('call');
+                              _navController.changeTabIndex(2);
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  // height: size.height * 0.05,
+                                  width: size.width * 0.06,
+                                  child: Icon(
+                                    Icons.support_agent,
+                                    size: 24,
+                                    color: _navController.tabindex.value == 2
+                                        ? MyTheme.ambapp1
+                                        : MyTheme.ambapp,
+                                  ),
+
+                                  // Image.asset(
+                                  //   'lib/assets/home2.png',
+                                  //   color: _bottomController.tabindex.value == 0
+                                  //       ? Colors.black
+                                  //       : Colors.grey.shade600,
+                                  //   fit: BoxFit.fill,
+                                  // ),
+                                ),
+                                Text("Support",
+                                    style: GoogleFonts.poppins(
+                                        color:
+                                            _navController.tabindex.value == 2
+                                                ? MyTheme.ambapp1
+                                                : MyTheme.ambapp,
+                                        fontSize: size.height * 0.012,
+                                        fontWeight: FontWeight.w600)
+                                    //style: TextStyle(color:_bottomController.tabindex.value==0?Colors.orange:Color(0xFF110d39),fontSize: 13)
+                                    // TextStyles(12.sp, FontWeight.w400, TextDecoration.none,
+                                    //     textcolor
+                                    // ),
+                                    ),
+                              ],
+                            ),
+                          ),
+
+                          ///.............
+                          // InkWell(
+                          //   onTap: () {
+                          //     print('call');
+                          //     _navController.changeTabIndex(3);
+                          //   },
+                          //   child: Column(
+                          //     mainAxisAlignment: MainAxisAlignment.center,
+                          //     crossAxisAlignment: CrossAxisAlignment.center,
+                          //     children: [
+                          //       Container(
+                          //         height: size.height * 0.05,
+                          //         width: size.width * 0.05,
+                          //         child: Icon(
+                          //           Icons.local_offer,
+                          //           size: 24,
+                          //           color: _navController.tabindex.value == 3
+                          //               ? MyTheme.ambapp1
+                          //               : MyTheme.ambapp,
+                          //         ),
+                          //
+                          //         // Image.asset(
+                          //         //   'lib/assets/home2.png',
+                          //         //   color: _bottomController.tabindex.value == 0
+                          //         //       ? Colors.black
+                          //         //       : Colors.grey.shade600,
+                          //         //   fit: BoxFit.fill,
+                          //         // ),
+                          //       ),
+                          //       Text("Deals",
+                          //           style: GoogleFonts.poppins(
+                          //               color: _navController.tabindex.value == 3
+                          //                   ? MyTheme.ambapp1
+                          //                   : MyTheme.ambapp,
+                          //               fontSize: size.height * 0.012,
+                          //               fontWeight: FontWeight.w600)
+                          //           //style: TextStyle(color:_bottomController.tabindex.value==0?Colors.orange:Color(0xFF110d39),fontSize: 13)
+                          //           // TextStyles(12.sp, FontWeight.w400, TextDecoration.none,
+                          //           //     textcolor
+                          //           // ),
+                          //           ),
+                          //     ],
+                          //   ),
+                          // ),
+                          // InkWell(
+                          //   onTap: () {
+                          //     print('call');
+                          //     _navController.changeTabIndex(4);
+                          //   },
+                          //   child: Column(
+                          //     mainAxisAlignment: MainAxisAlignment.center,
+                          //     crossAxisAlignment: CrossAxisAlignment.center,
+                          //     children: [
+                          //       Container(
+                          //         height: size.height * 0.05,
+                          //         width: size.width * 0.05,
+                          //         child: Icon(
+                          //           Icons.read_more_rounded,
+                          //           size: 24,
+                          //           color: _navController.tabindex.value == 4
+                          //               ? MyTheme.ambapp1
+                          //               : MyTheme.ambapp,
+                          //         ),
+                          //
+                          //         // Image.asset(
+                          //         //   'lib/assets/home2.png',
+                          //         //   color: _bottomController.tabindex.value == 0
+                          //         //       ? Colors.black
+                          //         //       : Colors.grey.shade600,
+                          //         //   fit: BoxFit.fill,
+                          //         // ),
+                          //       ),
+                          //       Text("More",
+                          //           style: GoogleFonts.poppins(
+                          //               color: _navController.tabindex.value == 4
+                          //                   ? MyTheme.ambapp1
+                          //                   : MyTheme.ambapp,
+                          //               fontSize: size.height * 0.012,
+                          //               fontWeight: FontWeight.w600)
+                          //           //style: TextStyle(color:_bottomController.tabindex.value==0?Colors.orange:Color(0xFF110d39),fontSize: 13)
+                          //           // TextStyles(12.sp, FontWeight.w400, TextDecoration.none,
+                          //           //     textcolor
+                          //           // ),
+                          //           ),
+                          //     ],
+                          //   ),
+                          // ),
+                          ///....................
+                        ]),
+                  ),
                 ),
-              ),
-            )),
-        body: Obx(
-          () => Center(
-            child: IndexedStack(
-              index: _navController.tabindex.value,
-              children: [
-                HomePage(),
-                //BookingAmb(),
-                // MapView(),
-                ServiceVehicleAppcat(),
+              )),
+          body: Obx(
+            () => Center(
+              child: IndexedStack(
+                index: _navController.tabindex.value,
+                children: [
+                  HomePage(),
+                  //BookingAmb(),
+                  // MapView(),
+                  ServiceVehicleAppcat(),
 
-                ///HomePagePractice(),
-                //BookingAmb(),
-                SupportViewAmbrdComman(),
+                  ///HomePagePractice(),
+                  //BookingAmb(),
+                  SupportViewAmbrdComman(),
 
-                //_createRoute();
-                // ExploreView(),
+                  //_createRoute();
+                  // ExploreView(),
 //     //StudioPage(),
 //     //const Page4(),
-                //WishListPage(),
-                //MyCartPage(),
-                ///Todo this kis explore page......call...cartpageview......
-                //CartPageView(),
-                //Explorepage(),
-                ///GiftBox(),...3
-                //Cartproducts(),
-                //PaymentPage(),
-                ///BestDeal(),...4
-                ///ProfilePages(),....5
-                //Profile(),
-                //WithdrowPage(),
-              ],
+                  //WishListPage(),
+                  //MyCartPage(),
+                  ///Todo this kis explore page......call...cartpageview......
+                  //CartPageView(),
+                  //Explorepage(),
+                  ///GiftBox(),...3
+                  //Cartproducts(),
+                  //PaymentPage(),
+                  ///BestDeal(),...4
+                  ///ProfilePages(),....5
+                  //Profile(),
+                  //WithdrowPage(),
+                ],
+              ),
             ),
           ),
-        ),
 
-        ///todo: floating action button...........whats app controller...
-        // floatingActionButton: SizedBox(
-        //   height: 60,
-        //   width: 120,
-        //   child: FloatingActionButton(
-        //     onPressed: () {
-        //       print('whats app me');
-        //       Navigator.of(context).push(_createRoute());
-        //
-        //       _launchWhatsapp();
-        //       // Add your onPressed code here!
-        //     },
-        //     backgroundColor: MyTheme.ambapp1,
-        //     child: Padding(
-        //       padding: const EdgeInsets.all(7.0),
-        //       child: Image.asset(
-        //         'lib/assets/asset/whatsapp3.png',
-        //         color: Colors.white,
-        //       ),
-        //     ),
-        //   ),
-        // ),
+          ///todo: floating action button...........whats app controller...
+          // floatingActionButton: SizedBox(
+          //   height: 60,
+          //   width: 120,
+          //   child: FloatingActionButton(
+          //     onPressed: () {
+          //       print('whats app me');
+          //       Navigator.of(context).push(_createRoute());
+          //
+          //       _launchWhatsapp();
+          //       // Add your onPressed code here!
+          //     },
+          //     backgroundColor: MyTheme.ambapp1,
+          //     child: Padding(
+          //       padding: const EdgeInsets.all(7.0),
+          //       child: Image.asset(
+          //         'lib/assets/asset/whatsapp3.png',
+          //         color: Colors.white,
+          //       ),
+          //     ),
+          //   ),
+          // ),
+        ),
       ),
     );
     // drawer: DrawerWidget(),

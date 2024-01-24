@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:ambrd_appss/constants/app_theme/app_color.dart';
@@ -9,14 +10,17 @@ import 'package:ambrd_appss/modules/booking_brb/secret_key.dart';
 import 'package:ambrd_appss/widget/circular_loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
 
 class MapView extends StatefulWidget {
   @override
@@ -44,6 +48,16 @@ final List<String> _itemsssimage = [
 ];
 
 class _MapViewState extends State<MapView> {
+  ///todo: suggession list for gmap....5 jan 2024...start
+  String stAddress = '', stAdd = '';
+
+  /// var _controller = TextEditingController(text: "Type Here");
+  var uuid = new Uuid();
+  String _sessionToken = '1234567890';
+  List<dynamic> _placeList = [];
+
+  ///todo: suggession list for gmap....5 jan 2024...end...
+
   CameraPosition _initialLocation = CameraPosition(target: LatLng(0.0, 0.0));
 
   final startAddressController = TextEditingController();
@@ -61,6 +75,10 @@ class _MapViewState extends State<MapView> {
   String _destinationAddress = '';
   String? _placeDistance;
 
+  ///.................................
+
+  bool _showSearchSuggesstion = false;
+
   Set<Marker> markers = {};
 
   late PolylinePoints polylinePoints;
@@ -68,6 +86,7 @@ class _MapViewState extends State<MapView> {
   List<LatLng> polylineCoordinates = [];
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   //late GoogleMapController mapController = Get.put(GoogleMapController());
   //final MapController _mapControllers = Get.put(MapController());
 
@@ -148,15 +167,89 @@ class _MapViewState extends State<MapView> {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        ScaffoldMessenger.of(context).showSnackBar(
+        ///todo: this is the main dailoge to provide location app setting 20 jan 2024..
+        await _dialogBuilder(context);
+        await ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Location permissions are denied')));
+        //await Geolocator.openAppSettings();
+
+        // await AlertDialog(
+        //   actions: [
+        //     CupertinoDialogAction(
+        //       child: Text('Back'),
+        //       onPressed: () {
+        //         if (Platform.isIOS) {
+        //           exit(0);
+        //         } else {
+        //           SystemNavigator.pop();
+        //         }
+        //       },
+        //     ),
+        //     CupertinoDialogAction(
+        //       child: Text('Settings'),
+        //       onPressed: () {
+        //         Geolocator.openAppSettings();
+        //       },
+        //     ),
+        //   ],
+        // );
+
         return false;
       }
     }
     if (permission == LocationPermission.deniedForever) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      ///todo: this is the main dailoge to provide location app setting 20 jan 2024..
+      await _dialogBuilder(context);
+      // await AlertDialog(
+      //   actions: [
+      //     CupertinoDialogAction(
+      //       child: Text('Back'),
+      //       onPressed: () {
+      //         if (Platform.isIOS) {
+      //           exit(0);
+      //         } else {
+      //           SystemNavigator.pop();
+      //         }
+      //       },
+      //     ),
+      //     CupertinoDialogAction(
+      //       child: Text('Settings'),
+      //       onPressed: () {
+      //         Geolocator.openAppSettings();
+      //       },
+      //     ),
+      //   ],
+      // );
+      await ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text(
               'Location permissions are permanently denied, we cannot request permissions.')));
+
+      ///await Geolocator.openAppSettings();
+
+      //await Geolocator.openLocationSettings();
+      ///
+
+      // await AlertDialog(
+      //   actions: [
+      //     CupertinoDialogAction(
+      //       child: Text('Back'),
+      //       onPressed: () {
+      //         if (Platform.isIOS) {
+      //           exit(0);
+      //         } else {
+      //           SystemNavigator.pop();
+      //         }
+      //       },
+      //     ),
+      //     CupertinoDialogAction(
+      //       child: Text('Settings'),
+      //       onPressed: () {
+      //         Geolocator.openAppSettings();
+      //       },
+      //     ),
+      //   ],
+      // );
+
       return false;
     }
     return true;
@@ -389,9 +482,54 @@ class _MapViewState extends State<MapView> {
   @override
   void initState() {
     //_devicetokenController.UsertokenApi();
-
     super.initState();
+
+    ///todo: from here init state...5 jan 2024..
+    // destinationAddressController.addListener(() {
+    //   _onChanged();
+    // });
   }
+
+  ///todo: onchange.....5 jan 2024...
+  // _onChanged() {
+  //   if (_sessionToken == null) {
+  //     setState(() {
+  //       _sessionToken = uuid.v4();
+  //     });
+  //   }
+  //   getSuggestion(destinationAddressController.text);
+  // }
+
+  //TODO: from here get suggession detail api 0f place api.5 jan 2024...start..
+  void getSuggestion(String input) async {
+    String kPLACES_API_KEY = "AIzaSyAcUCRibzqlURi9S3hDz6-xdiNmCKdkPQg";
+    //"AIzaSyBrbWFXlOYpaq51wteSyFS2UjdMPOWBlQw";
+    String type = '(India)';
+
+    try {
+      _sessionToken = uuid.v4();
+
+      String baseURL =
+          'https://maps.googleapis.com/maps/api/place/autocomplete/json';
+      String request =
+          '$baseURL?input=$input&key=$kPLACES_API_KEY&sessiontoken=$_sessionToken';
+      var response = await http.get(Uri.parse(request));
+      var data = json.decode(response.body);
+      print('mydata');
+      print(data);
+      if (response.statusCode == 200) {
+        setState(() {
+          _placeList = json.decode(response.body)['predictions'];
+        });
+      } else {
+        throw Exception('Failed to load predictions');
+      }
+    } catch (e) {
+      // toastMessage('success');
+    }
+  }
+
+  //TODO: from here get suggession detail api 0f place api.5 jan 2024...end..
 
   Completer<GoogleMapController> _controllerGoogleMap = Completer();
   late GoogleMapController newGoogleMapController;
@@ -638,119 +776,119 @@ class _MapViewState extends State<MapView> {
                               children: [
                                 SizedBox(
                                   height: size.height * 0.11,
-                                  child: ListView.builder(
-                                    itemCount:
-                                        //4,
-                                        _itemsss.length,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return InkWell(
-                                        onTap: () {
-                                          //..............................
-                                          _tilecolorr.toggle(index);
-
-                                          ///...............................
-
-                                          //................................
-                                        },
-                                        child: Obx(
-                                          () => Padding(
-                                            padding: EdgeInsets.all(8.0),
-                                            child: PhysicalModel(
-                                              //color: Colors.white,
-                                              shadowColor: Colors.red,
-                                              color: Colors.black,
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-
-                                              elevation: 5,
-                                              child: Container(
-                                                height: size.height * 0.04,
-                                                width: size.width * 0.19,
-                                                decoration: BoxDecoration(
-                                                    color: _tilecolorr
-                                                                .selectedindex
-                                                                .value ==
-                                                            index
-                                                        ? MyTheme.ambapp5
-                                                        : MyTheme.ambapp1,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    border: Border.all(
-                                                        color: _tilecolorr
-                                                                    .selectedindex
-                                                                    .value ==
-                                                                index
-                                                            ? MyTheme
-                                                                .ThemeColors
-                                                            : MyTheme.ambapp1,
-                                                        width: 1)),
-
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Container(
-                                                      height:
-                                                          size.height * 0.065,
-                                                      decoration: BoxDecoration(
-                                                          color: _tilecolorr
-                                                                      .selectedindex
-                                                                      .value ==
-                                                                  index
-                                                              ? MyTheme.ambapp1
-                                                              : MyTheme
-                                                                  .ambapp11,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                          image:
-                                                              DecorationImage(
-                                                            image: AssetImage(
-                                                                _itemsssimage[
-                                                                    index]),
-                                                          )),
-                                                    ),
-
-                                                    ///Spacer(),
-                                                    Text('${_itemsss[index]}',
-                                                        style: TextStyle(
-                                                            color: _tilecolorr
-                                                                        .selectedindex
-                                                                        .value ==
-                                                                    index
-                                                                ? Colors.white
-                                                                : Colors.black,
-                                                            fontSize:
-                                                                size.height *
-                                                                    0.015,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w600)),
-                                                    //Spacer(),
-                                                  ],
-                                                ),
-                                                // ListTile(
-                                                //   title: Obx(() => Text('${_itemsss[index]} item',
-                                                //       style: TextStyle(
-                                                //           color: _tilecolorr.selectedindex.value == index
-                                                //               ? Colors.white
-                                                //               : Colors.black))),
-                                                //   onTap: () => _tilecolorr.toggle(index),
-                                                // ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    // itemBuilder: (BuildContext context, int index) {
-                                    //
-                                    // },
-                                  ),
+                                  // child: ListView.builder(
+                                  //   itemCount:
+                                  //       //4,
+                                  //       _itemsss.length,
+                                  //   scrollDirection: Axis.horizontal,
+                                  //   itemBuilder:
+                                  //       (BuildContext context, int index) {
+                                  //     return InkWell(
+                                  //       onTap: () {
+                                  //         //..............................
+                                  //         _tilecolorr.toggle(index);
+                                  //
+                                  //         ///...............................
+                                  //
+                                  //         //................................
+                                  //       },
+                                  //       child: Obx(
+                                  //         () => Padding(
+                                  //           padding: EdgeInsets.all(8.0),
+                                  //           child: PhysicalModel(
+                                  //             //color: Colors.white,
+                                  //             shadowColor: Colors.red,
+                                  //             color: Colors.black,
+                                  //             borderRadius:
+                                  //                 BorderRadius.circular(10),
+                                  //
+                                  //             elevation: 5,
+                                  //             child: Container(
+                                  //               height: size.height * 0.04,
+                                  //               width: size.width * 0.19,
+                                  //               decoration: BoxDecoration(
+                                  //                   color: _tilecolorr
+                                  //                               .selectedindex
+                                  //                               .value ==
+                                  //                           index
+                                  //                       ? MyTheme.ambapp5
+                                  //                       : MyTheme.ambapp1,
+                                  //                   borderRadius:
+                                  //                       BorderRadius.circular(
+                                  //                           10),
+                                  //                   border: Border.all(
+                                  //                       color: _tilecolorr
+                                  //                                   .selectedindex
+                                  //                                   .value ==
+                                  //                               index
+                                  //                           ? MyTheme
+                                  //                               .ThemeColors
+                                  //                           : MyTheme.ambapp1,
+                                  //                       width: 1)),
+                                  //
+                                  //               child: Column(
+                                  //                 mainAxisAlignment:
+                                  //                     MainAxisAlignment
+                                  //                         .spaceBetween,
+                                  //                 children: [
+                                  //                   Container(
+                                  //                     height:
+                                  //                         size.height * 0.065,
+                                  //                     decoration: BoxDecoration(
+                                  //                         color: _tilecolorr
+                                  //                                     .selectedindex
+                                  //                                     .value ==
+                                  //                                 index
+                                  //                             ? MyTheme.ambapp1
+                                  //                             : MyTheme
+                                  //                                 .ambapp11,
+                                  //                         borderRadius:
+                                  //                             BorderRadius
+                                  //                                 .circular(10),
+                                  //                         image:
+                                  //                             DecorationImage(
+                                  //                           image: AssetImage(
+                                  //                               _itemsssimage[
+                                  //                                   index]),
+                                  //                         )),
+                                  //                   ),
+                                  //
+                                  //                   ///Spacer(),
+                                  //                   Text('${_itemsss[index]}',
+                                  //                       style: TextStyle(
+                                  //                           color: _tilecolorr
+                                  //                                       .selectedindex
+                                  //                                       .value ==
+                                  //                                   index
+                                  //                               ? Colors.white
+                                  //                               : Colors.black,
+                                  //                           fontSize:
+                                  //                               size.height *
+                                  //                                   0.015,
+                                  //                           fontWeight:
+                                  //                               FontWeight
+                                  //                                   .w600)),
+                                  //                   //Spacer(),
+                                  //                 ],
+                                  //               ),
+                                  //               // ListTile(
+                                  //               //   title: Obx(() => Text('${_itemsss[index]} item',
+                                  //               //       style: TextStyle(
+                                  //               //           color: _tilecolorr.selectedindex.value == index
+                                  //               //               ? Colors.white
+                                  //               //               : Colors.black))),
+                                  //               //   onTap: () => _tilecolorr.toggle(index),
+                                  //               // ),
+                                  //             ),
+                                  //           ),
+                                  //         ),
+                                  //       ),
+                                  //     );
+                                  //   },
+                                  //   // itemBuilder: (BuildContext context, int index) {
+                                  //   //
+                                  //   // },
+                                  // ),
                                 ),
                                 //SizedBox(height: height * 0.06),
                                 SizedBox(
@@ -818,68 +956,68 @@ class _MapViewState extends State<MapView> {
                           //   ),
                           // ),
                           ///no od passangers....
-                          Padding(
-                            padding: const EdgeInsets.all(3.0),
-                            child: TextFormField(
-                              controller: _ambulancegetController
-                                  .noofpassengercontroller,
-                              //controller.emailController,
-                              obscureText: false,
-
-                              keyboardType: TextInputType.number,
-
-                              validator: (value) {
-                                return _ambulancegetController
-                                    .validptient(value!);
-                              },
-                              decoration: InputDecoration(
-                                //border: InputBorder.none,
-
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                  borderSide:
-                                      BorderSide(color: Colors.red, width: 2),
-                                ),
-                                contentPadding: const EdgeInsets.only(
-                                    left: 14.0, bottom: 8.0, top: 13.0),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.red,
-                                  ),
-                                  borderRadius: BorderRadius.circular(15.7),
-                                ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Colors.transparent),
-                                  borderRadius: BorderRadius.circular(15.7),
-                                ),
-
-                                prefixIcon: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Icon(
-                                    Icons.message,
-                                    color: MyTheme.ambapp1,
-                                  ),
-                                  // Image.asset(
-                                  //   "lib/assets/images/pnone4.png",
-                                  //   color: MyTheme.ambapp1,
-                                  //   height: 10,
-                                  //   width: 10,
-                                  // ),
-                                ),
-                                fillColor: MyTheme.ambapp12,
-                                filled: true,
-                                suffixIcon: null ?? const SizedBox(),
-                                hintText: "No of passengers",
-                                hintStyle: GoogleFonts.poppins(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                                // contentPadding:
-                                //const EdgeInsets.only(top: 16.0),
-                              ),
-                            ),
-                          ),
+                          // Padding(
+                          //   padding: const EdgeInsets.all(3.0),
+                          //   child: TextFormField(
+                          //     controller: _ambulancegetController
+                          //         .noofpassengercontroller,
+                          //     //controller.emailController,
+                          //     obscureText: false,
+                          //
+                          //     keyboardType: TextInputType.number,
+                          //
+                          //     validator: (value) {
+                          //       return _ambulancegetController
+                          //           .validptient(value!);
+                          //     },
+                          //     decoration: InputDecoration(
+                          //       //border: InputBorder.none,
+                          //
+                          //       border: OutlineInputBorder(
+                          //         borderRadius: BorderRadius.circular(15.0),
+                          //         borderSide:
+                          //             BorderSide(color: Colors.red, width: 2),
+                          //       ),
+                          //       contentPadding: const EdgeInsets.only(
+                          //           left: 14.0, bottom: 8.0, top: 13.0),
+                          //       focusedBorder: OutlineInputBorder(
+                          //         borderSide: BorderSide(
+                          //           color: Colors.red,
+                          //         ),
+                          //         borderRadius: BorderRadius.circular(15.7),
+                          //       ),
+                          //       enabledBorder: UnderlineInputBorder(
+                          //         borderSide:
+                          //             BorderSide(color: Colors.transparent),
+                          //         borderRadius: BorderRadius.circular(15.7),
+                          //       ),
+                          //
+                          //       prefixIcon: Padding(
+                          //         padding: const EdgeInsets.all(8.0),
+                          //         child: Icon(
+                          //           Icons.message,
+                          //           color: MyTheme.ambapp1,
+                          //         ),
+                          //         // Image.asset(
+                          //         //   "lib/assets/images/pnone4.png",
+                          //         //   color: MyTheme.ambapp1,
+                          //         //   height: 10,
+                          //         //   width: 10,
+                          //         // ),
+                          //       ),
+                          //       fillColor: MyTheme.ambapp12,
+                          //       filled: true,
+                          //       suffixIcon: null ?? const SizedBox(),
+                          //       hintText: "No of passengers",
+                          //       hintStyle: GoogleFonts.poppins(
+                          //         fontSize: 14.0,
+                          //         fontWeight: FontWeight.w400,
+                          //       ),
+                          //       // contentPadding:
+                          //       //const EdgeInsets.only(top: 16.0),
+                          //     ),
+                          //   ),
+                          // ),
 
                           SizedBox(
                             height: size.height * 0.002,
@@ -924,15 +1062,25 @@ class _MapViewState extends State<MapView> {
                                   //CallLoader.hideLoader();
 
                                   ///todo: here you can clear your text field controllers.......11 jan 2024...
-                                  await Timer(const Duration(seconds: 5), () {
+                                  await Timer(const Duration(seconds: 3), () {
                                     _ambulancegetController
                                         .noofpassengercontroller
                                         .clear();
+                                    startAddressController.clear();
+                                    destinationAddressController.clear();
+                                    _ambulancegetController.offercontroller
+                                        .clear();
+
+                                    ///_ambulancegetController.Chooseambulancevehicletypekey;
+
+                                    //startAddressController.text?.clear();
+                                    //final startAddressController = TextEditingController();
+                                    //final destinationAddressController = TextEditingController();
                                   });
 
-                                  // _ambulancegetController
-                                  //     .noofpassengercontroller
-                                  //     .clear();
+                                  _ambulancegetController
+                                      .noofpassengercontroller
+                                      .clear();
 
                                   ///await _getCurrentLocation();
                                   //_ambulancegetController
@@ -946,6 +1094,89 @@ class _MapViewState extends State<MapView> {
 
                           // Spacer(),
                         ],
+                      ),
+                    ),
+                  ),
+
+                  Visibility(
+                    visible: _showSearchSuggesstion,
+                    child: Positioned(
+                      top: size.height * 0.25,
+                      //bottom: size.height * 0.5,
+                      left: size.height * 0.05,
+                      right: size.width * 0.05,
+                      child: Container(
+                        height: size.height * 0.345,
+                        //width: size.width * 0.6,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10))),
+                        // width: size.width,
+
+                        ///todo: from here we are geting list for address......5 jan 2024....
+                        child: ListView.builder(
+                          //physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: _placeList.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () async {},
+                              child: ListTile(
+                                ///todo: this is from lagt lang and it is from geocoding function and start # Kumar prince 5 jan 2024....start
+                                onTap: () async {
+                                  List<Location> location =
+                                      await locationFromAddress(
+                                          _placeList[index]["description"]);
+                                  print("langoooo${location.last.longitude}");
+                                  print("latttttoo${location.last.latitude}");
+                                  print("latttttion${location.toString()}");
+
+                                  SharedPreferences prefs =
+                                      await SharedPreferences.getInstance();
+                                  await prefs.setString(
+                                      "langoooo", "${location.last.longitude}");
+                                  await prefs.setString("latttttoo",
+                                      "${location.last.longitude}");
+                                  await prefs.setString("description",
+                                      "${_placeList[index]["description"]}");
+
+                                  ///todo: 12 jan.....thanks.....
+                                  destinationAddressController.text =
+                                      "${_placeList[index]["description"]}"
+                                          .toString();
+
+                                  ///todo: 12 jan.....thanks.....
+
+                                  List<Placemark> placemarkers =
+                                      await placemarkFromCoordinates(
+                                          52.2165157, 6.9437815);
+                                  setState(() {
+                                    _showSearchSuggesstion = false;
+
+                                    _destinationAddress =
+                                        "${_placeList[index]["description"]}";
+
+                                    stAddress =
+                                        location.last.longitude.toString() +
+                                            " " +
+                                            location.last.latitude.toString();
+                                    stAdd = placemarkers.reversed.last.country
+                                            .toString() +
+                                        "" +
+                                        placemarkers.reversed.last.country
+                                            .toString();
+                                  });
+                                },
+
+                                ///todo: this is from lagt lang and it is from geocoding function and start # Kumar prince 5 jan 2024.....end
+
+                                title: Text(_placeList[index]["description"]),
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ),
@@ -999,6 +1230,7 @@ class _MapViewState extends State<MapView> {
                   ),
                   // Show the place input fields & button for
                   // showing the route
+
                   SafeArea(
                     child: Align(
                       alignment: Alignment.topCenter,
@@ -1057,13 +1289,43 @@ class _MapViewState extends State<MapView> {
                                     label: 'Destination',
                                     hint: 'Choose destination',
                                     prefixIcon: Icon(Icons.looks_two),
+                                    suffixIcon: IconButton(
+                                      icon: Icon(Icons.cancel),
+                                      onPressed: () {
+                                        destinationAddressController.clear();
+                                      },
+                                    ),
                                     controller: destinationAddressController,
                                     focusNode: desrinationAddressFocusNode,
                                     width: width,
                                     locationCallback: (String value) {
-                                      setState(() {
-                                        _destinationAddress = value;
-                                      });
+                                      if (!_showSearchSuggesstion) {
+                                        setState(() {
+                                          _showSearchSuggesstion = true;
+                                        });
+                                      }
+                                      getSuggestion(value);
+
+                                      ///TODO: suggession location..................5 jan 2024...
+                                      // Future.delayed(const Duration(seconds: 5),
+                                      //     () async {
+                                      //   print('One second has passed.');
+                                      //   SharedPreferences preferences =
+                                      //       await SharedPreferences
+                                      //           .getInstance();
+                                      //   var description = preferences
+                                      //       .getString("description");
+                                      //   print("descriptionrrr: ${description}");
+                                      //   print("valuee: ${value}");
+                                      //   destinationAddressController.text =
+                                      //       description
+                                      //           .toString(); // Prints after 1 second.
+                                      // });
+                                      //
+                                      // ///TODO: suggession location..................5 jan 2024...end
+                                      // setState(() {
+                                      //   _destinationAddress = value;
+                                      // });
                                     }),
                                 SizedBox(height: 7),
                                 Visibility(
@@ -1189,4 +1451,56 @@ class _MapViewState extends State<MapView> {
       ),
     );
   }
+}
+
+Future<void> _dialogBuilder(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('You Can enable Your Location'),
+        content: const Text(
+          'For booking an Ambulance you have\n'
+          'to enable your location by help of\n'
+          'system setting if you do\'t enable \n'
+          'your location then you can\'t book ambulance.',
+        ),
+        actions: <Widget>[
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text(
+              'Disable   ',
+              style: TextStyle(
+                  color: Colors.red, fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text(
+              'Enable',
+              style: TextStyle(
+                  color: Colors.green,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold),
+            ),
+            onPressed: () async {
+              ///todo: this is the main dailoge to provide location app setting 20 jan 2024..
+              //await _dialogBuilder(context);
+              await Geolocator.openAppSettings();
+
+              //await Geolocator.openLocationSettings();
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:ambrd_appss/constants/exit_pop_scope.dart';
 import 'package:ambrd_appss/controllers/ambulance_order_payment_controller/driver_list_new.dart';
+import 'package:ambrd_appss/controllers/get_profile_detail_controller/get_profile_details_controller.dart';
 import 'package:ambrd_appss/controllers/periodic_function_controller.dart';
 import 'package:ambrd_appss/modules/booking_brb/booking_apbrd_map_new_controller.dart';
 import 'package:ambrd_appss/modules/drawer/drawerrr.dart';
@@ -84,6 +85,8 @@ class _HomePageState extends State<HomePage> {
 
   PeriodicFunctionController _periodicFunctionController =
       Get.put(PeriodicFunctionController());
+  GetProfileController _userrsProfileControllers =
+      Get.put(GetProfileController());
 
   ///implement firebase....27...jun..2023
   @override
@@ -216,12 +219,14 @@ class _HomePageState extends State<HomePage> {
   // _launchURLBrowser() async {
   final bool _isPlaying = true;
 
-  final img = 'http://admin.ambrd.in/Images/';
+  final img = 'https://admin.ambrd.in/Images/';
 
   HomeController _homePageController = Get.put(HomeController());
 
   AmbulancegetsController _ambulancegetController =
       Get.put(AmbulancegetsController());
+
+  ///todo:.....
 
   DriverAcceptlistController _driverAcceptlistController =
       Get.put(DriverAcceptlistController());
@@ -279,6 +284,8 @@ class _HomePageState extends State<HomePage> {
                     Timer(
                       const Duration(milliseconds: 100),
                       () {
+                        _userrsProfileControllers.getProfileApi();
+                        _userrsProfileControllers.update();
                         // nearlistdriverApi();
                         Navigator.push(
                             context,
@@ -1365,7 +1372,7 @@ class Mycrusial extends StatelessWidget {
   final bool _isPlaying = true;
 
   ///final img = 'https://ambrdapi.ndinfotech.com/Images/';
-  final img = 'http://admin.ambrd.in/Images/';
+  final img = 'https://admin.ambrd.in/Images/';
 
   //get _sliderKey => null;
 

@@ -115,8 +115,8 @@ class AmbulancegetsController extends GetxController {
       startLong.toDouble(),
       endLat.toDouble(),
       endLong.toDouble(),
-      noofpassengercontroller.text,
-      offercontroller.text,
+      // noofpassengercontroller.text,
+      // offercontroller.text,
     );
     if (r.statusCode == 200) {
       print("ACCOUNT ${r.body}");
@@ -357,9 +357,11 @@ class AmbulancegetsController extends GetxController {
   }
 
   void googlerequestambulance(Set<Marker> markers) {
-    if (Chooseambulancevehicletypekey.currentState!.validate()) {
-      postAmbulancerequestApi(markers);
-    }
-    Chooseambulancevehicletypekey.currentState!.save();
+    postAmbulancerequestApi(markers);
   }
+  //   if (Chooseambulancevehicletypekey.currentState!.validate()) {
+  //     postAmbulancerequestApi(markers);
+  //   }
+  //   Chooseambulancevehicletypekey.currentState!.save();
+  // }
 }

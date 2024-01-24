@@ -22,6 +22,8 @@ class EditProfilePage extends StatelessWidget {
 
   GetProfileController _getProfileController = Get.put(GetProfileController());
 
+  // GetProfileController _getProfileController = Get.put(GetProfileController());
+
   // SignUpController _signUpController = Get.put(SignUpController());
   String dropdownValue = list.first;
 
@@ -197,7 +199,12 @@ class EditProfilePage extends StatelessWidget {
                                     //enabledBorder: InputBorder.none,
                                     // border: InputBorder.none,
                                   ),
-                                  hint: Text('Select State'),
+                                  hint: Text(
+                                    "${_getProfileController.getProfileDetail?.stateName.toString()}",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
                                   items: _editprofileController.states
                                       .map((StateModel state) {
                                     return DropdownMenuItem(
@@ -289,7 +296,7 @@ class EditProfilePage extends StatelessWidget {
                                   decoration: InputDecoration(
                                     filled: true,
                                     fillColor: MyTheme.ambapp12,
-                                    hintText: 'Select State',
+                                    hintText: 'Select City',
                                     contentPadding: const EdgeInsets.only(
                                         left: 14.0, bottom: 4.0, top: 16.0),
                                     focusedBorder: OutlineInputBorder(
@@ -316,7 +323,12 @@ class EditProfilePage extends StatelessWidget {
                                     //enabledBorder: InputBorder.none,
                                     // border: InputBorder.none,
                                   ),
-                                  hint: Text('Selected City'),
+                                  hint: Text(
+                                    "${_getProfileController.getProfileDetail?.cityName.toString()}",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
                                   items: _editprofileController.cities
                                       .map((City city) {
                                     return DropdownMenuItem(

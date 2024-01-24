@@ -1,12 +1,17 @@
 import 'package:ambrd_appss/constants/app_theme/app_color.dart';
 import 'package:ambrd_appss/controllers/home_controllers/home_controllers.dart';
+import 'package:ambrd_appss/controllers/login_mobile_controller/login_mobile_controllers.dart';
 import 'package:ambrd_appss/controllers/otp_correctcode_controller/otp_verification_maim_page.dart';
+import 'package:ambrd_appss/modules/login_view/login_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../widget/circular_loader.dart';
 
 //import 'otp_verify_controller.dart';
 
@@ -17,6 +22,9 @@ class OtpVerification extends StatelessWidget {
   //LoginMobileController loginMobileController = Get.find();
   OtpVerifyController _otpVerifyController = Get.put(OtpVerifyController());
   bool firstbox = false;
+
+  LoginMobileController _loginMobileController =
+      Get.put(LoginMobileController());
   //get otp => null;
 
   HomeController _homePageController = Get.put(HomeController());
@@ -167,12 +175,18 @@ class OtpVerification extends StatelessWidget {
                                 //handle validation or checks here
                               },
                               //runs when every textfield is filled
-                              onSubmit: (String verificationCode) {
-                                _otpVerifyController
+                              onSubmit: (String verificationCode) async {
+                                ///todo:this call will comment or not use for user ...20 jan 2024....if android you can use
+                                await _getGeoLocationPosition(verificationCode);
+                                await _otpVerifyController
                                     .callOtpApi(verificationCode);
                                 _homePageController.sliderBannerApi();
                                 _homePageController.AllServicesApi();
                                 _homePageController.onInit();
+
+                                ///todo: for ios alert dilogue...
+
+                                // await _getGeoLocationPosition();
                                 //await _homePageController.AllServicesApi();
                                 // await _homePageController.sliderBannerApi();
                                 // _homePageController.onInit();
@@ -194,8 +208,18 @@ class OtpVerification extends StatelessWidget {
                           height: 20,
                         ),
                         InkWell(
-                          onTap: () {
-                            Get.back();
+                          onTap: () async {
+                            _loginMobileController.onInit();
+                            // _loginMobileController.dispose();
+                            // _loginMobileController.onClose();
+                            //MobileOrEmail
+                            _loginMobileController.MobileOrEmail.clear();
+
+                            CallLoader.loader();
+                            await Future.delayed(Duration(milliseconds: 1000));
+                            CallLoader.hideLoader();
+                            await Get.to(LoginScreen());
+                            //Get.offAll(LoginScreen());
                             //_otpVerifyController.callOtpApi(verificationCode);
                           },
                           child: Container(
@@ -237,5 +261,99 @@ class OtpVerification extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<Position> _getGeoLocationPosition(String verificationCode) async {
+    bool serviceEnabled;
+    LocationPermission permission;
+    await Future.delayed(Duration(seconds: 2));
+    await Get.dialog(
+      // bool barrierDismissible = true
+
+      AlertDialog(
+        title: const Text('Ambrd Apps'),
+        content: const Text(
+            """When you grant permission for  location access in our application, we may collect and process certain information related to your geographical location. This includes GPS coordinates, Wi-Fi network information, cellular tower data, Background Location, and other relevant data sources to determine your device's location."""),
+        actions: [
+          TextButton(
+            child: const Text("Reject"),
+            onPressed: () => Get.back(),
+          ),
+          TextButton(
+            child: const Text("Accept"),
+            onPressed: () => Get.back(),
+          ),
+        ],
+      ),
+      barrierDismissible: false,
+    );
+
+    ///...start..
+    // Future<bool> _handleLocationPermission() async {
+    //   bool serviceEnabled;
+    //   LocationPermission permission;
+    //
+    //   serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    //   if (!serviceEnabled) {
+    //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+    //         content: Text(
+    //             'Location services are disabled. Please enable the services')));
+    //     return false;
+    //   }
+    //   permission = await Geolocator.checkPermission();
+    //   if (permission == LocationPermission.denied) {
+    //     permission = await Geolocator.requestPermission();
+    //     if (permission == LocationPermission.denied) {
+    //       ScaffoldMessenger.of(context).showSnackBar(
+    //           const SnackBar(content: Text('Location permissions are denied')));
+    //       return false;
+    //     }
+    //   }
+    //   if (permission == LocationPermission.deniedForever) {
+    //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+    //         content: Text(
+    //             'Location permissions are permanently denied, we cannot request permissions.')));
+    //     return false;
+    //   }
+    //
+    //   return true;
+    // }
+
+    /// ....end
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // return Future.value('');
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the
+      // App to enable the location services.
+      await Geolocator.openLocationSettings();
+
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        ///todo:ok........20 jan 2024...prince
+        await _otpVerifyController.callOtpApi(verificationCode);
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      ///todo:ok........20 jan 2024...prince
+      await _otpVerifyController.callOtpApi(verificationCode);
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
+    return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
   }
 }

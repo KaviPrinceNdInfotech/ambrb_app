@@ -39,8 +39,8 @@ class SplashController extends GetxController
         const Duration(seconds: 2),
         () async {
           if (accountData == null) {
-            _editbankdetailController.getBankProfileApi();
-            _getProfileController.getProfileApi();
+            //await _editbankdetailController.getBankProfileApi();
+            // await _getProfileController.getProfileApi();
 
             await _homePageController.AllServicesApi();
             await _homePageController.sliderBannerApi();

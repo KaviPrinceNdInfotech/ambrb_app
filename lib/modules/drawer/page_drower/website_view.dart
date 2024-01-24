@@ -1,3 +1,4 @@
+import 'package:ambrd_appss/constants/app_theme/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
@@ -26,13 +27,14 @@ class _WebViewPswebsiteState extends State<WebViewPswebsite> {
         appBar: AppBar(
           elevation: 0,
           title: const Text('Ambrd APP'),
-          backgroundColor: Colors.cyan,
+          backgroundColor: MyTheme.ambapp5,
           centerTitle: true,
         ),
         body: Stack(
           children: [
             InAppWebView(
-              initialUrlRequest: URLRequest(url: Uri.parse("http://ambrd.in/")),
+              initialUrlRequest:
+                  URLRequest(url: Uri.parse("https://ambrd.in/")),
               onWebViewCreated: (InAppWebViewController controller) {
                 inAppWebViewController = controller;
               },

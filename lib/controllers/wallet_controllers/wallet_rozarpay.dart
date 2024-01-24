@@ -1,4 +1,9 @@
+import 'package:ambrd_appss/controllers/ambulance_order_payment_controller/ambulance_order_payment_controllerss.dart';
+import 'package:ambrd_appss/controllers/ambulance_order_payment_controller/driver_list_new.dart';
+import 'package:ambrd_appss/controllers/get_profile_detail_controller/get_profile_details_controller.dart';
 import 'package:ambrd_appss/controllers/wallet_controllers/wallet_controllers.dart';
+import 'package:ambrd_appss/modules/botttom_nav_bar/bottom_nav_bar_controller.dart';
+import 'package:ambrd_appss/modules/firebase_notification_service/message_screen.dart';
 //import 'package:ambrd_driver_app/controllers/wallet_controllers/wallet_controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,6 +19,22 @@ class RozarwalletController extends GetxController {
   final GlobalKey<FormState> walletamountFormKey = GlobalKey();
   //final CartController controller = Get.put(CartController());
   Wallet_2_Controller _walletController = Get.put(Wallet_2_Controller());
+
+  GetProfileController _getProfileController = Get.put(GetProfileController());
+
+  DriverAcceptlistController _driverAcceptlistController =
+      Get.put(DriverAcceptlistController());
+
+  NavController _navcontroller = Get.put(NavController(), permanent: true);
+
+  GetProfileController _userrsProfileControllers =
+      Get.put(GetProfileController());
+
+  // GetProfileController getProfileController =
+  // Get.put(GetProfileController());
+
+  AmbulanceOrderpaymentController _ambulanceOrderpaymentController =
+      Get.put(AmbulanceOrderpaymentController());
   //Wallet_2_Controller _walletPostController = Get.put(WalletPostController());
   //GetProfileController _getProfileController = Get.put(GetProfileController());
 
@@ -54,17 +75,21 @@ class RozarwalletController extends GetxController {
       //     '${_walletPostController.walletPostApi.toString()}') *
       //     100,
       'name':
-          // _walletController.getprofileModel?.result?.name.toString(),
-          'Kumar Prince',
+          "${_userrsProfileControllers.getProfileDetail?.patientName.toString()}",
+
+      // _walletController.getprofileModel?.result?.name.toString(),
+      // 'Kumar Prince',
       'timeout': 60 * 5,
       'description': 'Do Payment',
       'prefill': {
         'contact':
-            //_getProfileController.getprofileModel?.result?.mobileNo.toString(),
-            '7019380053',
-        'email':
-            //_getProfileController.getprofileModel?.result?.emailId.toString(),
-            'kumarprince269@gmail.com'
+            "${_userrsProfileControllers.getProfileDetail?.mobileNumber.toString()}",
+
+        //_getProfileController.getprofileModel?.result?.mobileNo.toString(),
+        //'7019380053',
+        'email': _userrsProfileControllers.getProfileDetail?.emailId.toString(),
+        //_getProfileController.getprofileModel?.result?.emailId.toString(),
+        // 'kumarprince269@gmail.com'
       },
       'external': {
         'wallets': ['paytm']
@@ -93,6 +118,9 @@ class RozarwalletController extends GetxController {
         await _walletController.walletAmount.text;
         await _walletController.WalletGetApi();
         Get.back();
+        Get.to(MessageScreen5(
+          id: "12345678",
+        ));
       } else {
         // SHow
       }

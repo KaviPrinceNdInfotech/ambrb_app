@@ -27,14 +27,25 @@ class MyHttpOverrides extends HttpOverrides {
   }
 }
 
+///todo:dfgvhjbknlm;,fgcvbjknlm
+
 Future<void> main() async {
   await GetStorage.init();
+
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp();
+
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   ///i created new class name is firebase api kumar prince extra its not needed
-  await FirebaseApi().initNotifications();
+  /// await FirebaseApi().initNotifications();
+
+  ///......///.....///......///......///.......///......///......///......///......///......
+
+  FirebaseApi().initNotifications();
+
+  ///.......///........///......///......///.......///.....///......///......///.....///........
 
   runApp(
     GetMaterialApp(
@@ -56,6 +67,8 @@ class SplashBinding extends Bindings {
     );
   }
 }
+
+///.....
 
 class LoginBinding extends Bindings {
   @override

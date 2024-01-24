@@ -34,7 +34,7 @@ class _privecy_policyState extends State<privecy_policy> {
             children: [
               InAppWebView(
                 initialUrlRequest:
-                    URLRequest(url: Uri.parse("http://ambrd.in/privacy")),
+                    URLRequest(url: Uri.parse("https://ambrd.in/privacy")),
                 onWebViewCreated: (InAppWebViewController controller) {
                   inAppWebViewController = controller;
                 },

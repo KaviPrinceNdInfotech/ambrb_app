@@ -54,7 +54,7 @@ class EditbankdetailController extends GetxController {
   Future<void> getBankProfileApi() async {
     isLoading(true);
     getbankdetail = await ApiProvider.geBankkApi();
-    if (getbankdetail!.holderName != null) {
+    if (getbankdetail?.holderName != null) {
       // onInit();
       //print("ookoddee43434${getProfileDetail!.pinCode}");
 

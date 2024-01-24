@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 Timer? timer;
 
 class PeriodicFunctionController extends GetxController {
-  RxBool isLoading = true.obs;
+  RxBool isLoading = false.obs;
   //List<DriverProfileDetailModel>? getDriverProfileDetail;
   // DriveracceptModeluser? getDriveracceptDetail;
 
@@ -16,21 +16,12 @@ class PeriodicFunctionController extends GetxController {
   ///PriodicFunctionModel? getDriveracceptDetail2;
 
   Future<void> TrackDriverssApi() async {
-    isLoading(true);
+    isLoading(false);
 
     driverTrackModel = await ApiProvider.TrackDriverApi();
     if (driverTrackModel?.driverName == null) {
       print("ambucedrivesaxasr:${driverTrackModel?.driverName}");
 
-      Timer(
-        const Duration(seconds: 1),
-        () {
-          //Get.snackbar("Fail", "${medicinecheckoutModel?.data}");
-          //Get.to(() => MedicineCart());
-          //Get.to((page))
-          ///
-        },
-      );
       isLoading(false);
       driverTrackModel = await ApiProvider.TrackDriverApi();
     }
@@ -94,6 +85,7 @@ class PeriodicFunctionController extends GetxController {
     ///driveracceptuserDetailApi();
     super.onInit();
     driveracceptuserDetailApi2();
+    TrackDriverssApi();
     // timer = Timer.periodic(
     //   Duration(seconds: 30),
     //   (Timer t) => driveracceptuserDetailApi2(),

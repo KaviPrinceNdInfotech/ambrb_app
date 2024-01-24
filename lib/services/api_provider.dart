@@ -36,9 +36,9 @@ NotificationServices notificationServices = NotificationServices();
 class ApiProvider {
   //static var baseUrl = 'https://ambrdapi.ndinfotech.com/api/';
 
-  static var baseUrl = 'http://admin.ambrd.in/api/';
+  static var baseUrl = 'https://admin.ambrd.in/api/';
 
-  final img = 'http://admin.ambrd.in/Images/';
+  final img = 'https://admin.ambrd.in/Images/';
 
   // static String token = '';
 //  static String Id = ''.toString();
@@ -705,8 +705,8 @@ class ApiProvider {
     var start_Long,
     var end_Long,
     var end_Lat,
-    var NoOfPassengers,
-    var offer,
+    //var NoOfPassengers,
+    //var offer,
   ) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var AmbulancecatserviceId = preferences.getString("AmbulancecatserviceId");
@@ -725,8 +725,8 @@ class ApiProvider {
       "end_Lat": end_Long.toString(),
       "Patient_Id": userId,
       "VehicleType_id": "${AmbulancecatserviceId}",
-      "NoOfPassengers": NoOfPassengers,
-      "offer": offer
+      //"NoOfPassengers": NoOfPassengers,
+      // "offer": offer
     };
     //
     print(body);
@@ -977,7 +977,7 @@ class ApiProvider {
   ///todo: online payment ....................20
   static AmbulancepaynowOnlineApi() async {
     //var url = '${baseUrl}PatientApi/DriverPayNow';
-    var url = 'http://admin.ambrd.in/api/PatientApi/DriverPayNow';
+    var url = 'https://admin.ambrd.in/api/PatientApi/DriverPayNow';
     //http://admin.ambrd.in/api/PatientApi/DriverPayNow
     var prefs = GetStorage();
     userId = prefs.read("userId").toString();
@@ -1037,10 +1037,14 @@ class ApiProvider {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var driverlistbookingId = preferences.getString("driverlistbookingId");
     print("driverlistbookingId: ${driverlistbookingId}");
+    var prefs = GetStorage();
+    userId = prefs.read("userId").toString();
+    print('&&&&&&&&&&&&&&&&&&&&&&usergoogle:${userId}');
     //driverlistbookingId
     //http://admin.ambrd.in/api/PatientApi/GetAcceptedReqDriverDetail?Id=1
-    var url =
-        '${baseUrl}PatientApi/GetAcceptedReqDriverDetail?Id=$driverlistbookingId';
+    var url = '${baseUrl}PatientApi/GetAcceptedReqDriverDetail?Id=$userId';
+
+    /// '${baseUrl}PatientApi/GetAcceptedReqDriverDetail?Id=$driverlistbookingId';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
@@ -1063,12 +1067,17 @@ class ApiProvider {
 
   ///todo: accepted driver list  ambrd message screen...user api..21 ........21 dec 2023....
   static AcceptDriverDetailUserApi2() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    var driverlistbookingId = preferences.getString("driverlistbookingId");
-    print("driverlistbookingId: ${driverlistbookingId}");
+    var prefs = GetStorage();
+    userId = prefs.read("userId").toString();
+    print('&readu45544:${userId}');
+    // SharedPreferences preferences = await SharedPreferences.getInstance();
+    // var driverlistbookingId = preferences.getString("driverlistbookingId");
+    // print("driverlistbookingId: ${driverlistbookingId}");
     //driverlistbookingId
     //http://admin.ambrd.in/api/PatientApi/GetAcceptedReqDriverDetail?Id=1
-    var url = '${baseUrl}PatientApi/TrackDriver?Id=$driverlistbookingId';
+    var url = '${baseUrl}PatientApi/TrackDriver?Id=$userId';
+
+    //'${baseUrl}PatientApi/TrackDriver?Id=$driverlistbookingId';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
@@ -1086,12 +1095,15 @@ class ApiProvider {
 
   ///todo: accepted driver list  ambrd message screen testing periodic function...user api..21 ........21 dec 2023....
   static TrackDriverApi() async {
+    var prefs = GetStorage();
+    userId = prefs.read("userId").toString();
+    print('&readu45544:${userId}');
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var driverlistbookingId = preferences.getString("driverlistbookingId");
     print("driverlistbookingId: ${driverlistbookingId}");
     //driverlistbookingId
     //http://admin.ambrd.in/api/PatientApi/GetAcceptedReqDriverDetail?Id=1
-    var url = '${baseUrl}PatientApi/TrackDriver?Id=$driverlistbookingId';
+    var url = '${baseUrl}PatientApi/TrackDriver?Id=$userId';
     try {
       http.Response r = await http.get(Uri.parse(url));
       if (r.statusCode == 200) {
@@ -1107,11 +1119,13 @@ class ApiProvider {
     }
   }
 
-  ///todo:driver list of accept reject list 2.............22
+  ///todo:driver list of accept reject list 2.............22..............
   static UserListUserrApi() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var nurseLocationId = preferences.getString("nurseLocationId");
     print("nurseLocationId: ${nurseLocationId}");
+
+    ///todo:.............fgfgfgfgf...............................................
     var url =
         "http://test.pswellness.in/api/DriverApi/UserListForBookingAmbulance";
     try {

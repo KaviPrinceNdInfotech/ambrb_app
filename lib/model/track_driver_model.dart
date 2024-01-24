@@ -12,20 +12,24 @@ String driverTrackModelToJson(DriverTrackModel data) =>
 
 class DriverTrackModel {
   int? id;
-  int? driverId;
+  num? driverId;
   String? driverName;
   String? mobileNumber;
   String? driverImage;
   String? dlNumber;
-  int? totalPrice;
+  num? totalPrice;
   String? vehicleNumber;
   String? vehicleTypeName;
-  int? totalDistance;
+  num? totalDistance;
   String? deviceId;
-  double? latDriver;
-  double? langDriver;
-  double? endLong;
-  double? endLat;
+  dynamic latDriver;
+  dynamic langDriver;
+  double? driverStartLang;
+  double? driverStartLat;
+  double? userlocationLat;
+  double? userlocationLang;
+  double? updatedDriverLat;
+  double? updatedDriverLang;
 
   DriverTrackModel({
     this.id,
@@ -41,8 +45,12 @@ class DriverTrackModel {
     this.deviceId,
     this.latDriver,
     this.langDriver,
-    this.endLong,
-    this.endLat,
+    this.driverStartLang,
+    this.driverStartLat,
+    this.userlocationLat,
+    this.userlocationLang,
+    this.updatedDriverLat,
+    this.updatedDriverLang,
   });
 
   factory DriverTrackModel.fromJson(Map<String, dynamic> json) =>
@@ -58,10 +66,14 @@ class DriverTrackModel {
         vehicleTypeName: json["VehicleTypeName"],
         totalDistance: json["TotalDistance"],
         deviceId: json["DeviceId"],
-        latDriver: json["Lat_Driver"]?.toDouble(),
-        langDriver: json["Lang_Driver"]?.toDouble(),
-        endLong: json["end_Long"]?.toDouble(),
-        endLat: json["end_Lat"]?.toDouble(),
+        latDriver: json["Lat_Driver"],
+        langDriver: json["Lang_Driver"],
+        driverStartLang: json["DriverStartLang"]?.toDouble(),
+        driverStartLat: json["DriverStartLat"]?.toDouble(),
+        userlocationLat: json["UserlocationLat"]?.toDouble(),
+        userlocationLang: json["UserlocationLang"]?.toDouble(),
+        updatedDriverLat: json["UpdatedDriverLat"]?.toDouble(),
+        updatedDriverLang: json["UpdatedDriverLang"]?.toDouble(),
       );
 
   Map<String, dynamic> toJson() => {
@@ -78,7 +90,11 @@ class DriverTrackModel {
         "DeviceId": deviceId,
         "Lat_Driver": latDriver,
         "Lang_Driver": langDriver,
-        "end_Long": endLong,
-        "end_Lat": endLat,
+        "DriverStartLang": driverStartLang,
+        "DriverStartLat": driverStartLat,
+        "UserlocationLat": userlocationLat,
+        "UserlocationLang": userlocationLang,
+        "UpdatedDriverLat": updatedDriverLat,
+        "UpdatedDriverLang": updatedDriverLang,
       };
 }

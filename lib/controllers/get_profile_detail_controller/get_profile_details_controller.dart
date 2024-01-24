@@ -14,7 +14,7 @@ class GetProfileController extends GetxController {
   Future<void> getProfileApi() async {
     isLoading(true);
     getProfileDetail = await ApiProvider.geProfileApi();
-    if (getProfileDetail!.pinCode != null
+    if (getProfileDetail != null
         //getsliderbaner!.bannerImageList!.isNotEmpty
         ) {
       isLoading(false);

@@ -63,6 +63,7 @@ class MainAmbrbDrawer extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return SafeArea(
+      top: false,
       child: Drawer(
         backgroundColor: MyTheme.ambapp6,
         child: ListView(
@@ -118,6 +119,8 @@ class MainAmbrbDrawer extends StatelessWidget {
                 print(Get.currentRoute);
                 // Get.back();
                 await _periodicFunctionController.driveracceptuserDetailApi2();
+                await _periodicFunctionController.TrackDriverssApi();
+
                 _periodicFunctionController.onInit();
                 _periodicFunctionController.update();
 
@@ -126,7 +129,7 @@ class MainAmbrbDrawer extends StatelessWidget {
                 lat22 = prefs.read("lat22").toString();
                 print('lat22888834:${lat22}');
                 CallLoader.loader();
-                await Future.delayed(Duration(milliseconds: 500));
+                await Future.delayed(Duration(seconds: 1));
                 CallLoader.hideLoader();
                 //SearchLocationScreen
 
@@ -168,7 +171,9 @@ class MainAmbrbDrawer extends StatelessWidget {
               onTap: () async {
                 print(Get.currentRoute);
                 // Get.back();
-                ///Get.to(SearchLocationScreen());
+                //await Get.to(GoogleSearchPlacesApi());
+
+                //Get.to(SearchLocationScreen());
                 _navcontroller.tabindex(1);
 
                 ///
@@ -358,9 +363,12 @@ class MainAmbrbDrawer extends StatelessWidget {
               ),
               tileColor:
                   Get.currentRoute == '/Wallet' ? Colors.grey[300] : null,
-              onTap: () {
+              onTap: () async {
+                await _getProfileController.getProfileApi();
+                _getProfileController.update();
+                _getProfileController.onInit();
                 print(Get.currentRoute);
-                Get.to(() => WolletUser());
+                await Get.to(() => WolletUser());
                 Get.offNamed('/Wallet');
 
                 ///.................................................28feb....................new
@@ -616,13 +624,58 @@ class MainAmbrbDrawer extends StatelessWidget {
                 print(Get.currentRoute);
                 Get.back();
 
-                ///.......................................
+                ///................................................................
                 //  _getProfileController.addressidApi();
                 // _getProfileController.update();
                 ///...........................................................
                 Get.to(() => privecy_policy());
                 Get.offNamed('/PersonalProfile');
               },
+            ),
+
+            ListTile(
+              leading: Icon(
+                Icons.delete_forever_outlined,
+                color: Colors.black,
+                size: 14,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                color: Colors.black,
+                size: 11,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+              title: Text(
+                'Delete Account',
+
+                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
+                //fontWeight: FontWeight.w600,
+                //color: Colors.black,
+                // ),
+              ),
+              onTap: () {
+                Get.defaultDialog(
+                  title: "Welcome To Ambrd",
+                  middleText: "You content goes here...",
+                  content: getContent(),
+                  barrierDismissible: true,
+                  radius: 20.0,
+                  confirm: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: confirmBtn(),
+                  ),
+                  cancel: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: cancelBtn(),
+                  ),
+                );
+
+                //Get.to(() => CupponsPage());
+                // Navigator.push(context,
+                //     MaterialPageRoute(builder: (context) => Wollet()));
+              }, //PersonalDetails
             ),
 
             ListTile(
@@ -669,6 +722,54 @@ class MainAmbrbDrawer extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget confirmBtn() {
+    return ElevatedButton(
+        onPressed: () {
+          Get.back();
+        },
+        style: ElevatedButton.styleFrom(
+            primary: Colors.red,
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            textStyle: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
+        child: Text("Confirm"));
+  }
+
+  Widget cancelBtn() {
+    return ElevatedButton(
+        onPressed: () {
+          Get.back();
+        },
+        style: ElevatedButton.styleFrom(
+            primary: Colors.green,
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            textStyle: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
+        child: Text("Cancel"));
+  }
+
+  Widget getContent() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "If Yow want to remove your account,",
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+        ),
+        Text(
+          "Then you please click confirm button",
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+        ),
+        Text(
+          "Your data will erase if you press confirm.",
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+        ),
+        Text(
+          "If you don't want to delete press cancel",
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+        ),
+      ],
     );
   }
 }

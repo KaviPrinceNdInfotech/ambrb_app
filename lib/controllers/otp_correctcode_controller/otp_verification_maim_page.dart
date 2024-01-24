@@ -1,3 +1,4 @@
+import 'package:ambrd_appss/controllers/get_profile_detail_controller/get_profile_details_controller.dart';
 import 'package:ambrd_appss/controllers/home_controllers/home_controllers.dart';
 import 'package:ambrd_appss/controllers/login_mobile_controller/login_mobile_controllers.dart';
 import 'package:ambrd_appss/controllers/vehicle_service_catagary_list_controller/vehicle_cat_list_controller.dart';
@@ -19,6 +20,7 @@ class OtpVerifyController extends GetxController {
   ///todo: this is the login apis....controller...
   LoginMobileController _loginMobileController =
       Get.put(LoginMobileController());
+  GetProfileController _getProfileController = Get.put(GetProfileController());
 
   VehicleServicecatController _vehicleservicecatController =
       Get.put(VehicleServicecatController());
@@ -42,9 +44,12 @@ class OtpVerifyController extends GetxController {
       await accountService.setAccountData(accountData);
       //Get.to(() => DetailsProfile());
       ///api calling...
-      await _homePageController.AllServicesApi();
-      await _homePageController.sliderBannerApi();
+      _homePageController.AllServicesApi();
+      _homePageController.sliderBannerApi();
       _homePageController.onInit();
+      _getProfileController.getProfileApi();
+      _getProfileController.onInit();
+      _getProfileController.update();
 
       // _vehicleservicecatController.servicecatvehicleApi();
       // _vehicleservicecatController.onInit();

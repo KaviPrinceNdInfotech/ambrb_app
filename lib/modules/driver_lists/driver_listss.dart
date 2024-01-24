@@ -5,6 +5,7 @@ import 'package:ambrd_appss/constants/app_theme/app_color.dart';
 import 'package:ambrd_appss/controllers/ambulance_order_payment_controller/driver_list_new.dart';
 import 'package:ambrd_appss/controllers/booking_vehicle_controller_common/user_offer_controller.dart';
 import 'package:ambrd_appss/model/driver_list_by_post_book_ambulance_api_model/driver_list_by_post_model.dart';
+import 'package:ambrd_appss/modules/booking_brb/booking_ambrd_new_gmap.dart';
 import 'package:ambrd_appss/modules/booking_brb/booking_apbrd_map_new_controller.dart';
 import 'package:ambrd_appss/modules/botttom_nav_bar/bottom_nav_bar_controller.dart';
 import 'package:ambrd_appss/modules/botttom_nav_bar/bottom_navbar.dart';
@@ -302,7 +303,7 @@ class _DriverListByIdState extends State<DriverListById> {
                                         "userrrtokenupdateeeddbeforetttt${body}");
                                     http.Response r = await http.post(
                                       Uri.parse(
-                                          'http://admin.ambrd.in/api/CommonApi/UpdateDeviceId'),
+                                          'https://admin.ambrd.in/api/CommonApi/UpdateDeviceId'),
                                       body: body,
                                     );
 
@@ -489,7 +490,9 @@ class _DriverListByIdState extends State<DriverListById> {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      Get.back();
+                                      Get.offAll(MapView());
+                                      //Get.OfAll(MapPage());
+                                      //Get.back();
                                     },
                                     child: Container(
                                       height: size.height * 0.03,
@@ -1271,7 +1274,7 @@ class _DriverListByIdState extends State<DriverListById> {
                                                                       await http
                                                                           .post(
                                                                     Uri.parse(
-                                                                        'http://admin.ambrd.in/api/CommonApi/UpdateDeviceId'),
+                                                                        'https://admin.ambrd.in/api/CommonApi/UpdateDeviceId'),
                                                                     body: body,
                                                                   );
 
@@ -1436,322 +1439,322 @@ class _DriverListByIdState extends State<DriverListById> {
                         ),
 
                         ///offer price...
-                        Positioned(
-                          bottom: size.height * 0.04,
-                          left: size.height * 0.00,
-                          right: size.width * 0,
-                          child: Container(
-                            // height: size.height * 0.23,
-                            width: size.width,
-                            decoration: BoxDecoration(
-                              color: Colors.white30,
-                            ),
-                            child: Column(
-                              children: [
-                                ///.....todo:......................
-                                Padding(
-                                  padding: EdgeInsets.all(3.0),
-                                  child: TextFormField(
-                                    //key: _offeruserController
-                                    //.Chooseambulancevehicleofferkey,
-                                    controller:
-                                        _offeruserController.offercontroller2,
-                                    //controller.emailController,
-                                    obscureText: false,
-                                    keyboardType: TextInputType.number,
-                                    validator: (value) {
-                                      return _offeruserController
-                                          .validClinicname(value!);
-                                    },
-                                    decoration: InputDecoration(
-                                      //border: InputBorder.none,
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(15.0),
-                                        borderSide: BorderSide(
-                                            color: Colors.red, width: 1),
-                                      ),
-                                      contentPadding: const EdgeInsets.only(
-                                          left: 14.0, bottom: 8.0, top: 13.0),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.red,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(15.7),
-                                      ),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.transparent),
-                                        borderRadius:
-                                            BorderRadius.circular(15.7),
-                                      ),
-
-                                      prefixIcon: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Icon(
-                                          Icons.currency_rupee,
-                                          color: MyTheme.ambapp1,
-                                        ),
-                                        // Image.asset(
-                                        //   "lib/assets/images/pnone4.png",
-                                        //   color: MyTheme.ambapp1,
-                                        //   height: 10,
-                                        //   width: 10,
-                                        // ),
-                                      ),
-                                      fillColor: MyTheme.ambapp12,
-                                      filled: true,
-                                      suffixIcon: null ?? const SizedBox(),
-                                      hintText: "Offer Your Fare",
-                                      hintStyle: GoogleFonts.poppins(
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                      // contentPadding:
-                                      //const EdgeInsets.only(top: 16.0),
-                                    ),
-                                  ),
-                                ),
-
-                                // SizedBox(
-                                //   height: size.height * 0.002,
-                                // ),
-                                //
-                                // PhysicalModel(
-                                //   color: Colors.grey.shade300,
-                                //   elevation: 2,
-                                //   shadowColor: Colors.grey.shade900,
-                                //   borderRadius: BorderRadius.circular(10),
-                                //   child: Padding(
-                                //     padding: EdgeInsets.all(1.0),
-                                //     child: InkWell(
-                                //       onTap: () {
-                                //         // _ambulancegetController.update();
-                                //         // _ambulancegetController.ambulancecatagaryyApi();
-                                //         // CallLoader.loader();
-                                //         _ambulancegetController
-                                //             .googlerequestambulance(markers);
-                                //
-                                //         //Driver_List_LocationId
-                                //         //Get.to(Driver_List_LocationId());
-                                //         //BookingdriverList
-                                //         //BookingdriverList
-                                //         Get.to(DriverListById());
-                                //
-                                //         /// Get.to(Driver_List_LocationId());
-                                //
-                                //         ///todo: user device token saved..........
-                                //
-                                //         //_devicetokenController.UsertokenApi();
-                                //
-                                //         // _ambulancegetController
-                                //         //  .googlerequestambulance(markers);
-                                //       },
-                                //       child: Container(
-                                //         height: size.height * 0.045,
-                                //         width: size.width * 0.6,
-                                //         decoration: BoxDecoration(
-                                //           color: Colors.indigo,
-                                //           borderRadius: BorderRadius.circular(10),
-                                //         ),
-                                //         child: Padding(
-                                //           padding: EdgeInsets.symmetric(
-                                //               horizontal: size.width * 0.01),
-                                //           child: Center(
-                                //               child: Text(
-                                //             'Send Request',
-                                //             style: TextStyle(
-                                //               fontSize: size.height * 0.02,
-                                //               fontWeight: FontWeight.bold,
-                                //               color: Colors.white,
-                                //             ),
-                                //           )),
-                                //         ),
-                                //       ),
-                                //     ),
-                                //   ),
-                                // ),
-
-                                SizedBox(
-                                  height: size.height * 0.002,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: size.width * 0.15),
-                                  child: ConstrainedBox(
-                                    constraints: BoxConstraints.tightFor(
-                                        width: context.width),
-                                    child: ElevatedButton(
-                                      style: ButtonStyle(
-                                        shape: MaterialStateProperty.all(
-                                          RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                          ),
-                                        ),
-                                        backgroundColor:
-                                            MaterialStateProperty.all(
-                                                MyTheme.ambapp1),
-                                        padding: MaterialStateProperty.all(
-                                            EdgeInsets.all(14)),
-                                      ),
-                                      child: Text(
-                                        "Requested Offer",
-                                        style: TextStyle(
-                                            fontSize: 14, color: Colors.white),
-                                      ),
-                                      onPressed: () async {
-                                        widget.driverlist?.message
-                                            ?.forEach((element) {
-                                          ///....start...this is not neswssary i thik i am removing....11 dec 2023
-                                          // _ambulancegetController
-                                          // .postAmbulancerequestApi2();
-
-                                          ///..end.....this is not neswssary i thik i am removing....11 dec 2023
-                                          print('princee notification');
-                                          notificationServices
-                                              .getDeviceToken()
-                                              .then((value) async {
-                                            var data = {
-                                              //this the particular device id.....
-                                              'to':
-                                                  // 'dGfwUGj3SHqXCbyphoJCx5:APA91bH95Ml3sUBeWocVR2zlX1gTsnaVxcdjmfV732J6npvq_itlQKGkMiWDG-ndQfFMP4E7a-E1rWeQrFoEGGAB4Jb3fKe4Ow5VQfEnyikJNOeJY2xpQ2cxQwxVIUY_4gOj-Exja5MZ',
-                                                  //'caK4UmMZQ2qfntD6ojs3n-:APA91bE6hmA3i8mG2H0x4v4Sd3cyG6DyEcyL34NHj-y4L6tWzbgWqC0JvOd8H3rsGaHb7pL547UjZEQAKXG4OD1imPaUTHVFvW0zZUFG3sxYVFkrbqnJDGOF7_Zog49MpbgFdX71ukHQ',
-                                                  //'dGfwUGj3SHqXCbyphoJCx5:APA91bH95Ml3sUBeWocVR2zlX1gTsnaVxcdjmfV732J6npvq_itlQKGkMiWDG-ndQfFMP4E7a-E1rWeQrFoEGGAB4Jb3fKe4Ow5VQfEnyikJNOeJY2xpQ2cxQwxVIUY_4gOj-Exja5MZ',
-
-                                                  ///todo device token......
-                                                  // "${widget.driverlist?.message?[0].deviceId}"
-                                                  "${element.deviceId}"
-                                                      .toString(),
-
-                                              ///
-                                              //
-                                              //'mytokeneOs6od2nTlqsaFZl8-6ckc:APA91bHzcTpftAHsg7obx0CqhrgY1dyTlSwB5fxeUiBvGtAzX_us6iT6Xp-vXA8rIURK45EehE25_uKiE5wRIUKCF-8Ck-UKir96zS-PGRrpxxOkwPPUKS4M5Em2ql1GmYPY9FVOC4FC'
-                                              //'emW_j62UQnGX04QHLSiufM:APA91bHu2uM9C7g9QEc3io7yTVMqdNpdQE3n6vNmFwcKN6z-wq5U9S7Nyl79xJzP_Z-Ve9kjGIzMf4nnaNwSrz94Rcel0-4em9C_r7LvtmCBOWzU-VyPclHXdqyBc3Nrq7JROBqUUge9'
-                                              //.toString(),
-
-                                              ///this is same device token....
-                                              //value
-                                              //.toString(),
-                                              'notification': {
-                                                'title': 'Ambrd User',
-                                                'body':
-                                                    'You have request for ambulance',
-                                                //"sound": "jetsons_doorbell.mp3"
-                                              },
-                                              'android': {
-                                                'notification': {
-                                                  'notification_count': 23,
-                                                },
-                                              },
-                                              'data': {
-                                                'type': 'msj',
-                                                'id': '123456',
-                                              }
-                                            };
-                                            print("data1${data}");
-
-                                            await http.post(
-                                                Uri.parse(
-                                                    'https://fcm.googleapis.com/fcm/send'),
-                                                body: jsonEncode(data),
-                                                headers: {
-                                                  'Content-Type':
-                                                      'application/json; charset=UTF-8',
-                                                  'Authorization':
-                                                      //AAAAbao_0RU:APA91bHpyO-8c4J99Om_QhpWFt4H12OqtuPQaBYopza-hFkcsmIrBSYzUUmlLBwiBxprS1zih61UVRYarHFYjeppTBmIlwQZ6DQp54XTufeTKGyRyeVFHJMWHPWkPYoGe6ZvgrCr4YZK
-                                                      //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
-                                                      'key=AAAAbao_0RU:APA91bHpyO-8c4J99Om_QhpWFt4H12OqtuPQaBYopza-hFkcsmIrBSYzUUmlLBwiBxprS1zih61UVRYarHFYjeppTBmIlwQZ6DQp54XTufeTKGyRyeVFHJMWHPWkPYoGe6ZvgrCr4YZK'
-                                                }).then((value) {
-                                              if (kDebugMode) {
-                                                print(
-                                                    "bookdriver${value.body.toString()}");
-                                              }
-                                            }).onError((error, stackTrace) {
-                                              if (kDebugMode) {
-                                                print(error);
-                                              }
-                                            });
-
-                                            ///todo: from here custom from backend start...
-                                            var prefs = GetStorage();
-                                            // PatientRegNo =
-                                            // prefs.read("PatientRegNo").toString();
-
-                                            AdminLogin_Id = prefs
-                                                .read("AdminLogin_Id")
-                                                .toString();
-                                            print(
-                                                '&&&&&&&&&&&&&&&&&&&&&&usecredentials:${PatientRegNo}');
-                                            var body = {
-                                              "AdminLoginId":
-                                                  "${AdminLogin_Id}",
-                                              "DeviceId": value.toString(),
-                                            };
-                                            print(
-                                                "userrrtokenupdateeeddbeforetttt${body}");
-                                            http.Response r = await http.post(
-                                              Uri.parse(
-                                                  'http://admin.ambrd.in/api/CommonApi/UpdateDeviceId'),
-                                              body: body,
-                                            );
-
-                                            print(r.body);
-                                            if (r.statusCode == 200) {
-                                              print(
-                                                  "userrrtokenupdateeedd111${body}");
-                                              return r;
-                                            } else if (r.statusCode == 401) {
-                                              Get.snackbar('message', r.body);
-                                            } else {
-                                              Get.snackbar('Error', r.body);
-                                              return r;
-                                            }
-
-                                            ///todo end post api from backend...
-                                          });
-                                        });
-                                        // CallLoader.loader();
-                                        // await Future.delayed(
-                                        //     Duration(seconds: 1));
-                                        // CallLoader.hideLoader();
-
-                                        ///todo: from here you are calling post offer api....19 dec 2023..
-
-                                        _offeruserController.checkofferuser();
-                                        // await _getCurrentLocation();
-                                        //CallLoader.loader();
-
-                                        // _ambulancegetController
-                                        //.googlerequestambulance(markers);
-
-                                        ///todo: new...
-                                        ///
-                                        // CallLoader.loader();
-                                        // await Future.delayed(
-                                        //     Duration(seconds: 10));
-                                        // CallLoader.hideLoader();
-
-                                        /// Get.to(DriverOfferListById());
-
-                                        ///await _getCurrentLocation();
-                                        //CallLoader.loader();
-                                        // _ambulancegetController
-                                        //     .googlerequestambulance(markers);
-
-                                        /// Get.to(DriverListById());
-                                        ///
-                                      },
-                                    ),
-                                  ),
-                                ),
-
-                                // Spacer(),
-                              ],
-                            ),
-                          ),
-                        ),
+                        // Positioned(
+                        //   bottom: size.height * 0.04,
+                        //   left: size.height * 0.00,
+                        //   right: size.width * 0,
+                        //   child: Container(
+                        //     // height: size.height * 0.23,
+                        //     width: size.width,
+                        //     decoration: BoxDecoration(
+                        //       color: Colors.white30,
+                        //     ),
+                        //     child: Column(
+                        //       children: [
+                        //         ///.....todo:......................
+                        //         Padding(
+                        //           padding: EdgeInsets.all(3.0),
+                        //           child: TextFormField(
+                        //             //key: _offeruserController
+                        //             //.Chooseambulancevehicleofferkey,
+                        //             controller:
+                        //                 _offeruserController.offercontroller2,
+                        //             //controller.emailController,
+                        //             obscureText: false,
+                        //             keyboardType: TextInputType.number,
+                        //             validator: (value) {
+                        //               return _offeruserController
+                        //                   .validClinicname(value!);
+                        //             },
+                        //             decoration: InputDecoration(
+                        //               //border: InputBorder.none,
+                        //               border: OutlineInputBorder(
+                        //                 borderRadius:
+                        //                     BorderRadius.circular(15.0),
+                        //                 borderSide: BorderSide(
+                        //                     color: Colors.red, width: 1),
+                        //               ),
+                        //               contentPadding: const EdgeInsets.only(
+                        //                   left: 14.0, bottom: 8.0, top: 13.0),
+                        //               focusedBorder: OutlineInputBorder(
+                        //                 borderSide: BorderSide(
+                        //                   color: Colors.red,
+                        //                 ),
+                        //                 borderRadius:
+                        //                     BorderRadius.circular(15.7),
+                        //               ),
+                        //               enabledBorder: UnderlineInputBorder(
+                        //                 borderSide: BorderSide(
+                        //                     color: Colors.transparent),
+                        //                 borderRadius:
+                        //                     BorderRadius.circular(15.7),
+                        //               ),
+                        //
+                        //               prefixIcon: Padding(
+                        //                 padding: const EdgeInsets.all(8.0),
+                        //                 child: Icon(
+                        //                   Icons.currency_rupee,
+                        //                   color: MyTheme.ambapp1,
+                        //                 ),
+                        //                 // Image.asset(
+                        //                 //   "lib/assets/images/pnone4.png",
+                        //                 //   color: MyTheme.ambapp1,
+                        //                 //   height: 10,
+                        //                 //   width: 10,
+                        //                 // ),
+                        //               ),
+                        //               fillColor: MyTheme.ambapp12,
+                        //               filled: true,
+                        //               suffixIcon: null ?? const SizedBox(),
+                        //               hintText: "Offer Your Fare",
+                        //               hintStyle: GoogleFonts.poppins(
+                        //                 fontSize: 14.0,
+                        //                 fontWeight: FontWeight.w400,
+                        //               ),
+                        //               // contentPadding:
+                        //               //const EdgeInsets.only(top: 16.0),
+                        //             ),
+                        //           ),
+                        //         ),
+                        //
+                        //         // SizedBox(
+                        //         //   height: size.height * 0.002,
+                        //         // ),
+                        //         //
+                        //         // PhysicalModel(
+                        //         //   color: Colors.grey.shade300,
+                        //         //   elevation: 2,
+                        //         //   shadowColor: Colors.grey.shade900,
+                        //         //   borderRadius: BorderRadius.circular(10),
+                        //         //   child: Padding(
+                        //         //     padding: EdgeInsets.all(1.0),
+                        //         //     child: InkWell(
+                        //         //       onTap: () {
+                        //         //         // _ambulancegetController.update();
+                        //         //         // _ambulancegetController.ambulancecatagaryyApi();
+                        //         //         // CallLoader.loader();
+                        //         //         _ambulancegetController
+                        //         //             .googlerequestambulance(markers);
+                        //         //
+                        //         //         //Driver_List_LocationId
+                        //         //         //Get.to(Driver_List_LocationId());
+                        //         //         //BookingdriverList
+                        //         //         //BookingdriverList
+                        //         //         Get.to(DriverListById());
+                        //         //
+                        //         //         /// Get.to(Driver_List_LocationId());
+                        //         //
+                        //         //         ///todo: user device token saved..........
+                        //         //
+                        //         //         //_devicetokenController.UsertokenApi();
+                        //         //
+                        //         //         // _ambulancegetController
+                        //         //         //  .googlerequestambulance(markers);
+                        //         //       },
+                        //         //       child: Container(
+                        //         //         height: size.height * 0.045,
+                        //         //         width: size.width * 0.6,
+                        //         //         decoration: BoxDecoration(
+                        //         //           color: Colors.indigo,
+                        //         //           borderRadius: BorderRadius.circular(10),
+                        //         //         ),
+                        //         //         child: Padding(
+                        //         //           padding: EdgeInsets.symmetric(
+                        //         //               horizontal: size.width * 0.01),
+                        //         //           child: Center(
+                        //         //               child: Text(
+                        //         //             'Send Request',
+                        //         //             style: TextStyle(
+                        //         //               fontSize: size.height * 0.02,
+                        //         //               fontWeight: FontWeight.bold,
+                        //         //               color: Colors.white,
+                        //         //             ),
+                        //         //           )),
+                        //         //         ),
+                        //         //       ),
+                        //         //     ),
+                        //         //   ),
+                        //         // ),
+                        //
+                        //         SizedBox(
+                        //           height: size.height * 0.002,
+                        //         ),
+                        //         Padding(
+                        //           padding: EdgeInsets.symmetric(
+                        //               horizontal: size.width * 0.15),
+                        //           child: ConstrainedBox(
+                        //             constraints: BoxConstraints.tightFor(
+                        //                 width: context.width),
+                        //             child: ElevatedButton(
+                        //               style: ButtonStyle(
+                        //                 shape: MaterialStateProperty.all(
+                        //                   RoundedRectangleBorder(
+                        //                     borderRadius:
+                        //                         BorderRadius.circular(20),
+                        //                   ),
+                        //                 ),
+                        //                 backgroundColor:
+                        //                     MaterialStateProperty.all(
+                        //                         MyTheme.ambapp1),
+                        //                 padding: MaterialStateProperty.all(
+                        //                     EdgeInsets.all(14)),
+                        //               ),
+                        //               child: Text(
+                        //                 "Requested Offer",
+                        //                 style: TextStyle(
+                        //                     fontSize: 14, color: Colors.white),
+                        //               ),
+                        //               onPressed: () async {
+                        //                 widget.driverlist?.message
+                        //                     ?.forEach((element) {
+                        //                   ///....start...this is not neswssary i thik i am removing....11 dec 2023
+                        //                   // _ambulancegetController
+                        //                   // .postAmbulancerequestApi2();
+                        //
+                        //                   ///..end.....this is not neswssary i thik i am removing....11 dec 2023
+                        //                   print('princee notification');
+                        //                   notificationServices
+                        //                       .getDeviceToken()
+                        //                       .then((value) async {
+                        //                     var data = {
+                        //                       //this the particular device id.....
+                        //                       'to':
+                        //                           // 'dGfwUGj3SHqXCbyphoJCx5:APA91bH95Ml3sUBeWocVR2zlX1gTsnaVxcdjmfV732J6npvq_itlQKGkMiWDG-ndQfFMP4E7a-E1rWeQrFoEGGAB4Jb3fKe4Ow5VQfEnyikJNOeJY2xpQ2cxQwxVIUY_4gOj-Exja5MZ',
+                        //                           //'caK4UmMZQ2qfntD6ojs3n-:APA91bE6hmA3i8mG2H0x4v4Sd3cyG6DyEcyL34NHj-y4L6tWzbgWqC0JvOd8H3rsGaHb7pL547UjZEQAKXG4OD1imPaUTHVFvW0zZUFG3sxYVFkrbqnJDGOF7_Zog49MpbgFdX71ukHQ',
+                        //                           //'dGfwUGj3SHqXCbyphoJCx5:APA91bH95Ml3sUBeWocVR2zlX1gTsnaVxcdjmfV732J6npvq_itlQKGkMiWDG-ndQfFMP4E7a-E1rWeQrFoEGGAB4Jb3fKe4Ow5VQfEnyikJNOeJY2xpQ2cxQwxVIUY_4gOj-Exja5MZ',
+                        //
+                        //                           ///todo device token......
+                        //                           // "${widget.driverlist?.message?[0].deviceId}"
+                        //                           "${element.deviceId}"
+                        //                               .toString(),
+                        //
+                        //                       ///
+                        //                       //
+                        //                       //'mytokeneOs6od2nTlqsaFZl8-6ckc:APA91bHzcTpftAHsg7obx0CqhrgY1dyTlSwB5fxeUiBvGtAzX_us6iT6Xp-vXA8rIURK45EehE25_uKiE5wRIUKCF-8Ck-UKir96zS-PGRrpxxOkwPPUKS4M5Em2ql1GmYPY9FVOC4FC'
+                        //                       //'emW_j62UQnGX04QHLSiufM:APA91bHu2uM9C7g9QEc3io7yTVMqdNpdQE3n6vNmFwcKN6z-wq5U9S7Nyl79xJzP_Z-Ve9kjGIzMf4nnaNwSrz94Rcel0-4em9C_r7LvtmCBOWzU-VyPclHXdqyBc3Nrq7JROBqUUge9'
+                        //                       //.toString(),
+                        //
+                        //                       ///this is same device token....
+                        //                       //value
+                        //                       //.toString(),
+                        //                       'notification': {
+                        //                         'title': 'Ambrd User',
+                        //                         'body':
+                        //                             'You have request for ambulance',
+                        //                         //"sound": "jetsons_doorbell.mp3"
+                        //                       },
+                        //                       'android': {
+                        //                         'notification': {
+                        //                           'notification_count': 23,
+                        //                         },
+                        //                       },
+                        //                       'data': {
+                        //                         'type': 'msj',
+                        //                         'id': '123456',
+                        //                       }
+                        //                     };
+                        //                     print("data1${data}");
+                        //
+                        //                     await http.post(
+                        //                         Uri.parse(
+                        //                             'https://fcm.googleapis.com/fcm/send'),
+                        //                         body: jsonEncode(data),
+                        //                         headers: {
+                        //                           'Content-Type':
+                        //                               'application/json; charset=UTF-8',
+                        //                           'Authorization':
+                        //                               //AAAAbao_0RU:APA91bHpyO-8c4J99Om_QhpWFt4H12OqtuPQaBYopza-hFkcsmIrBSYzUUmlLBwiBxprS1zih61UVRYarHFYjeppTBmIlwQZ6DQp54XTufeTKGyRyeVFHJMWHPWkPYoGe6ZvgrCr4YZK
+                        //                               //'key=d6JbNnFARI-J8D6eV4Akgs:APA91bF0C8EdU9riyRpt6LKPmRUyVFJZOICCRe7yvY2z6FntBvtG2Zrsa3MEklktvQmU7iTKy3we9r_oVHS4mRnhJBq_aNe9Rg8st2M-gDMR39xZV2IEgiFW9DsnDp4xw-h6aLVOvtkC'
+                        //                               'key=AAAAbao_0RU:APA91bHpyO-8c4J99Om_QhpWFt4H12OqtuPQaBYopza-hFkcsmIrBSYzUUmlLBwiBxprS1zih61UVRYarHFYjeppTBmIlwQZ6DQp54XTufeTKGyRyeVFHJMWHPWkPYoGe6ZvgrCr4YZK'
+                        //                         }).then((value) {
+                        //                       if (kDebugMode) {
+                        //                         print(
+                        //                             "bookdriver${value.body.toString()}");
+                        //                       }
+                        //                     }).onError((error, stackTrace) {
+                        //                       if (kDebugMode) {
+                        //                         print(error);
+                        //                       }
+                        //                     });
+                        //
+                        //                     ///todo: from here custom from backend start...
+                        //                     var prefs = GetStorage();
+                        //                     // PatientRegNo =
+                        //                     // prefs.read("PatientRegNo").toString();
+                        //
+                        //                     AdminLogin_Id = prefs
+                        //                         .read("AdminLogin_Id")
+                        //                         .toString();
+                        //                     print(
+                        //                         '&&&&&&&&&&&&&&&&&&&&&&usecredentials:${PatientRegNo}');
+                        //                     var body = {
+                        //                       "AdminLoginId":
+                        //                           "${AdminLogin_Id}",
+                        //                       "DeviceId": value.toString(),
+                        //                     };
+                        //                     print(
+                        //                         "userrrtokenupdateeeddbeforetttt${body}");
+                        //                     http.Response r = await http.post(
+                        //                       Uri.parse(
+                        //                           'http://admin.ambrd.in/api/CommonApi/UpdateDeviceId'),
+                        //                       body: body,
+                        //                     );
+                        //
+                        //                     print(r.body);
+                        //                     if (r.statusCode == 200) {
+                        //                       print(
+                        //                           "userrrtokenupdateeedd111${body}");
+                        //                       return r;
+                        //                     } else if (r.statusCode == 401) {
+                        //                       Get.snackbar('message', r.body);
+                        //                     } else {
+                        //                       Get.snackbar('Error', r.body);
+                        //                       return r;
+                        //                     }
+                        //
+                        //                     ///todo end post api from backend...
+                        //                   });
+                        //                 });
+                        //                 // CallLoader.loader();
+                        //                 // await Future.delayed(
+                        //                 //     Duration(seconds: 1));
+                        //                 // CallLoader.hideLoader();
+                        //
+                        //                 ///todo: from here you are calling post offer api....19 dec 2023..
+                        //
+                        //                 _offeruserController.checkofferuser();
+                        //                 // await _getCurrentLocation();
+                        //                 //CallLoader.loader();
+                        //
+                        //                 // _ambulancegetController
+                        //                 //.googlerequestambulance(markers);
+                        //
+                        //                 ///todo: new...
+                        //                 ///
+                        //                 // CallLoader.loader();
+                        //                 // await Future.delayed(
+                        //                 //     Duration(seconds: 10));
+                        //                 // CallLoader.hideLoader();
+                        //
+                        //                 /// Get.to(DriverOfferListById());
+                        //
+                        //                 ///await _getCurrentLocation();
+                        //                 //CallLoader.loader();
+                        //                 // _ambulancegetController
+                        //                 //     .googlerequestambulance(markers);
+                        //
+                        //                 /// Get.to(DriverListById());
+                        //                 ///
+                        //               },
+                        //             ),
+                        //           ),
+                        //         ),
+                        //
+                        //         // Spacer(),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
               //),

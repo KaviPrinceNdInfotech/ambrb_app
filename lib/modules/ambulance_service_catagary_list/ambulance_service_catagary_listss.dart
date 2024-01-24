@@ -18,7 +18,7 @@ class ServiceVehicleAppcat extends StatelessWidget {
 
   VehicleServicecatController _vehicleservicecatController =
       Get.put(VehicleServicecatController());
-  final img = 'http://admin.ambrd.in/Images/';
+  final img = 'https://admin.ambrd.in/Images/';
 
   AmbulancegetsController _ambulancegetController =
       Get.put(AmbulancegetsController());
@@ -41,7 +41,7 @@ class ServiceVehicleAppcat extends StatelessWidget {
 
     Size size = MediaQuery.of(context).size;
 
-    var imgpath = 'http://admin.ambrd.in/Images/';
+    var imgpath = 'https://admin.ambrd.in/Images/';
     //https://new.signatureresorts.in/Images/5f694ead-6b8a-4fbc-90d1-7389f84abb65.jpg
 
     return SafeArea(

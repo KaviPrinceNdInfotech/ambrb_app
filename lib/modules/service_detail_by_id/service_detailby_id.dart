@@ -10,7 +10,7 @@ class ServicesDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Size size = MediaQuery.of(context).size;
-    final img = 'http://admin.ambrd.in/Images/';
+    final img = 'https://admin.ambrd.in/Images/';
 
     Size size = MediaQuery.of(context).size;
     return Scaffold(
